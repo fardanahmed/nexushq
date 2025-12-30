@@ -1,54 +1,82 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { HERO_CONTENT, SITE_DATA } from '@/lib/data'; // <--- Importing our data
+import { getSiteSettings } from '@/lib/db-utils';
+import type { HeroContent, SiteData } from '@/types';
 
-const Hero = () => {
+const Hero = async () => {
+  const heroContent = (await getSiteSettings('hero_content')) as HeroContent;
+  const siteData = (await getSiteSettings('site_data')) as SiteData;
+
+  if (!heroContent) return null;
+
   return (
-    <section className="relative flex min-h-[90vh] flex-col items-center justify-center overflow-hidden bg-slate-950 text-white">
-      {/* Background Gradient Effect (Optional but makes it look premium) */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-slate-800 via-slate-950 to-slate-950 opacity-50" />
-
-      {/* Content Container */}
-      <div className="container relative z-10 flex flex-col items-center text-center px-4">
-        {/* The "Pill" Badge */}
-        <div className="mb-6 inline-flex items-center rounded-full border border-slate-700 bg-slate-800/50 px-3 py-1 text-sm text-slate-300 backdrop-blur">
-          <span className="mr-2 h-2 w-2 rounded-full bg-emerald-500"></span>
-          {SITE_DATA.tagline}
+    <section className="relative w-full bg-background">
+      <div className="relative h-[90vh] w-full overflow-hidden rounded-b-[3rem] bg-black shadow-2xl">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/assets/openart-image_auEOgWHu_1767055539088_raw.png"
+            alt="CARER Research"
+            fill
+            sizes="100vw"
+            quality={90}
+            className="object-cover"
+            style={{ filter: 'saturate(0.8) brightness(0.7)' }}
+            priority
+          />
+          {/* Dark gradient overlay - stronger on left for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
         </div>
 
-        {/* Main Headline */}
-        <h1 className="mb-6 max-w-4xl text-5xl font-extrabold tracking-tight sm:text-7xl">
-          {HERO_CONTENT.headline}
-        </h1>
+        {/* Content Container */}
+        <div className="container relative z-10 mx-auto flex h-full flex-col justify-center px-6">
+          <div className="max-w-4xl pt-20">
+            {/* Tagline Badge */}
+            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-medium text-blue-200 backdrop-blur-md">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
+              </span>
+              {siteData?.tagline || 'Integrity. Innovation. Impact.'}
+            </div>
 
-        {/* Subheadline */}
-        <p className="mb-10 max-w-2xl text-lg text-slate-400 sm:text-xl">
-          {HERO_CONTENT.subheadline}
-        </p>
+            {/* Main Headline */}
+            <h1 className="mb-8 text-5xl font-bold leading-tight tracking-tight sm:text-6xl lg:text-8xl text-white">
+              {heroContent.headline}
+            </h1>
 
-        {/* Buttons */}
-        <div className="flex flex-col gap-4 sm:flex-row">
-          {/* Primary Button */}
-          <Button
-            size="lg"
-            className="bg-white text-slate-950 hover:bg-slate-200"
-          >
-            <Link href="/research" className="flex items-center">
-              {HERO_CONTENT.ctaPrimary}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+            {/* Subheadline */}
+            <p className="mb-12 max-w-2xl text-xl leading-relaxed text-slate-200 sm:text-2xl">
+              {heroContent.subheadline}
+            </p>
 
-          {/* Secondary Button (Fixed) */}
-          <Button
-            size="lg"
-            variant="outline"
-            className="bg-transparent text-white border-white/20 hover:bg-white hover:text-slate-950"
-            asChild
-          >
-            <Link href="/about">{HERO_CONTENT.ctaSecondary}</Link>
-          </Button>
+            {/* Call to Action Buttons */}
+            <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
+              <Button
+                size="lg"
+                className="group relative overflow-hidden bg-white px-8 py-6 text-lg font-bold text-slate-950 shadow-xl transition-all hover:scale-105 hover:shadow-white/25"
+                asChild
+              >
+                <Link href="/research" className="flex items-center gap-2">
+                  <span className="relative z-10">{heroContent.ctaPrimary}</span>
+                  <ArrowRight className="relative z-10 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  <div className="absolute inset-0 -z-0 bg-gradient-to-r from-blue-100 to-white opacity-0 transition-opacity group-hover:opacity-100" />
+                </Link>
+              </Button>
+              
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-2 border-white/30 bg-white/5 px-8 py-6 text-lg font-bold text-white backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white/50"
+                asChild
+              >
+                <Link href="/about">{heroContent.ctaSecondary}</Link>
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

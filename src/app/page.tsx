@@ -1,10 +1,15 @@
 import Hero from '@/components/home/Hero';
+import ResearchGrid from '@/components/home/ResearchGrid';
+import ObjectivesSection from '@/components/home/ObjectivesSection';
+import PartnersSection from '@/components/home/PartnersSection';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col">
+    <main className="flex min-h-screen flex-col justify-between">
       <Hero />
-      {/* We will add Research Cards here next */}
+      <ResearchGrid />
+      <ObjectivesSection />
+      <PartnersSection />
     </main>
   );
 }
