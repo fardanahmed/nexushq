@@ -40,7 +40,7 @@ export const metadata: Metadata = {
       'Leading center of excellence in applied research, driving sustainable growth and technological independence through innovation and integrity.',
     images: [
       {
-        url: '/assets/og-image.jpg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'CARER Institute - Applied Research & Educational Resources',
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'CARER Institute',
     description: 'Bridging academia and industry through applied research and innovation.',
-    images: ['/assets/og-image.jpg'],
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,

@@ -17,7 +17,7 @@ const Hero = async () => {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/openart-image_auEOgWHu_1767055539088_raw.png"
+            src="/assets/hero-background.webp"
             alt="CARER Research"
             fill
             sizes="100vw"
@@ -32,7 +32,7 @@ const Hero = async () => {
         </div>
 
         {/* Content Container */}
-        <div className="container relative z-10 mx-auto flex h-full flex-col justify-center px-6">
+        <div className="container relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-center px-6">
           <div className="max-w-4xl pt-20">
             {/* Tagline Badge */}
             <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-medium text-blue-200 backdrop-blur-md">
@@ -44,7 +44,7 @@ const Hero = async () => {
             </div>
 
             {/* Main Headline */}
-            <h1 className="mb-8 text-5xl font-bold leading-tight tracking-tight sm:text-6xl lg:text-8xl text-white">
+            <h1 className="mb-8 text-left text-5xl font-bold leading-[1.1] sm:text-6xl lg:text-8xl text-white">
               {heroContent.headline}
             </h1>
 
