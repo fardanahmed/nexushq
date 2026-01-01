@@ -29,9 +29,9 @@ export default async function ContactPage() {
       </section>
 
       {/* Contact Content */}
-      <section className="py-20 lg:py-32">
+      <section className="py-20 lg:py-24">
         <div className="container mx-auto max-w-7xl px-6">
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
+          <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
             
             {/* Contact Info */}
             <div>

@@ -48,7 +48,7 @@
   --radius: 0.625rem;
   
   /* Light Mode - Professional & Clean */
-  --background: oklch(0.985 0.002 247.858); /* Slightly off-white (slate-50) */
+  --background: oklch(1 0 0); /* Pure white for cleaner mobile appearance */
   --foreground: oklch(0.13 0.028 261.692); /* Deep slate for text */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.13 0.028 261.692);

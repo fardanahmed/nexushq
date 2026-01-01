@@ -14,8 +14,9 @@ export default async function Footer() {
         <div className="grid gap-8 md:grid-cols-3 lg:gap-12">
           {/* Left: Logo and Tagline */}
           <div>
-            <h3 className="mb-2 text-2xl font-bold text-foreground">
-              {siteData.abbreviation}
+            <h3 className="mb-2 text-2xl font-bold text-foreground inline-flex items-baseline gap-1">
+              <span>{siteData.abbreviation}</span>
+              <span className="text-lg font-medium text-muted-foreground">Institute</span>
             </h3>
             <p className="text-sm text-muted-foreground">{siteData.tagline}</p>
           </div>

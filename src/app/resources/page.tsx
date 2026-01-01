@@ -21,17 +21,17 @@ export default async function ResourcesPage() {
             <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-primary">
               Resources & Training
             </p>
-            <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl text-foreground">
+            <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-foreground">
               Resources & <span className="text-primary">Development</span>
             </h1>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl leading-relaxed text-muted-foreground">
               Empowering the next generation of researchers through certification, mentorship, and continuous learning opportunities.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="py-24">
+      <section className="py-20 lg:py-24">
         <div className="container mx-auto max-w-7xl px-6">
           <Tabs defaultValue="certifications" className="w-full">
             <div className="mb-12 flex justify-center">

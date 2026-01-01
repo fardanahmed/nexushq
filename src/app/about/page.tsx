@@ -82,12 +82,12 @@ export default async function AboutPage() {
                 Our Story
               </p>
               <h2 className="mb-8 text-3xl font-bold tracking-tight sm:text-4xl">
-                The Journey of {siteData?.abbreviation || 'CARER'}
+                The Journey of CARER
               </h2>
               <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground">
                 {aboutContent.preamble.split('\n\n').map((paragraph, idx) => (
-                  <p key={idx} className="leading-relaxed mb-4">
-                    {paragraph}
+                  <p key={idx} className="leading-relaxed mb-6">
+                    {paragraph.replace(/\n/g, ' ')}
                   </p>
                 ))}
               </div>
@@ -108,12 +108,12 @@ export default async function AboutPage() {
       </section>
 
       {/* Vision Section */}
-      <section className="border-t border-slate-800 bg-slate-900/30 py-20">
+      <section className="border-t border-border bg-muted/50 py-20">
         <div className="container mx-auto max-w-7xl px-6 text-center">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-blue-400">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-primary">
             Our Vision
           </p>
-          <blockquote className="mx-auto max-w-3xl text-2xl font-medium italic leading-relaxed text-slate-200 lg:text-3xl">
+          <blockquote className="mx-auto max-w-3xl text-2xl font-medium italic leading-relaxed text-foreground lg:text-3xl">
             &quot;{aboutContent.vision}&quot;
           </blockquote>
         </div>

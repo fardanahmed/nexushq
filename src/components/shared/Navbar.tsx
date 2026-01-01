@@ -28,7 +28,10 @@ const Navbar = () => {
            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-xl">
              C
            </div>
-           <span className="text-xl font-bold tracking-tight text-foreground hidden sm:block">CARER</span>
+           <span className="text-xl font-bold text-foreground hidden sm:inline-flex items-baseline gap-1">
+             <span className="tracking-tight">CARER</span>
+             <span className="text-sm font-medium text-muted-foreground">Institute</span>
+           </span>
         </Link>
 
         {/* Desktop Navigation */}
