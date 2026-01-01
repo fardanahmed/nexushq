@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 import { getSiteSettings } from '@/lib/db-utils';
 
 export default async function Footer() {
-  const currentYear = 2025;
+  const currentYear = new Date().getFullYear();
   const siteData: any = await getSiteSettings('site_data');
 
   if (!siteData) return null;
