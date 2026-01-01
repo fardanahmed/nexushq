@@ -12,16 +12,16 @@ export default async function ContactPage() {
   return (
     <main className="bg-background text-foreground">
       {/* Header Section */}
-      <section className="border-b border-border py-20 lg:py-28">
-        <div className="container mx-auto max-w-7xl px-6">
+      <section className="border-b border-border py-16 sm:py-20 lg:py-28">
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6">
           <div className="max-w-3xl">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-primary">
+            <p className="mb-3 sm:mb-4 text-xs sm:text-sm font-semibold uppercase tracking-widest text-primary">
               Contact Us
             </p>
-            <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
               Get in Touch
             </h1>
-            <p className="text-xl leading-relaxed text-muted-foreground">
+            <p className="text-lg sm:text-xl leading-relaxed text-muted-foreground">
               Interested in collaborating or learning more about our research? Reach out to us and let&apos;s work together to drive innovation.
             </p>
           </div>
@@ -29,9 +29,9 @@ export default async function ContactPage() {
       </section>
 
       {/* Contact Content */}
-      <section className="py-20 lg:py-24">
-        <div className="container mx-auto max-w-7xl px-6">
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <section className="py-16 sm:py-20 lg:py-24">
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="grid gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16">
             
             {/* Contact Info */}
             <div>

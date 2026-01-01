@@ -13,7 +13,7 @@ const Hero = async () => {
 
   return (
     <section className="relative w-full bg-background">
-      <div className="relative h-[90vh] w-full overflow-hidden rounded-b-[3rem] bg-black shadow-2xl">
+      <div className="relative h-[90vh] w-full overflow-hidden bg-black shadow-2xl">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <Image

@@ -15,24 +15,24 @@ export default async function ResourcesPage() {
   return (
     <main className="bg-background text-foreground">
       {/* Header Section */}
-      <section className="border-b border-border py-20 lg:py-28">
-        <div className="container mx-auto max-w-7xl px-6">
+      <section className="border-b border-border py-16 sm:py-20 lg:py-28">
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6">
           <div className="max-w-3xl">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-primary">
+            <p className="mb-3 sm:mb-4 text-xs sm:text-sm font-semibold uppercase tracking-widest text-primary">
               Resources & Training
             </p>
-            <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-foreground">
+            <h1 className="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
               Resources & <span className="text-primary">Development</span>
             </h1>
-            <p className="text-xl leading-relaxed text-muted-foreground">
+            <p className="text-lg sm:text-xl leading-relaxed text-muted-foreground">
               Empowering the next generation of researchers through certification, mentorship, and continuous learning opportunities.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="py-20 lg:py-24">
-        <div className="container mx-auto max-w-7xl px-6">
+      <section className="py-16 sm:py-20 lg:py-24">
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6">
           <Tabs defaultValue="certifications" className="w-full">
             <div className="mb-12 flex justify-center">
               <TabsList className="grid h-auto w-full max-w-md grid-cols-2 rounded-full bg-muted p-1">

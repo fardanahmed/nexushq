@@ -85,11 +85,16 @@ export default async function AboutPage() {
                 The Journey of CARER
               </h2>
               <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground">
-                {aboutContent.preamble.split('\n\n').map((paragraph, idx) => (
-                  <p key={idx} className="leading-relaxed mb-6">
-                    {paragraph.replace(/\n/g, ' ')}
-                  </p>
-                ))}
+                {aboutContent.preamble
+                  .replace(/\\n\\n/g, '\n\n') // Convert literal \n\n to actual paragraph breaks
+                  .replace(/\\n/g, ' ') // Convert remaining literal \n to spaces
+                  .split('\n\n')
+                  .filter(p => p.trim()) // Remove empty paragraphs
+                  .map((paragraph, idx) => (
+                    <p key={idx} className="leading-relaxed mb-6">
+                      {paragraph.trim()}
+                    </p>
+                  ))}
               </div>
             </div>
 
