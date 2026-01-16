@@ -5,71 +5,69 @@ export interface DataClient {
   fetchCertifications(): Promise<any[]>;
 }
 
-// Supabase implementation
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+// Neon serverless implementation
+import { neon } from '@neondatabase/serverless';
 
-class SupabaseDataClient implements DataClient {
-  private client: SupabaseClient;
+class NeonDataClient implements DataClient {
+  private sql: ReturnType<typeof neon>;
 
   constructor() {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const databaseUrl = process.env.DATABASE_URL;
 
-    if (!supabaseUrl || !supabaseAnonKey) {
-      throw new Error('Missing Supabase environment variables');
+    if (!databaseUrl) {
+      throw new Error('Missing DATABASE_URL environment variable');
     }
 
-    this.client = createClient(supabaseUrl, supabaseAnonKey);
+    this.sql = neon(databaseUrl);
   }
 
   async fetchSettings(key: string): Promise<any> {
-    const { data, error } = await this.client
-      .from('site_settings')
-      .select('value')
-      .eq('key', key)
-      .single();
-
-    if (error) {
+    try {
+      const result = await this.sql`
+        SELECT value FROM site_settings WHERE key = ${key}
+      ` as any[];
+      
+      return result[0]?.value || null;
+    } catch (error) {
       console.error(`Error fetching setting ${key}:`, error);
       return null;
     }
-    return data?.value;
   }
 
   async fetchResearchAreas(): Promise<any[]> {
-    const { data, error } = await this.client
-      .from('research_areas')
-      .select('*')
-      .order('created_at', { ascending: true });
-
-    if (error) {
+    try {
+      const result = await this.sql`
+        SELECT * FROM research_areas ORDER BY created_at ASC
+      ` as any[];
+      
+      return result || [];
+    } catch (error) {
       console.error('Error fetching research areas:', error);
       return [];
     }
-    return data || [];
   }
 
   async fetchCertifications(): Promise<any[]> {
-    const { data, error } = await this.client
-      .from('certifications')
-      .select('*')
-      .order('created_at', { ascending: true });
-
-    if (error) {
+    try {
+      const result = await this.sql`
+        SELECT * FROM certifications ORDER BY created_at ASC
+      ` as any[];
+      
+      return result || [];
+    } catch (error) {
       console.error('Error fetching certifications:', error);
       return [];
     }
-    return data || [];
   }
 
-  // Direct access to Supabase client for custom queries
-  get supabase() {
-    return this.client;
+  // Direct access to Neon SQL client for custom queries
+  get neonSql() {
+    return this.sql;
   }
 }
 
 // Export singleton instance
-export const dataClient: DataClient = new SupabaseDataClient();
+export const dataClient: DataClient = new NeonDataClient();
 
-// Also export the Supabase client directly for backwards compatibility
-export const supabase = (dataClient as SupabaseDataClient).supabase;
+// Also export the Neon SQL client directly for custom queries
+export const neonSql = (dataClient as NeonDataClient).neonSql;

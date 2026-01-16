@@ -2,18 +2,18 @@
 
 **Nasir Uddin Centre for Applied Research & Educational Resources**
 
-A modern, full-stack consultancy website built with Next.js 16, React 19, TypeScript, and Supabase. Features a beautiful dark/light theme system, dynamic content management, and a modular architecture designed for easy backend switching.
+A modern, full-stack consultancy website built with Next.js 16, React 19, TypeScript, and Neon serverless Postgres. Features a beautiful dark/light theme system, dynamic content management, and a modular architecture designed for easy backend switching.
 
 ## 🚀 Features
 
 - ✅ **Modern Stack**: Next.js 16 (Turbopack), React 19, TypeScript, Tailwind CSS 4
 - ✅ **Theme System**: Seamless light/dark mode with `next-themes`
-- ✅ **Database**: Supabase (PostgreSQL) with abstracted data layer
+- ✅ **Database**: Neon serverless Postgres with abstracted data layer
 - ✅ **Type Safety**: Centralized TypeScript interfaces
 - ✅ **Responsive**: Mobile-first design with glassmorphism effects
 - ✅ **SEO Optimized**: Comprehensive metadata and social tags
 - ✅ **ISR**: Incremental Static Regeneration (1-hour revalidation)
-- ✅ **Modular Architecture**: Easy to switch backends (Supabase → Firebase/Prisma)
+- ✅ **Modular Architecture**: Easy to switch backends (Neon → Firebase/Prisma/Supabase)
 
 ## 📁 Project Structure
 
@@ -44,7 +44,7 @@ carer-platform/
 
 - Node.js 20+
 - pnpm (package manager)
-- Supabase account
+- Neon account (free tier available)
 
 ### Setup
 
@@ -64,10 +64,9 @@ carer-platform/
    cp .env.example .env.local
    ```
    
-   Edit `.env.local` and add your Supabase credentials:
+   Edit `.env.local` and add your Neon database URL:
    ```env
-   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   DATABASE_URL=your_neon_database_connection_string
    ```
 
 4. **Run development server**
@@ -95,7 +94,7 @@ The platform supports both light and dark modes with a custom theme toggle. Them
 
 The data layer is abstracted for easy backend changes:
 
-1. **Current**: Supabase implementation in `src/lib/data/client.ts`
+1. **Current**: Neon serverless Postgres in `src/lib/data/client.ts`
 2. **To Switch**: Implement the `DataClient` interface with your preferred backend
 3. **Example**: Firebase, Prisma, REST API, GraphQL
 
@@ -114,7 +113,7 @@ export interface DataClient {
 |---------|---------|
 | `next@16.1.0` | React framework with App Router |
 | `react@19` | UI library |
-| `@supabase/supabase-js` | Database client |
+| `@neondatabase/serverless` | Serverless Postgres client |
 | `next-themes` | Theme management |
 | `tailwindcss@4` | Utility-first CSS |
 | `lucide-react` | Icon library |
@@ -122,7 +121,7 @@ export interface DataClient {
 
 ## 🏗️ Database Schema
 
-### Required Supabase Tables
+### Database Tables (Neon/PostgreSQL)
 
 1. **site_settings**
    - `id` (uuid, primary key)
@@ -202,7 +201,7 @@ This project is proprietary and confidential.
 - Built with [Next.js](https://nextjs.org/)
 - UI components from [shadcn/ui](https://ui.shadcn.com/)
 - Icons from [Lucide](https://lucide.dev/)
-- Powered by [Supabase](https://supabase.com/)
+- Powered by [Neon](https://neon.tech/)
 
 ---
 

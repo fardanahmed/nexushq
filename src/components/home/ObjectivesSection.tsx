@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { CheckCircle2 } from 'lucide-react';
 import { getSiteSettings } from '@/lib/db-utils';
+import { getImageUrl, images } from '@/lib/images';
 
 const ObjectivesSection = async () => {
   const objectives = (await getSiteSettings('objectives')) as string[];
@@ -11,21 +12,22 @@ const ObjectivesSection = async () => {
     <section className="bg-background border-y border-border py-20 md:py-32">
       <div className="container mx-auto max-w-7xl px-4">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-24">
-          
           {/* Left: Heading & Image */}
           <div>
             <h2 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
               Our Strategic <span className="text-primary">Objectives</span>
             </h2>
             <p className="mt-6 text-xl text-muted-foreground leading-relaxed">
-              We are committed to fostering a culture of integrity and innovation, bridging the gap between theoretical knowledge and practical application.
+              We are committed to fostering a culture of integrity and
+              innovation, bridging the gap between theoretical knowledge and
+              practical application.
             </p>
-            
+
             {/* Image Grid */}
             <div className="mt-8 grid grid-cols-2 gap-4">
               <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-border">
                 <Image
-                  src="/assets/leadership.jpg"
+                  src={getImageUrl(images.leadership)}
                   alt="Leadership Development"
                   fill
                   className="object-cover"
@@ -33,7 +35,7 @@ const ObjectivesSection = async () => {
               </div>
               <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-border">
                 <Image
-                  src="/assets/mentorship.jpg"
+                  src={getImageUrl(images.mentorship)}
                   alt="Mentorship Programs"
                   fill
                   className="object-cover"

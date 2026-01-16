@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { getImageUrl, images } from '@/lib/images';
 
 const PartnersSection = () => {
   return (
@@ -9,13 +10,14 @@ const PartnersSection = () => {
             Our Partners & Collaborators
           </h2>
           <p className="mb-12 text-lg text-muted-foreground">
-            Working together with leading institutions to drive innovation and research excellence
+            Working together with leading institutions to drive innovation and
+            research excellence
           </p>
         </div>
-        
+
         <div className="relative mx-auto max-w-5xl overflow-hidden rounded-2xl">
           <Image
-            src="/assets/institutional-partners.jpg"
+            src={getImageUrl(images.institutionalPartners)}
             alt="CARER Institutional Partners and Collaborators"
             width={1200}
             height={400}

@@ -1,5 +1,5 @@
 // src/app/research/page.tsx
-import { supabase } from '@/lib/data/client';
+import { dataClient } from '@/lib/data/client';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Zap, Activity, Sprout, Cpu, ArrowRight, BookOpen } from 'lucide-react';
@@ -13,16 +13,7 @@ const iconMap: Record<string, any> = {
 };
 
 async function getResearchAreas() {
-  const { data, error } = await supabase
-    .from('research_areas')
-    .select('*')
-    .order('created_at', { ascending: true });
-
-  if (error) {
-    console.error('Error fetching research areas:', error);
-    return [];
-  }
-  return data;
+  return await dataClient.fetchResearchAreas();
 }
 
 export default async function ResearchPage() {

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { getSiteSettings } from '@/lib/db-utils';
+import { getImageUrl, images } from '@/lib/images';
 import type { HeroContent, SiteData } from '@/types';
 
 const Hero = async () => {
@@ -17,7 +18,7 @@ const Hero = async () => {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/hero-background.webp"
+            src={getImageUrl(images.heroBackground)}
             alt="CARER Research"
             fill
             sizes="100vw"
@@ -61,12 +62,14 @@ const Hero = async () => {
                 asChild
               >
                 <Link href="/research" className="flex items-center gap-2">
-                  <span className="relative z-10">{heroContent.ctaPrimary}</span>
+                  <span className="relative z-10">
+                    {heroContent.ctaPrimary}
+                  </span>
                   <ArrowRight className="relative z-10 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                   <div className="absolute inset-0 -z-0 bg-gradient-to-r from-blue-100 to-white opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </Link>
               </Button>
-              
+
               <Button
                 size="lg"
                 variant="outline"
