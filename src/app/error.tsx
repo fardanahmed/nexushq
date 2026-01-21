@@ -26,15 +26,16 @@ export default function Error({
             <AlertCircle className="h-16 w-16 text-destructive" />
           </div>
         </div>
-        
+
         {/* Heading */}
         <h1 className="mb-4 text-4xl font-bold text-foreground sm:text-5xl">
           Something Went Wrong
         </h1>
-        
+
         {/* Description */}
         <p className="mb-8 text-lg text-muted-foreground">
-          We're sorry, but something unexpected happened. Our team has been notified and we're working on a fix.
+          We&apos;re sorry, but something unexpected happened. Our team has been
+          notified and we&apos;re working on a fix.
         </p>
 
         {/* Error Details (only in development) */}
@@ -53,15 +54,11 @@ export default function Error({
 
         {/* Actions */}
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-          <Button 
-            size="lg" 
-            onClick={reset}
-            className="flex items-center gap-2"
-          >
+          <Button size="lg" onClick={reset} className="flex items-center gap-2">
             <RefreshCw className="h-5 w-5" />
             Try Again
           </Button>
-          
+
           <Button size="lg" variant="outline" asChild>
             <Link href="/" className="flex items-center gap-2">
               <Home className="h-5 w-5" />

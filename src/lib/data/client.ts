@@ -1,8 +1,10 @@
 // Abstract data client interface for easy backend switching
+import type { ResearchArea, Certification } from '@/types';
+
 export interface DataClient {
-  fetchSettings(key: string): Promise<any>;
-  fetchResearchAreas(): Promise<any[]>;
-  fetchCertifications(): Promise<any[]>;
+  fetchSettings<T = unknown>(key: string): Promise<T | null>;
+  fetchResearchAreas(): Promise<ResearchArea[]>;
+  fetchCertifications(): Promise<Certification[]>;
 }
 
 // Neon serverless implementation
@@ -21,39 +23,40 @@ class NeonDataClient implements DataClient {
     this.sql = neon(databaseUrl);
   }
 
-  async fetchSettings(key: string): Promise<any> {
+  async fetchSettings<T = unknown>(key: string): Promise<T | null> {
     try {
       const result = await this.sql`
         SELECT value FROM site_settings WHERE key = ${key}
-      ` as any[];
-      
-      return result[0]?.value || null;
+      `;
+
+      const rows = result as { value: T }[];
+      return rows[0]?.value ?? null;
     } catch (error) {
       console.error(`Error fetching setting ${key}:`, error);
       return null;
     }
   }
 
-  async fetchResearchAreas(): Promise<any[]> {
+  async fetchResearchAreas(): Promise<ResearchArea[]> {
     try {
       const result = await this.sql`
         SELECT * FROM research_areas ORDER BY created_at ASC
-      ` as any[];
-      
-      return result || [];
+      `;
+
+      return (result as unknown as ResearchArea[]) || [];
     } catch (error) {
       console.error('Error fetching research areas:', error);
       return [];
     }
   }
 
-  async fetchCertifications(): Promise<any[]> {
+  async fetchCertifications(): Promise<Certification[]> {
     try {
       const result = await this.sql`
         SELECT * FROM certifications ORDER BY created_at ASC
-      ` as any[];
-      
-      return result || [];
+      `;
+
+      return (result as unknown as Certification[]) || [];
     } catch (error) {
       console.error('Error fetching certifications:', error);
       return [];

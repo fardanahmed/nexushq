@@ -1,17 +1,16 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { ThemeProvider } from "@/components/theme-provider";
-import Navbar from '@/components/shared/Navbar';
-import Footer from '@/components/shared/Footer';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://carer.edu.pk'),
   title: {
-    default: 'CARER | Nasir Uddin Centre for Applied Research & Educational Resources',
-    template: '%s | CARER Institute',
+    default:
+      'CARER | Nasir Uddin Centre for Applied Research & Educational Resources',
+    template: '%s | CARER',
   },
   description:
     'Bridging academia and industry through cutting-edge research in energy, health, agriculture, and digital systems. Empowering the next generation through mentorship and certification programs.',
@@ -27,14 +26,14 @@ export const metadata: Metadata = {
     'mentorship program',
     'certification programs',
   ],
-  authors: [{ name: 'CARER Institute' }],
+  authors: [{ name: 'CARER' }],
   creator: 'Nasir Uddin Centre for Applied Research & Educational Resources',
-  publisher: 'CARER Institute',
+  publisher: 'CARER',
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://carer.edu.pk',
-    siteName: 'CARER Institute',
+    siteName: 'CARER',
     title: 'CARER | Bridging Academia & Industry',
     description:
       'Leading center of excellence in applied research, driving sustainable growth and technological independence through innovation and integrity.',
@@ -43,14 +42,15 @@ export const metadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'CARER Institute - Applied Research & Educational Resources',
+        alt: 'CARER - Applied Research & Educational Resources',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CARER Institute',
-    description: 'Bridging academia and industry through applied research and innovation.',
+    title: 'CARER',
+    description:
+      'Bridging academia and industry through applied research and innovation.',
     images: ['/og-image.png'],
   },
   robots: {
@@ -77,45 +77,41 @@ export default function RootLayout({
           Currently suppresses warnings from browser extensions adding attributes like data-jetski-tab-id.
           May need to be removed or refined for production SSR implementation. */}
       <html lang="en" className="dark" suppressHydrationWarning>
-      <head>
-        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
-          <>
-            <script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
-            />
-          </>
-        )}
-      </head>
-      <body
-        className={`${inter.className} antialiased bg-background text-foreground`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+        <head>
+          {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+            <>
+              <script
+                async
+                src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
+              />
+            </>
+          )}
+        </head>
+        <body
+          className={`${inter.className} antialiased bg-background text-foreground`}
         >
-          <div className="flex min-h-screen flex-col">
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
-        </ThemeProvider>
-        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+          {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
                 gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');
               `,
-            }}
-          />
-        )}
-      </body>
-    </html>
+              }}
+            />
+          )}
+        </body>
+      </html>
     </>
   );
 }

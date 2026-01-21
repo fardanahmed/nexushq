@@ -6,8 +6,10 @@ import type { ResearchArea, Certification } from '@/types';
  * @param key - The setting key to fetch
  * @returns The setting value or null if not found
  */
-export async function getSiteSettings(key: string) {
-  return dataClient.fetchSettings(key);
+export async function getSiteSettings<T = unknown>(
+  key: string
+): Promise<T | null> {
+  return dataClient.fetchSettings<T>(key);
 }
 
 /**

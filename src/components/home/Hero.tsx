@@ -7,8 +7,8 @@ import { getImageUrl, images } from '@/lib/images';
 import type { HeroContent, SiteData } from '@/types';
 
 const Hero = async () => {
-  const heroContent = (await getSiteSettings('hero_content')) as HeroContent;
-  const siteData = (await getSiteSettings('site_data')) as SiteData;
+  const heroContent = await getSiteSettings<HeroContent>('hero_content');
+  const siteData = await getSiteSettings<SiteData>('site_data');
 
   if (!heroContent) return null;
 
@@ -45,12 +45,12 @@ const Hero = async () => {
             </div>
 
             {/* Main Headline */}
-            <h1 className="mb-8 text-left text-5xl font-bold leading-[1.1] sm:text-6xl lg:text-8xl text-white">
+            <h1 className="mb-8 text-left text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl xl:text-6xl text-white">
               {heroContent.headline}
             </h1>
 
             {/* Subheadline */}
-            <p className="mb-12 max-w-2xl text-xl leading-relaxed text-slate-200 sm:text-2xl">
+            <p className="mb-12 max-w-2xl text-lg leading-relaxed text-slate-200 sm:text-xl">
               {heroContent.subheadline}
             </p>
 
@@ -61,7 +61,7 @@ const Hero = async () => {
                 className="group relative overflow-hidden bg-white px-8 py-6 text-lg font-bold text-slate-950 shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-white/50"
                 asChild
               >
-                <Link href="/research" className="flex items-center gap-2">
+                <Link href="/team" className="flex items-center gap-2">
                   <span className="relative z-10">
                     {heroContent.ctaPrimary}
                   </span>
@@ -73,7 +73,7 @@ const Hero = async () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-2 border-white/30 bg-white/5 px-8 py-6 text-lg font-bold text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white/50 hover:shadow-lg"
+                className="border-2 border-white/30 bg-white/5 px-8 py-6 text-lg font-bold text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white/50 hover:shadow-lg hover:text-white"
                 asChild
               >
                 <Link href="/about">{heroContent.ctaSecondary}</Link>

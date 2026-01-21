@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { getSiteSettings } from '@/lib/db-utils';
+import type { SiteData } from '@/types';
 
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
-  const siteData: any = await getSiteSettings('site_data');
+  const siteData = await getSiteSettings<SiteData>('site_data');
 
   if (!siteData) return null;
 
@@ -14,9 +15,8 @@ export default async function Footer() {
         <div className="grid gap-8 md:grid-cols-3 lg:gap-12">
           {/* Left: Logo and Tagline */}
           <div>
-            <h3 className="mb-2 text-2xl font-bold text-foreground inline-flex items-baseline gap-1">
-              <span>{siteData.abbreviation}</span>
-              <span className="text-lg font-medium text-muted-foreground">Institute</span>
+            <h3 className="mb-2 text-2xl font-bold text-foreground">
+              {siteData.abbreviation}
             </h3>
             <p className="text-sm text-muted-foreground">{siteData.tagline}</p>
           </div>
@@ -28,17 +28,26 @@ export default async function Footer() {
             </h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/research" className="transition-colors hover:text-primary">
+                <Link
+                  href="/research"
+                  className="transition-colors hover:text-primary"
+                >
                   Research
                 </Link>
               </li>
               <li>
-                <Link href="/resources" className="transition-colors hover:text-primary">
+                <Link
+                  href="/resources"
+                  className="transition-colors hover:text-primary"
+                >
                   Resources
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="transition-colors hover:text-primary">
+                <Link
+                  href="/contact"
+                  className="transition-colors hover:text-primary"
+                >
                   Contact
                 </Link>
               </li>
@@ -61,7 +70,7 @@ export default async function Footer() {
               </li>
               <li className="flex items-start gap-2">
                 <Mail className="mt-0.5 h-4 w-4 shrink-0" />
-                <a 
+                <a
                   href={`mailto:${siteData.contact.email}`}
                   className="transition-colors hover:text-primary"
                 >
@@ -78,10 +87,16 @@ export default async function Footer() {
             © {currentYear} {siteData.name}. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="transition-colors hover:text-primary">
+            <Link
+              href="/privacy"
+              className="transition-colors hover:text-primary"
+            >
               Privacy Policy
             </Link>
-            <Link href="/terms" className="transition-colors hover:text-primary">
+            <Link
+              href="/terms"
+              className="transition-colors hover:text-primary"
+            >
               Terms of Service
             </Link>
           </div>

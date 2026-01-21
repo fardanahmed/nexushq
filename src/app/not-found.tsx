@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Home, Search, ArrowLeft } from 'lucide-react';
+import { Home, Search } from 'lucide-react';
 
 export default function NotFound() {
   return (
@@ -8,15 +8,16 @@ export default function NotFound() {
       <div className="max-w-2xl">
         {/* 404 Icon */}
         <div className="mb-8 text-9xl font-bold text-primary/20">404</div>
-        
+
         {/* Heading */}
         <h1 className="mb-4 text-4xl font-bold text-foreground sm:text-5xl">
           Page Not Found
         </h1>
-        
+
         {/* Description */}
         <p className="mb-8 text-lg text-muted-foreground">
-          Sorry, we couldn't find the page you're looking for. It might have been moved or deleted.
+          Sorry, we couldn&apos;t find the page you&apos;re looking for. It
+          might have been moved or deleted.
         </p>
 
         {/* Actions */}
@@ -27,7 +28,7 @@ export default function NotFound() {
               Back to Home
             </Link>
           </Button>
-          
+
           <Button size="lg" variant="outline" asChild>
             <Link href="/research" className="flex items-center gap-2">
               <Search className="h-5 w-5" />

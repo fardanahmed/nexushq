@@ -21,17 +21,15 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 z-50 w-full border-b border-border/40 bg-background backdrop-blur-sm">
-      <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
+      <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-           {/* Placeholder for actual logo */}
-           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-xl">
-             C
-           </div>
-           <span className="text-xl font-bold text-foreground hidden sm:inline-flex items-baseline gap-1">
-             <span className="tracking-tight">CARER</span>
-             <span className="text-sm font-medium text-muted-foreground">Institute</span>
-           </span>
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-xl">
+            C
+          </div>
+          <span className="text-xl font-bold text-foreground tracking-tight">
+            CARER
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -44,18 +42,18 @@ const Navbar = () => {
                 variant="ghost"
                 asChild
                 className={`text-base font-medium rounded-full px-5 transition-colors ${
-                  isActive 
-                  ? 'bg-secondary text-primary hover:bg-secondary/80' 
-                  : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                  isActive
+                    ? 'bg-secondary text-primary hover:bg-secondary/80'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-accent'
                 }`}
               >
                 <Link href={link.href}>{link.label}</Link>
               </Button>
             );
           })}
-          
+
           <div className="ml-2 pl-2 border-l border-border/50">
-             <ModeToggle />
+            <ModeToggle />
           </div>
 
           <Button className="ml-4 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 font-semibold shadow-lg shadow-primary/20">
@@ -72,7 +70,11 @@ const Navbar = () => {
             className="lg:hidden text-foreground"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
           </Button>
         </div>
       </div>
@@ -80,23 +82,28 @@ const Navbar = () => {
       {/* Mobile Navigation Drawer */}
       {isMenuOpen && (
         <div className="border-b border-border bg-background lg:hidden">
-          <div className="container mx-auto flex flex-col space-y-4 px-6 py-6">
+          <div className="container mx-auto flex flex-col space-y-4 px-4 py-6">
             {navLinks.map((link) => {
-               const isActive = pathname === link.href;
-               return (
+              const isActive = pathname === link.href;
+              return (
                 <Link
                   key={link.href}
                   href={link.href}
                   className={`text-lg font-medium transition-colors ${
-                    isActive ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
+                    isActive
+                      ? 'text-primary'
+                      : 'text-muted-foreground hover:text-foreground'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.label}
                 </Link>
-               );
+              );
             })}
-            <Button className="w-full bg-primary text-primary-foreground" onClick={() => setIsMenuOpen(false)}>
+            <Button
+              className="w-full bg-primary text-primary-foreground"
+              onClick={() => setIsMenuOpen(false)}
+            >
               Join Us
             </Button>
           </div>

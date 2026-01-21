@@ -27,9 +27,11 @@ export interface SiteData {
   name: string;
   abbreviation: string;
   tagline: string;
-  email: string;
-  phone: string;
-  address: string;
+  contact: {
+    email: string;
+    phone: string;
+    address: string;
+  };
 }
 
 // Form Types
@@ -63,4 +65,12 @@ export interface Certification {
 }
 
 // Icon Map Type
-export type IconName = 'Zap' | 'Activity' | 'Sprout' | 'Cpu' | 'Shield' | 'Lightbulb' | 'Target' | 'Scale';
+export type IconName =
+  | 'Zap'
+  | 'Activity'
+  | 'Sprout'
+  | 'Cpu'
+  | 'Shield'
+  | 'Lightbulb'
+  | 'Target'
+  | 'Scale';
