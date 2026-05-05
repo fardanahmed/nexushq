@@ -38,6 +38,27 @@ carer-platform/
 └── .env.example             # Environment variables template
 ```
 
+## 🏗️ System Architecture
+
+```mermaid
+graph TD
+    Client[Client Browser / Mobile] -->|HTTPS| Vercel
+    
+    subgraph Vercel [Vercel Edge Network]
+        Frontend[Next.js App Router UI]
+        ISR[Incremental Static Regeneration Cache]
+        API[Serverless API Route Handlers]
+        
+        Frontend --> ISR
+        Frontend --> API
+    end
+    
+    subgraph DataLayer [Data Layer]
+        API -->|Connection Pooling| Neon
+        Neon[(Neon Serverless PostgreSQL)]
+    end
+```
+
 ## 🛠️ Local Development
 
 ### Prerequisites
