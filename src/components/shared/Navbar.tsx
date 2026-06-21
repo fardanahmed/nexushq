@@ -62,8 +62,8 @@ const Navbar = ({ pathname: propPathname }: NavbarProps) => {
             <ModeToggle />
           </div>
 
-          <Button className="ml-4 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 font-semibold shadow-lg shadow-primary/20">
-            Join Us
+          <Button asChild className="ml-4 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 font-semibold shadow-lg shadow-primary/20">
+            <a href="/team">Join Us</a>
           </Button>
         </div>
 
@@ -107,10 +107,11 @@ const Navbar = ({ pathname: propPathname }: NavbarProps) => {
               );
             })}
             <Button
+              asChild
               className="w-full bg-primary text-primary-foreground"
               onClick={() => setIsMenuOpen(false)}
             >
-              Join Us
+              <a href="/team">Join Us</a>
             </Button>
           </div>
         </div>
