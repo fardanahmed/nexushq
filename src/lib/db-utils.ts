@@ -9,6 +9,10 @@ import type { ResearchArea, Certification } from '@/types';
 export async function getSiteSettings<T = unknown>(
   key: string
 ): Promise<T | null> {
+  const databaseUrl = import.meta.env.DATABASE_URL || process.env.DATABASE_URL;
+  if (!databaseUrl) {
+    throw new Error('DATABASE_URL environment variable is not set');
+  }
   return dataClient.fetchSettings<T>(key);
 }
 

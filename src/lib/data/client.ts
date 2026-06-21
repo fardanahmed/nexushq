@@ -11,16 +11,19 @@ export interface DataClient {
 import { neon } from '@neondatabase/serverless';
 
 class NeonDataClient implements DataClient {
-  private sql: ReturnType<typeof neon>;
+  private _sql?: ReturnType<typeof neon>;
 
-  constructor() {
-    const databaseUrl = process.env.DATABASE_URL;
+  private get sql(): ReturnType<typeof neon> {
+    if (!this._sql) {
+      const databaseUrl = import.meta.env.DATABASE_URL || process.env.DATABASE_URL;
 
-    if (!databaseUrl) {
-      throw new Error('Missing DATABASE_URL environment variable');
+      if (!databaseUrl) {
+        throw new Error('Missing DATABASE_URL environment variable');
+      }
+
+      this._sql = neon(databaseUrl);
     }
-
-    this.sql = neon(databaseUrl);
+    return this._sql;
   }
 
   async fetchSettings<T = unknown>(key: string): Promise<T | null> {

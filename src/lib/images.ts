@@ -3,7 +3,7 @@
  * Returns R2 URL in production, falls back to local /assets in development
  */
 
-const R2_PUBLIC_URL = process.env.NEXT_PUBLIC_R2_PUBLIC_URL;
+const R2_PUBLIC_URL = import.meta.env.PUBLIC_R2_PUBLIC_URL || import.meta.env.NEXT_PUBLIC_R2_PUBLIC_URL || process.env.NEXT_PUBLIC_R2_PUBLIC_URL;
 
 export function getImageUrl(filename: string): string {
   if (R2_PUBLIC_URL) {
