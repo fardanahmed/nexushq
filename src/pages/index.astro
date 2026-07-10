@@ -5,13 +5,35 @@ import ResearchGrid from '../components/home/ResearchGrid';
 import GoalsSection from '../components/home/GoalsSection.astro';
 import JoinTeamSection from '../components/home/JoinTeamSection';
 
-import { getResearchAreas } from '../lib/db-utils';
+import { getResearchAreas, getSiteSettings } from '../lib/content-api';
+import type { SiteData } from '../types';
 
 // Fetch data from Neon DB
 const areas = await getResearchAreas();
+const siteData = await getSiteSettings<SiteData>('site_data');
+
+const schema = (siteData && siteData.contact) ? {
+  "@context": "https://schema.org",
+  "@type": "ResearchOrganization",
+  "name": siteData.name,
+  "alternateName": siteData.abbreviation,
+  "slogan": siteData.tagline,
+  "url": Astro.url.href,
+  "logo": new URL('/favicon.png', Astro.url).href,
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": siteData.contact.phone,
+    "email": siteData.contact.email,
+    "contactType": "customer service"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": siteData.contact.address
+  }
+} : undefined;
 ---
 
-<Layout>
+<Layout schema={schema}>
   <!-- Static Hero Component (zero client JS) -->
   <Hero />
   

@@ -1,74 +1,109 @@
 ---
 import { ArrowRight } from 'lucide-react';
-import { getSiteSettings } from '../../lib/db-utils';
+import { getSiteSettings } from '../../lib/content-api';
 import { getImageUrl, images } from '../../lib/images';
 import type { HeroContent, SiteData } from '../../types';
+import ParticlesBackground from './ParticlesBackground';
 
 const heroContent = await getSiteSettings<HeroContent>('hero_content');
 const siteData = await getSiteSettings<SiteData>('site_data');
 
-if (!heroContent) return null;
+const defaultHeroContent: HeroContent = {
+  headline: 'Nasir Uddin Centre for Applied Research & Educational Resources',
+  subheadline: 'Knowledge, when nurtured and applied with integrity, has the power to transform societies.',
+  ctaPrimary: 'Our People',
+  ctaSecondary: 'Research Domains'
+};
+
+const headline = heroContent?.headline || defaultHeroContent.headline;
+const subheadline = heroContent?.subheadline || defaultHeroContent.subheadline;
+const ctaPrimary = heroContent?.ctaPrimary || defaultHeroContent.ctaPrimary;
+const ctaSecondary = heroContent?.ctaSecondary || defaultHeroContent.ctaSecondary;
+
+const headlineWords = typeof headline === 'string' && headline.trim() ? headline.trim().split(/\s+/) : [];
+const headlinePart1 = headlineWords.slice(0, -2).join(' ');
+const headlinePart2 = headlineWords.slice(-2).join(' ');
+
 const bgUrl = getImageUrl(images.heroBackground);
 ---
 
 <section class="relative w-full bg-background overflow-hidden">
   <!-- Dynamic, modern background layer -->
-  <div class="relative h-[90vh] min-h-[600px] w-full overflow-hidden bg-slate-950">
+  <div class="relative h-[90vh] min-h-[600px] w-full overflow-hidden bg-slate-950 dark:bg-slate-950">
     <div class="absolute inset-0 z-0">
+      <ParticlesBackground client:load />
       <img
         src={bgUrl}
         alt="CARER Applied Research"
         class="h-full w-full object-cover transition-transform duration-[10000ms] ease-out hover:scale-105"
-        style="filter: saturate(0.8) brightness(0.4);"
         loading="eager"
       />
-      <!-- Cobalt and Slate ambient radial highlights for a modern look -->
-      <div class="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-transparent z-10" />
-      <div class="absolute inset-0 bg-radial-at-t from-primary/10 via-transparent to-transparent z-10" />
-      <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10" />
+      <!-- Theme-aware overlay: dark slate in dark mode, soft blue-grey in light mode -->
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-slate-950/30 dark:from-slate-950 dark:via-slate-950/80 dark:to-slate-950/30 z-10" />
+      
+      <!-- Subtle primary tint glow -->
+      <div class="absolute inset-0 bg-gradient-to-tr from-primary/25 via-transparent to-transparent z-10 mix-blend-overlay" />
+      
+      <!-- Smooth fade to page background at the very bottom — adapts to both themes -->
+      <div class="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-background via-background/90 to-transparent z-10" />
     </div>
 
     <!-- Content Container -->
-    <div class="container relative z-20 mx-auto flex h-full max-w-7xl flex-col justify-center px-6">
-      <div class="max-w-4xl pt-12 md:pt-20">
-        <!-- Tagline Badge with subtle pulse and slide-in animation -->
-        <div class="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2 text-sm font-semibold text-primary-foreground backdrop-blur-md animate-fade-in">
-          <span class="relative flex h-2.5 w-2.5">
-            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-            <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary"></span>
-          </span>
-          {siteData?.tagline || 'Integrity. Innovation. Impact.'}
-        </div>
+    <div class="container relative z-20 mx-auto flex h-full max-w-7xl flex-col justify-center lg:items-end px-6">
+      <div class="max-w-2xl pt-12 md:pt-20 p-8 md:p-12 rounded-3xl bg-slate-900/40 backdrop-blur-2xl border border-white/10 shadow-[0_0_40px_rgba(0,240,255,0.15)] relative overflow-hidden">
+        <!-- Subtle inner glow for glass effect -->
+        <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/5 to-transparent z-0"></div>
+        
+        <div class="relative z-10">
+          <!-- Tagline Badge with subtle pulse and slide-in animation -->
+          <div class="mb-8 inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-5 py-2 text-sm font-semibold text-cyan-50 backdrop-blur-md animate-fade-in">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75"></span>
+              <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-cyan-500"></span>
+            </span>
+            {siteData?.tagline || 'Integrity. Innovation. Impact.'}
+          </div>
 
-        <!-- Headline: high contrast, modern layout -->
-        <h1 class="mb-6 font-heading text-4xl font-extrabold leading-[1.15] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-          {heroContent.headline.split(' ').slice(0, -2).join(' ')}
-          <span class="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent block sm:inline">
-            {" " + heroContent.headline.split(' ').slice(-2).join(' ')}
-          </span>
-        </h1>
+          <!-- Headline: high contrast, modern layout -->
+          <h1 class="mb-6 font-heading text-4xl font-extrabold leading-[1.15] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            {headlinePart1}
+            {headlinePart2 && (
+              <span class="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent block sm:inline">
+                {headlinePart1 ? ' ' : ''}{headlinePart2}
+              </span>
+            )}
+          </h1>
 
-        <!-- Subheadline: elegant, readable text -->
-        <p class="mb-10 max-w-2xl text-lg leading-relaxed text-slate-300 sm:text-xl">
-          {heroContent.subheadline}
-        </p>
+          <!-- Subheadline: elegant, readable text -->
+          {subheadline && (
+            <p class="mb-10 max-w-xl text-lg leading-relaxed text-slate-300 sm:text-xl">
+              {subheadline}
+            </p>
+          )}
 
-        <!-- CTAs: Premium hover interactions -->
-        <div class="flex flex-col gap-4 sm:flex-row sm:gap-6">
-          <a
-            href="/team"
-            class="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-lg font-bold text-white shadow-xl shadow-primary/20 transition-all duration-300 hover:scale-105 hover:bg-primary/95 hover:shadow-primary/30"
-          >
-            <span>{heroContent.ctaPrimary}</span>
-            <ArrowRight class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-          </a>
+          <!-- CTAs: Premium hover interactions -->
+          {(ctaPrimary || ctaSecondary) && (
+            <div class="flex flex-col gap-4 sm:flex-row sm:gap-6">
+              {ctaPrimary && (
+                <a
+                  href="/team"
+                  class="group inline-flex items-center justify-center gap-2 rounded-full bg-cyan-600 px-8 py-4 text-lg font-bold text-white shadow-[0_0_20px_rgba(8,145,178,0.4)] transition-all duration-300 hover:scale-105 hover:bg-cyan-500 hover:shadow-[0_0_30px_rgba(8,145,178,0.6)]"
+                >
+                  <span>{ctaPrimary}</span>
+                  <ArrowRight class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                </a>
+              )}
 
-          <a
-            href="/about"
-            class="inline-flex items-center justify-center rounded-full border-2 border-white/20 bg-white/5 px-8 py-4 text-lg font-bold text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/10 hover:border-white/45"
-          >
-            {heroContent.ctaSecondary}
-          </a>
+              {ctaSecondary && (
+                <a
+                  href="/about"
+                  class="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-8 py-4 text-lg font-bold text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/10 hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(0,240,255,0.2)]"
+                >
+                  {ctaSecondary}
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -47,7 +47,7 @@ export interface ContactFormState {
   status: 'idle' | 'success' | 'error';
 }
 
-// Database Types
+// Backend Content Types
 export interface ResearchArea {
   id: string;
   title: string;
@@ -74,3 +74,14 @@ export type IconName =
   | 'Lightbulb'
   | 'Target'
   | 'Scale';
+
+export interface TeamMember {
+  id: number;
+  name: string;
+  role: string;
+  department: string;
+  specialization: string;
+  education: string;
+  email: string;
+  display_order: number;
+}

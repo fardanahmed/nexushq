@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { ModeToggle } from '@/components/mode-toggle';
 
 interface NavbarProps {
   pathname?: string;
@@ -58,10 +57,6 @@ const Navbar = ({ pathname: propPathname }: NavbarProps) => {
             );
           })}
 
-          <div className="ml-2 pl-2 border-l border-border/50">
-            <ModeToggle />
-          </div>
-
           <Button asChild className="ml-4 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 font-semibold shadow-lg shadow-primary/20">
             <a href="/team">Join Us</a>
           </Button>
@@ -69,7 +64,6 @@ const Navbar = ({ pathname: propPathname }: NavbarProps) => {
 
         {/* Mobile Menu Button */}
         <div className="flex items-center gap-4 lg:hidden">
-          <ModeToggle />
           <Button
             variant="ghost"
             size="icon"

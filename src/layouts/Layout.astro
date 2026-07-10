@@ -2,15 +2,16 @@
 import Navbar from '../components/shared/Navbar';
 import Footer from '../components/shared/Footer';
 import '../styles/globals.css';
-import { getSiteSettings } from '../lib/db-utils';
+import { getSiteSettings } from '../lib/content-api';
 import type { SiteData } from '../types';
 
 interface Props {
   title?: string;
   description?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description } = Astro.props;
+const { title, description, schema } = Astro.props;
 
 // Fetch site-wide data for SEO, metadata, and footer
 const siteData = await getSiteSettings<SiteData>('site_data');
@@ -52,31 +53,21 @@ const displayDesc = description || defaultDesc;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <!-- Inline script to apply theme preference instantly before render to avoid FOUC -->
+    <!-- Enforce dark mode to match 3D concept aesthetics -->
     <script is:inline>
-      const getThemePreference = () => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
-        }
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      };
-      
-      const theme = getThemePreference();
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      
+      document.documentElement.classList.add('dark');
       if (typeof localStorage !== 'undefined') {
-        localStorage.setItem('theme', theme);
+        localStorage.setItem('theme', 'dark');
       }
     </script>
+    {schema && <script type="application/ld+json" is:inline set:html={JSON.stringify(schema).replace(/</g, '\\u003c').replace(/>/g, '\\u003e')} />}
   </head>
   <body class="bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary">
     <div class="flex min-h-screen flex-col">
       <!-- client:load is needed for mobile collapsible navigation and theme-switching interactions -->
-      <Navbar client:load />
+      <header>
+        <Navbar client:load />
+      </header>
       <main class="flex-1">
         <slot />
       </main>
