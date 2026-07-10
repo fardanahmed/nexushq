@@ -86,7 +86,9 @@ logs
 
 # Development artifacts
 .agent/
+.agents/
 *.local.md
+docs/
 
 # Local development scripts
 cmd_init.bat

@@ -3,16 +3,39 @@ import Layout from '../layouts/Layout.astro';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Zap, Activity, Sprout, Cpu, Calculator, ArrowRight, type LucideIcon } from 'lucide-react';
-import { dataClient } from '../lib/data/client';
+import { getResearchAreas } from '../lib/content-api';
 import { getImageUrl } from '../lib/images';
 
-const researchAreas = await dataClient.fetchResearchAreas();
+const researchAreas = await getResearchAreas();
 const videoUrl = getImageUrl('Scene_a_scientific_1080p_202601202028.mp4');
 
 const iconMap: Record<string, LucideIcon> = { Zap, Activity, Sprout, Cpu, Calculator };
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": Astro.url.href,
+  "url": Astro.url.href,
+  "name": "Research Frontiers",
+  "description": "Exploring the intersections of foundational engineering, machine intelligence, and sustainable technologies to solve industrial and clinical needs.",
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": researchAreas.length,
+    "itemListElement": researchAreas.map((area, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "ResearchProject",
+        "name": area.title,
+        "description": area.description,
+        "url": `${Astro.url.href}#${area.id || index}`
+      }
+    }))
+  }
+};
 ---
 
-<Layout title="Research Frontiers">
+<Layout title="Research Frontiers" schema={schema}>
   <!-- Video hero section (Highly Optimized) -->
   <section class="relative h-[65vh] min-h-[500px] w-full overflow-hidden bg-slate-950 text-white">
     <video autoPlay loop muted playsInline class="absolute inset-0 h-full w-full object-cover opacity-35" preload="auto">
@@ -42,32 +65,34 @@ const iconMap: Record<string, LucideIcon> = { Zap, Activity, Sprout, Cpu, Calcul
         {researchAreas.map((area) => {
           const Icon = iconMap[area.icon] || Zap;
           return (
-            <Card className="group flex flex-col relative overflow-hidden border-border bg-card/45 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-primary/50 hover:bg-card">
-              <!-- Animated hover accent border -->
-              <div class="absolute left-0 top-0 h-full w-1.5 bg-primary scale-y-0 transition-transform duration-300 group-hover:scale-y-100" />
-              
-              <CardHeader className="flex-none pb-4">
-                <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                  <Icon className="h-6 w-6" />
+            <article class="flex flex-col h-full">
+              <Card className="group flex flex-col flex-1 relative overflow-hidden border-border bg-card/45 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-primary/50 hover:bg-card">
+                <!-- Animated hover accent border -->
+                <div class="absolute left-0 top-0 h-full w-1.5 bg-primary scale-y-0 transition-transform duration-300 group-hover:scale-y-100" />
+                
+                <CardHeader className="flex-none pb-4">
+                  <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <CardTitle className="text-2xl font-bold tracking-tight text-foreground transition-colors duration-200 group-hover:text-primary">
+                    {area.title}
+                  </CardTitle>
+                </CardHeader>
+                
+                <CardContent className="flex-grow">
+                  <p class="text-muted-foreground leading-relaxed text-base">
+                    {area.description}
+                  </p>
+                </CardContent>
+                
+                <div class="p-6 pt-0 flex-none">
+                  <Button variant="ghost" className="group pl-0 text-primary hover:text-primary/80 hover:bg-transparent transition-colors font-semibold">
+                    <span>Explore Projects</span>
+                    <ArrowRight class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
                 </div>
-                <CardTitle className="text-2xl font-bold tracking-tight text-foreground transition-colors duration-200 group-hover:text-primary">
-                  {area.title}
-                </CardTitle>
-              </CardHeader>
-              
-              <CardContent className="flex-grow">
-                <p class="text-muted-foreground leading-relaxed text-base">
-                  {area.description}
-                </p>
-              </CardContent>
-              
-              <div class="p-6 pt-0 flex-none">
-                <Button variant="ghost" className="group pl-0 text-primary hover:text-primary/80 hover:bg-transparent transition-colors font-semibold">
-                  <span>Explore Projects</span>
-                  <ArrowRight class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </div>
-            </Card>
+              </Card>
+            </article>
           );
         })}
       </div>

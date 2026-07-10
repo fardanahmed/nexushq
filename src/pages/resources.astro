@@ -1,17 +1,84 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ResourcesTabs from '../components/resources/ResourcesTabs';
-import { getCertifications, getSiteSettings } from '../lib/db-utils';
+import { getCertifications, getSiteSettings } from '../lib/content-api';
 import { getImageUrl, images } from '../lib/images';
-import type { MentorshipContent } from '../types';
+import type { MentorshipContent, SiteData } from '../types';
 
 const certifications = await getCertifications();
 const mentorshipContent = await getSiteSettings<MentorshipContent>('mentorship_content');
+const siteData = await getSiteSettings<SiteData>('site_data');
 
 const mentorshipImgUrl = getImageUrl(images.leadership); // fallback to leadership or R2 mentorship asset
+
+function parseDurationToISO8601(duration: string): string {
+  const clean = duration.toLowerCase().trim();
+  const match = clean.match(/(\d+)\s*(week|month|year|day|hr|hour|wk|mo|yr)s?/);
+  if (match) {
+    const value = match[1];
+    const unit = match[2];
+    if (unit.startsWith('week') || unit === 'wk') return `P${value}W`;
+    if (unit.startsWith('month') || unit === 'mo') return `P${value}M`;
+    if (unit.startsWith('year') || unit === 'yr') return `P${value}Y`;
+    if (unit.startsWith('day')) return `P${value}D`;
+    if (unit.startsWith('hour') || unit.startsWith('hr')) return `PT${value}H`;
+  }
+  return "P6W";
+}
+
+const orgSchema = (siteData && siteData.contact) ? {
+  "@type": "EducationalOrganization",
+  "@id": `${Astro.url.origin}/#organization`,
+  "name": siteData.name,
+  "alternateName": siteData.abbreviation,
+  "slogan": siteData.tagline,
+  "url": Astro.url.origin,
+  "logo": new URL('/favicon.png', Astro.url).href,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": siteData.contact.address
+  }
+} : null;
+
+const courseItems = certifications.map((cert) => {
+  const durationISO = parseDurationToISO8601(cert.duration);
+  return {
+    "@type": "Course",
+    "name": cert.title,
+    "description": cert.description,
+    "provider": orgSchema ? { "@id": `${Astro.url.origin}/#organization` } : undefined,
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseDuration": durationISO
+    }
+  };
+});
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": Astro.url.href,
+      "url": Astro.url.href,
+      "name": "Resources & Development",
+      "description": "Empowering the next generation of researchers, scientists, and engineers through certified training programs and structured mentorship.",
+      "mainEntity": {
+        "@type": "ItemList",
+        "numberOfItems": certifications.length,
+        "itemListElement": courseItems.map((course, index) => ({
+          "@type": "ListItem",
+          "position": index + 1,
+          "item": course
+        }))
+      }
+    },
+    ...(orgSchema ? [orgSchema] : [])
+  ]
+};
 ---
 
-<Layout title="Resources & Development">
+<Layout title="Resources & Development" schema={schema}>
   <!-- Header Section -->
   <section class="border-b border-border/50 py-20 sm:py-24 lg:py-28 bg-gradient-to-b from-slate-950/20 to-transparent">
     <div class="container mx-auto max-w-7xl px-6">
@@ -28,7 +95,7 @@ const mentorshipImgUrl = getImageUrl(images.leadership); // fallback to leadersh
   </section>
 
   <!-- Interactive Content (Tabs) -->
-  <section class="py-20">
+  <section class="pt-8 pb-20">
     <div class="container mx-auto max-w-7xl px-6">
       <!-- client:load is critical for Radix tabs switching behavior -->
       <ResourcesTabs 
@@ -40,4 +107,3 @@ const mentorshipImgUrl = getImageUrl(images.leadership); // fallback to leadersh
     </div>
   </section>
 </Layout>
-

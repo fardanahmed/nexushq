@@ -19,7 +19,14 @@ export default function Footer({ siteData }: FooterProps) {
     },
   };
 
-  const data = siteData || fallbackSiteData;
+  const data = {
+    ...fallbackSiteData,
+    ...siteData,
+    contact: {
+      ...fallbackSiteData.contact,
+      ...siteData?.contact
+    }
+  };
 
   return (
     <footer className="border-t border-border bg-card text-muted-foreground">
@@ -98,20 +105,12 @@ export default function Footer({ siteData }: FooterProps) {
           <p className="text-muted-foreground">
             © {currentYear} {data.name}. All rights reserved.
           </p>
-          <div className="flex gap-6">
-            <a
-              href="/privacy"
-              className="transition-colors hover:text-primary"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="/terms"
-              className="transition-colors hover:text-primary"
-            >
-              Terms of Service
-            </a>
-          </div>
+          <a
+            href={`mailto:${data.contact.email}`}
+            className="transition-colors hover:text-primary"
+          >
+            {data.contact.email}
+          </a>
         </div>
       </div>
     </footer>

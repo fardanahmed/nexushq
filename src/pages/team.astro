@@ -1,8 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { GraduationCap, Briefcase, Mail, Cpu, Globe, ArrowRight } from 'lucide-react';
+import { Card, CardContent } from '../components/ui/card';
+import { GraduationCap, Briefcase, Mail, Cpu, ArrowRight } from 'lucide-react';
 import type { TeamMember } from '../types';
 
 const teamMembers: TeamMember[] = [
@@ -68,9 +67,44 @@ const openPositions = [
     description: 'Conduct research on neural signal decoding and haptic closed-loop feedback interfaces.'
   }
 ];
+
+const personSchemas = teamMembers.map((member) => ({
+  "@type": "Person",
+  "name": member.name,
+  "jobTitle": member.role,
+  "worksFor": {
+    "@type": "ResearchOrganization",
+    "name": "Nasir Uddin Centre for Applied Research & Educational Resources",
+    "alternateName": "CARER"
+  },
+  "email": member.email,
+  "knowsAbout": member.specialization.split(',').map((s) => s.trim()),
+  "alumniOf": {
+    "@type": "EducationalOrganization",
+    "name": member.education
+  }
+}));
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": Astro.url.href,
+  "url": Astro.url.href,
+  "name": "Our Research Team",
+  "description": "An interdisciplinary team of engineers, clinical researchers, and computer scientists working together to bridge academic research with life-enhancing technologies.",
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": teamMembers.length,
+    "itemListElement": personSchemas.map((person, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": person
+    }))
+  }
+};
 ---
 
-<Layout title="Our Research Team">
+<Layout title="Our Research Team" schema={schema}>
   <!-- Hero Section -->
   <section class="border-b border-border/50 py-20 sm:py-24 lg:py-28 bg-gradient-to-b from-slate-950/20 to-transparent">
     <div class="container mx-auto max-w-7xl px-6">

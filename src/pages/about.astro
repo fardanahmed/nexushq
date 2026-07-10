@@ -1,16 +1,66 @@
 ---
-import Image from 'astro:assets'; // Astro optimized image component (or standard img if external R2)
 import Layout from '../layouts/Layout.astro';
 import { Target, Lightbulb, Scale } from 'lucide-react';
-import { getSiteSettings } from '../lib/db-utils';
+import { getSiteSettings } from '../lib/content-api';
 import { getImageUrl, images } from '../lib/images';
-import type { AboutContent } from '../types';
+import type { AboutContent, SiteData } from '../types';
 
-const aboutContent = await getSiteSettings<AboutContent>('about_content');
+const defaultAboutContent: AboutContent = {
+  mission: 'Our mission is to pioneer sustainable development and advance human knowledge.',
+  preamble: 'CARER was founded with a singular vision to drive research that matters.\\n\\nToday, we continue to lead in applied research.',
+  vision: 'A world where sustainability is the norm, driven by cutting-edge research.'
+};
 
-if (!aboutContent) {
-  return new Response("Loading content failed...", { status: 500 });
-}
+const defaultSiteData: SiteData = {
+  name: 'CARER Research',
+  abbreviation: 'CARER',
+  tagline: 'Pioneering Sustainable Development',
+  contact: {
+    email: 'contact@carer.example.com',
+    phone: '+1 800 555 0199',
+    address: '100 Innovation Drive, Tech City'
+  }
+};
+
+const aboutContent = (await getSiteSettings<AboutContent>('about_content')) || defaultAboutContent;
+const siteData = (await getSiteSettings<SiteData>('site_data')) || defaultSiteData;
+
+const orgSchema = (siteData && siteData.contact) ? {
+  "@type": "ResearchOrganization",
+  "@id": `${Astro.url.origin}/#organization`,
+  "name": siteData.name,
+  "alternateName": siteData.abbreviation,
+  "slogan": siteData.tagline,
+  "url": Astro.url.origin,
+  "logo": new URL('/favicon.png', Astro.url).href,
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": siteData.contact.phone,
+    "email": siteData.contact.email,
+    "contactType": "customer service"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": siteData.contact.address
+  }
+} : null;
+
+const aboutPageSchema = {
+  "@type": "AboutPage",
+  "@id": Astro.url.href,
+  "url": Astro.url.href,
+  "name": "About Our Mission",
+  "description": aboutContent.mission,
+  "about": orgSchema ? { "@id": `${Astro.url.origin}/#organization` } : undefined
+};
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    aboutPageSchema,
+    ...(orgSchema ? [orgSchema] : [])
+  ]
+};
 
 const historyImgUrl = getImageUrl(images.leadership);
 
@@ -21,7 +71,7 @@ const values = [
 ];
 ---
 
-<Layout title="About Our Mission">
+<Layout title="About Our Mission" schema={schema}>
   <!-- Hero Section -->
   <section class="relative overflow-hidden border-b border-border/50 py-24 md:py-32 bg-gradient-to-b from-slate-950/20 to-transparent">
     <!-- Geometric backdrop shape -->
@@ -52,10 +102,11 @@ const values = [
       <div class="grid gap-8 md:grid-cols-3">
         {values.map((val) => {
           const Icon = val.icon;
+
           return (
             <div class="group relative overflow-hidden rounded-2xl border border-border bg-card/50 p-8 transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5">
               <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                <Icon class="h-7 w-7" />
+                <Icon className="h-7 w-7" aria-hidden="true" />
               </div>
               <h3 class="mb-4 font-heading text-2xl font-bold text-foreground">{val.title}</h3>
               <p class="text-muted-foreground leading-relaxed text-base md:text-lg">{val.desc}</p>

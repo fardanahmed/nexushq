@@ -20,7 +20,8 @@ export default function ContactForm() {
       payload.append('subject', formData.subject);
       payload.append('message', formData.message);
 
-      const response = await fetch('/api/contact', {
+      const backendApiUrl = (import.meta.env.PUBLIC_BACKEND_API_URL || '').replace(/\/$/, '');
+      const response = await fetch(`${backendApiUrl}/api/contact`, {
         method: 'POST',
         body: payload,
       });
@@ -87,6 +88,7 @@ export default function ContactForm() {
                   <input
                     id="name"
                     required
+                    autoComplete="name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="flex h-11 w-full rounded-xl border border-border bg-background/50 px-4 py-2 text-sm text-foreground placeholder:text-muted-foreground transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -99,6 +101,7 @@ export default function ContactForm() {
                     id="email"
                     type="email"
                     required
+                    autoComplete="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="flex h-11 w-full rounded-xl border border-border bg-background/50 px-4 py-2 text-sm text-foreground placeholder:text-muted-foreground transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -111,6 +114,7 @@ export default function ContactForm() {
                 <label htmlFor="subject" className="text-sm font-medium text-foreground">Subject</label>
                 <input
                   id="subject"
+                  autoComplete="off"
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   className="flex h-11 w-full rounded-xl border border-border bg-background/50 px-4 py-2 text-sm text-foreground placeholder:text-muted-foreground transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -124,6 +128,7 @@ export default function ContactForm() {
                   id="message"
                   required
                   rows={5}
+                  autoComplete="off"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="flex w-full rounded-xl border border-border bg-background/50 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"

@@ -2,16 +2,62 @@
 import Layout from '../layouts/Layout.astro';
 import ContactForm from '../components/contact/ContactForm';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
-import { getSiteSettings } from '../lib/db-utils';
+import { getSiteSettings } from '../lib/content-api';
 import type { SiteData } from '../types';
 
-const siteData = await getSiteSettings<SiteData>('site_data');
-if (!siteData) {
-  return new Response("Configuration data missing", { status: 500 });
-}
+const defaultSiteData: SiteData = {
+  name: 'CARER Research',
+  abbreviation: 'CARER',
+  tagline: 'Pioneering Sustainable Development',
+  contact: {
+    email: 'contact@carer.example.com',
+    phone: '+1 800 555 0199',
+    address: '100 Innovation Drive, Tech City'
+  }
+};
+
+const siteData = (await getSiteSettings<SiteData>('site_data')) || defaultSiteData;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "@id": Astro.url.href,
+  "url": Astro.url.href,
+  "name": "Contact Us",
+  "description": "Whether you want to discuss joint ventures, student opportunities, or need detailed research resources, we are ready to assist.",
+  "mainEntity": {
+    "@type": "ResearchOrganization",
+    "@id": `${Astro.url.origin}/#organization`,
+    "name": siteData.name,
+    "alternateName": siteData.abbreviation,
+    "url": Astro.url.origin,
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": siteData.contact.phone,
+        "email": siteData.contact.email,
+        "contactType": "customer service",
+        "hoursAvailable": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Saturday"],
+            "opens": "10:00",
+            "closes": "14:00"
+          }
+        ]
+      }
+    ]
+  }
+};
 ---
 
-<Layout title="Contact Us">
+<Layout title="Contact Us" schema={schema}>
   <!-- Hero Header -->
   <section class="border-b border-border/50 py-20 sm:py-24 lg:py-28 bg-gradient-to-b from-slate-950/20 to-transparent">
     <div class="container mx-auto max-w-7xl px-6">

@@ -19,13 +19,13 @@ export default function ResourcesTabs({
   mentorshipImgUrl,
 }: ResourcesTabsProps) {
   return (
-    <Tabs defaultValue="certifications" className="w-full space-y-12">
-      <div className="flex justify-center">
-        <TabsList className="grid grid-cols-2 w-full max-w-md rounded-full bg-muted p-1 border border-border/50">
-          <TabsTrigger value="certifications" className="rounded-full py-2.5 font-semibold text-base transition-all">
+    <Tabs defaultValue="certifications" className="w-full">
+      <div className="flex justify-center mb-12">
+        <TabsList className="grid grid-cols-2 gap-1.5 w-full max-w-md rounded-full bg-muted p-1.5 border border-border/50 h-auto">
+          <TabsTrigger value="certifications" className="rounded-full py-2.5 font-semibold text-base transition-all data-[state=active]:shadow-md">
             Certifications
           </TabsTrigger>
-          <TabsTrigger value="mentorship" className="rounded-full py-2.5 font-semibold text-base transition-all">
+          <TabsTrigger value="mentorship" className="rounded-full py-2.5 font-semibold text-base transition-all data-[state=active]:shadow-md">
             Mentorship
           </TabsTrigger>
         </TabsList>
@@ -83,7 +83,7 @@ export default function ResourcesTabs({
               </div>
               
               <ul className="grid gap-4">
-                {mentorshipContent.benefits.map((benefit, index) => (
+                {(mentorshipContent.benefits || []).map((benefit, index) => (
                   <li key={index} className="flex items-start gap-3.5">
                     <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                       <CheckCircle2 className="h-4 w-4" />
