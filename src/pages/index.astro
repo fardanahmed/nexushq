@@ -37,12 +37,12 @@ const schema = (siteData && siteData.contact) ? {
   <!-- Static Hero Component (zero client JS) -->
   <Hero />
   
-  <!-- Interactive Research Grid hydrated only when visible in viewport -->
-  <ResearchGrid client:visible areas={areas} />
+  <!-- Interactive Research Grid hydrated immediately for framer-motion -->
+  <ResearchGrid client:load areas={areas} />
   
   <!-- Static Goals Section (zero client JS) -->
   <GoalsSection />
   
-  <!-- Interactive signup form hydrated on visibility -->
-  <JoinTeamSection client:visible />
+  <!-- Interactive signup form hydrated immediately -->
+  <JoinTeamSection client:load />
 </Layout>

@@ -50,9 +50,21 @@ async function fetchFromBackend<T>(path: string, fallback: T): Promise<T> {
 export async function getSiteSettings<T = unknown>(
   key: string
 ): Promise<T | null> {
+  const defaultMentorship = {
+    title: "Expert Mentorship Program",
+    description: "Guidance from leading researchers and industry professionals.",
+    benefits: [
+      "One-on-one sessions with domain experts",
+      "Career development and networking opportunities",
+      "Hands-on project guidance"
+    ]
+  };
+
+  const fallbackValue = key === 'mentorship_content' ? defaultMentorship : null;
+
   const result = await fetchFromBackend<{ value: T | null }>(
     `/api/settings/${encodeURIComponent(key)}`,
-    { value: null }
+    { value: fallbackValue as unknown as T }
   );
 
   return result.value;
@@ -77,7 +89,13 @@ export async function getResearchAreas(): Promise<ResearchArea[]> {
 export async function getCertifications(): Promise<Certification[]> {
   const result = await fetchFromBackend<{ items: Certification[] }>(
     '/api/certifications',
-    { items: [] }
+    { 
+      items: [
+        { id: '1', title: 'Data Science for Healthcare', description: 'Apply data science to optimize healthcare delivery.', duration: '6 weeks', created_at: new Date().toISOString() },
+        { id: '2', title: 'IoT for Agriculture', description: 'Build IoT devices for smart agriculture solutions.', duration: '4 weeks', created_at: new Date().toISOString() },
+        { id: '3', title: 'AI & Computation', description: 'Advanced certification in artificial intelligence models.', duration: '8 weeks', created_at: new Date().toISOString() }
+      ] 
+    }
   );
 
   return result.items;
