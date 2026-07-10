@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import Navbar from '../components/shared/Navbar';
 import Footer from '../components/shared/Footer';
 import '../styles/globals.css';
@@ -27,6 +28,7 @@ const displayDesc = description || defaultDesc;
 <!doctype html>
 <html lang="en" class="dark" suppressHydrationWarning>
   <head>
+    <ClientRouter />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/favicon.png" />

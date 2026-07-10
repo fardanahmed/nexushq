@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useEffect } from 'react';
+import React, { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Float, Sphere, Icosahedron, Torus, Environment } from '@react-three/drei';
 import * as THREE from 'three';
@@ -16,31 +16,27 @@ type ShapeData = {
   floatRotation: number;
 };
 
-// Generates random shapes for the background
-const generateShapes = (count: number): ShapeData[] => {
-  const colors = ['#0891b2', '#8b5cf6', '#3b82f6', '#2dd4bf']; // Cyan, Purple, Blue, Teal
-  const types: ('sphere' | 'icosahedron' | 'torus')[] = ['sphere', 'icosahedron', 'torus'];
+const predefinedShapes: ShapeData[] = [
+  // Top Right Cluster
+  { id: 1, type: 'torus', position: [7, 4, -5], rotation: [Math.PI/4, -Math.PI/6, 0], scale: 1.8, color: '#1e40af', floatSpeed: 1.5, floatIntensity: 1.5, floatRotation: 0.2 },
+  { id: 2, type: 'torus', position: [5, 2, -3], rotation: [Math.PI/2, Math.PI/4, 0], scale: 1.2, color: '#0369a1', floatSpeed: 2, floatIntensity: 1, floatRotation: 0.3 },
+  { id: 3, type: 'icosahedron', position: [4.5, 3.5, -2], rotation: [0.5, 0.5, 0], scale: 0.8, color: '#0f172a', floatSpeed: 1, floatIntensity: 2, floatRotation: 0.5 },
   
-  return Array.from({ length: count }).map((_, i) => ({
-    id: i,
-    position: [
-      (Math.random() - 0.5) * 20, 
-      (Math.random() - 0.5) * 15, 
-      (Math.random() - 0.5) * 10 - 5
-    ],
-    rotation: [
-      Math.random() * Math.PI, 
-      Math.random() * Math.PI, 
-      0
-    ],
-    scale: Math.random() * 0.5 + 0.2,
-    color: colors[Math.floor(Math.random() * colors.length)],
-    type: types[Math.floor(Math.random() * types.length)],
-    floatSpeed: Math.random() * 2 + 1,
-    floatIntensity: Math.random() * 2 + 1,
-    floatRotation: Math.random() * 0.5 + 0.1,
-  }));
-};
+  // Bottom Right (near the card)
+  { id: 4, type: 'icosahedron', position: [8, -3, -4], rotation: [0.2, -0.4, 0], scale: 0.7, color: '#0f766e', floatSpeed: 1.5, floatIntensity: 1.5, floatRotation: 0.4 },
+  
+  // Bottom Center
+  { id: 5, type: 'sphere', position: [1.5, -4.5, -5], rotation: [0, 0, 0], scale: 0.8, color: '#1d4ed8', floatSpeed: 2, floatIntensity: 1, floatRotation: 0.2 },
+  { id: 6, type: 'sphere', position: [2.5, -5, -6], rotation: [0, 0, 0], scale: 0.7, color: '#0f766e', floatSpeed: 1.5, floatIntensity: 1.2, floatRotation: 0.1 },
+  { id: 7, type: 'torus', position: [3, -7, -4], rotation: [Math.PI/3, 0, 0], scale: 1.2, color: '#0369a1', floatSpeed: 1, floatIntensity: 0.8, floatRotation: 0.3 },
+  
+  // Middle Left
+  { id: 8, type: 'icosahedron', position: [-6, -4, -6], rotation: [1, 1, 0], scale: 0.6, color: '#4c1d95', floatSpeed: 1.2, floatIntensity: 1.5, floatRotation: 0.6 },
+  
+  // Top Center/Left
+  { id: 9, type: 'sphere', position: [-1, 6, -8], rotation: [0, 0, 0], scale: 0.9, color: '#312e81', floatSpeed: 0.8, floatIntensity: 1, floatRotation: 0.1 },
+  { id: 10, type: 'sphere', position: [-8, 2, -10], rotation: [0, 0, 0], scale: 0.6, color: '#0284c7', floatSpeed: 1, floatIntensity: 1.2, floatRotation: 0.2 },
+];
 
 const ShapeObject = ({ data }: { data: ShapeData }) => {
   const materialProps = {
@@ -70,32 +66,9 @@ const ShapeObject = ({ data }: { data: ShapeData }) => {
 };
 
 const InteractiveScene = () => {
-  const { viewport } = useThree();
-  const groupRef = useRef<THREE.Group>(null);
-  const shapes = useMemo(() => generateShapes(15), []);
-  const target = useRef({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const nx = (e.clientX / window.innerWidth) * 2 - 1;
-      const ny = -(e.clientY / window.innerHeight) * 2 + 1;
-      target.current.x = (ny * viewport.height) / 20;
-      target.current.y = (nx * viewport.width) / 20;
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [viewport]);
-
-  useFrame(() => {
-    if (!groupRef.current) return;
-    // Gently interpolate current rotation towards target
-    groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, target.current.x, 0.05);
-    groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, target.current.y, 0.05);
-  });
-
   return (
-    <group ref={groupRef}>
-      {shapes.map((shape) => (
+    <group>
+      {predefinedShapes.map((shape) => (
         <ShapeObject key={shape.id} data={shape} />
       ))}
     </group>
@@ -103,8 +76,13 @@ const InteractiveScene = () => {
 };
 
 export default function Interactive3DBackground() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <div className="fixed inset-0 -z-10 h-full w-full pointer-events-none">
+    <div className={`fixed inset-0 -z-10 h-full w-full pointer-events-none transition-opacity duration-1000 ease-in-out ${mounted ? 'opacity-100' : 'opacity-0'}`}>
       <Canvas camera={{ position: [0, 0, 10], fov: 45 }} dpr={[1, 2]} style={{ pointerEvents: 'none' }}>
         {/* Abstract environment map for sleek reflections */}
         <Environment preset="city" />
