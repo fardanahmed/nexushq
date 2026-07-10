@@ -5,7 +5,7 @@ Frontend for the Nasir Uddin Centre for Applied Research & Educational Resources
 This project is now frontend-only. The backend has been extracted to the sibling project:
 
 ```text
-D:\Projects\carer-backend
+../carer-backend
 ```
 
 ## Stack
@@ -21,7 +21,7 @@ D:\Projects\carer-backend
 Start the backend first:
 
 ```bash
-cd D:\Projects\carer-backend
+cd ../carer-backend
 pnpm install
 cp .env.example .env.local
 pnpm dev
@@ -30,7 +30,7 @@ pnpm dev
 Then start this frontend:
 
 ```bash
-cd D:\Projects\carer-platform
+cd ../carer-platform
 pnpm install
 cp .env.example .env.local
 pnpm dev
@@ -82,4 +82,4 @@ The frontend expects these backend endpoints:
 - `GET /api/research-areas`
 - `GET /api/certifications`
 
-Backend secrets such as `DATABASE_URL` and `RESEND_API_KEY` belong only in `D:\Projects\carer-backend`.
+Backend secrets such as `DATABASE_URL` and `RESEND_API_KEY` belong only in the `carer-backend` environment.
