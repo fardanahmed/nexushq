@@ -3,21 +3,16 @@
  * Returns R2 URL in production, falls back to local /assets in development
  */
 
-const R2_PUBLIC_URL = import.meta.env.PUBLIC_R2_PUBLIC_URL || process.env.PUBLIC_R2_PUBLIC_URL;
-
 export function getImageUrl(filename: string): string {
-  if (R2_PUBLIC_URL) {
-    return `${R2_PUBLIC_URL}/assets/${filename}`;
-  }
-  // Fallback to local assets for development without R2
+  // Always use local assets to avoid external dependencies breaking
   return `/assets/${filename}`;
 }
 
 // Pre-defined image paths for type safety
 export const images = {
   heroBackground: 'hero-background.webp',
-  leadership: 'leadership.jpg',
-  mentorship: 'mentorship.jpg',
-  aboutUs: 'about-us.jpg',
-  institutionalPartners: 'institutional-partners.jpg',
+  leadership: 'leadership.webp',
+  mentorship: 'mentorship.webp',
+  aboutUs: 'about-us.webp',
+  institutionalPartners: 'institutional-partners.webp',
 } as const;
