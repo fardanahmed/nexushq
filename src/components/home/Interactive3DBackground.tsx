@@ -79,7 +79,7 @@ const InteractiveScene = () => {
 
 function GlobalLoaderNotifier() {
   const { active, progress } = useProgress();
-  
+
   useEffect(() => {
     // When nothing is loading and we reached 100%, tell the global loader to hide
     if (!active && progress === 100) {
@@ -113,7 +113,7 @@ export default function Interactive3DBackground() {
 
   return (
     <div className="fixed inset-0 -z-10 h-full w-full pointer-events-none bg-gradient-to-br from-slate-950 via-cyan-950/20 to-slate-900">
-      <div 
+      <div
         className="absolute inset-0"
         style={{
           filter: isHome ? 'none' : 'blur(8px)',
