@@ -1,5 +1,14 @@
 import type { Certification, ResearchArea } from '@/types';
 
+// Simple in-memory cache to speed up dev mode and build compiles
+const apiCache = new Map<string, { data: any; expiry: number }>();
+const CACHE_TTL = 30000; // 30 seconds for successful requests
+const FALLBACK_CACHE_TTL = 5000; // 5 seconds for failed requests
+
+let isBackendOffline = false;
+let lastOfflineCheck = 0;
+const OFFLINE_COOLDOWN = 10000; // 10 seconds cooldown before trying again
+
 function getBackendBaseUrl(): string | null {
   const rawUrl =
     import.meta.env.BACKEND_API_URL ||
@@ -21,6 +30,19 @@ async function fetchFromBackend<T>(path: string, fallback: T): Promise<T> {
     return fallback;
   }
 
+  const now = Date.now();
+
+  // Check cache first
+  const cached = apiCache.get(path);
+  if (cached && cached.expiry > now) {
+    return cached.data as T;
+  }
+
+  // If we know the backend is offline, skip the fetch to prevent blocking timeouts
+  if (isBackendOffline && now - lastOfflineCheck < OFFLINE_COOLDOWN) {
+    return fallback;
+  }
+
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 2000); // 2 second timeout
 
@@ -39,10 +61,28 @@ async function fetchFromBackend<T>(path: string, fallback: T): Promise<T> {
       return fallback;
     }
 
-    return (await response.json()) as T;
-  } catch (error) {
+    const data = (await response.json()) as T;
+    
+    // Cache successful response
+    apiCache.set(path, { data, expiry: now + CACHE_TTL });
+    isBackendOffline = false; // Reset offline status on success
+    return data;
+  } catch (error: any) {
     clearTimeout(timeoutId);
-    console.error(`Backend request failed or timed out: ${path}`, error);
+    
+    const isConnRefused = error?.cause?.code === 'ECONNREFUSED' || error?.code === 'ECONNREFUSED';
+    const isFetchFailed = error?.message === 'fetch failed';
+
+    if (isConnRefused || isFetchFailed) {
+      isBackendOffline = true;
+      lastOfflineCheck = now;
+      console.warn(`[Content API] Backend offline at ${baseUrl}. Using mock fallback for ${path}`);
+    } else {
+      console.error(`Backend request failed or timed out: ${path}`, error);
+    }
+
+    // Cache fallback temporarily to prevent rapid duplicate logs
+    apiCache.set(path, { data: fallback, expiry: now + FALLBACK_CACHE_TTL });
     return fallback;
   }
 }
