@@ -121,7 +121,7 @@ export default function Interactive3DBackground() {
           transition: 'filter 0.4s ease-out, opacity 0.4s ease-out'
         }}
       >
-        <Canvas camera={{ position: [0, 0, 10], fov: 45 }} dpr={[1, 2]} style={{ pointerEvents: 'none' }}>
+        <Canvas camera={{ position: [0, 0, 10], fov: 45 }} dpr={[1, 2]} style={{ pointerEvents: 'none' }} frameloop={isHome ? "always" : "never"}>
           <GlobalLoaderNotifier />
           <Environment preset="city" />
           <ambientLight intensity={0.5} />
