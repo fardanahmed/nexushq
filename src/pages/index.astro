@@ -130,7 +130,10 @@ const schema = (siteData && siteData.contact) ? {
   <script is:inline>
     if (sessionStorage.getItem('3d-scene-loaded') === 'true') {
       // Bypass the loading screen entirely for repeat visits
-      document.write('<style>#global-loader { display: none !important; }</style>');
+      const loader = document.getElementById('global-loader');
+      if (loader) {
+        loader.style.display = 'none';
+      }
     } else {
       // Because we use 'scrollbar-gutter: stable' in html, we can safely lock body scrolling
       // without causing a horizontal layout shift.
