@@ -83,6 +83,7 @@ function GlobalLoaderNotifier() {
   useEffect(() => {
     // When nothing is loading and we reached 100%, tell the global loader to hide
     if (!active && progress === 100) {
+      sessionStorage.setItem('3d-scene-loaded', 'true');
       window.dispatchEvent(new Event('3d-scene-ready'));
     }
   }, [active, progress]);

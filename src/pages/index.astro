@@ -128,9 +128,14 @@ const schema = (siteData && siteData.contact) ? {
   </style>
 
   <script is:inline>
-    // Because we use 'scrollbar-gutter: stable' in html, we can safely lock body scrolling
-    // without causing a horizontal layout shift.
-    document.body.style.overflow = 'hidden';
+    if (sessionStorage.getItem('3d-scene-loaded') === 'true') {
+      // Bypass the loading screen entirely for repeat visits
+      document.write('<style>#global-loader { display: none !important; }</style>');
+    } else {
+      // Because we use 'scrollbar-gutter: stable' in html, we can safely lock body scrolling
+      // without causing a horizontal layout shift.
+      document.body.style.overflow = 'hidden';
+    }
     
     // Listen for the React component to signal it's done
     window.addEventListener('3d-scene-ready', () => {
