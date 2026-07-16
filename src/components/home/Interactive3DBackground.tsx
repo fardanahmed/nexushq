@@ -113,7 +113,14 @@ export default function Interactive3DBackground() {
 
   return (
     <div className="fixed inset-0 -z-10 h-full w-full pointer-events-none bg-gradient-to-br from-slate-950 via-cyan-950/20 to-slate-900">
-      <div className={`absolute inset-0 transition-opacity duration-1000 ${isHome ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+      <div 
+        className="absolute inset-0"
+        style={{
+          filter: isHome ? 'none' : 'blur(8px)',
+          opacity: isHome ? 1 : 0.25,
+          transition: 'filter 0.4s ease-out, opacity 0.4s ease-out'
+        }}
+      >
         <Canvas camera={{ position: [0, 0, 10], fov: 45 }} dpr={[1, 2]} style={{ pointerEvents: 'none' }}>
           <GlobalLoaderNotifier />
           <Environment preset="city" />
