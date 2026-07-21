@@ -1,11 +1,11 @@
-# CARER Platform
+# NexusHQ Platform
 
-Frontend for the Nasir Uddin Centre for Applied Research & Educational Resources website.
+Frontend marketing and beta platform for NexusHQ — The Command Centre for Modern Mentors.
 
-This project is now frontend-only. The backend has been extracted to the sibling project:
+This project is frontend-only. The backend is located in the sibling project:
 
 ```text
-../carer-backend
+../nexushq-backend
 ```
 
 ## Stack
@@ -21,7 +21,7 @@ This project is now frontend-only. The backend has been extracted to the sibling
 Start the backend first:
 
 ```bash
-cd ../carer-backend
+cd ../nexushq-backend
 pnpm install
 cp .env.example .env.local
 pnpm dev
@@ -30,7 +30,7 @@ pnpm dev
 Then start this frontend:
 
 ```bash
-cd ../carer-platform
+cd ../nexushq
 pnpm install
 cp .env.example .env.local
 pnpm dev
@@ -47,7 +47,7 @@ If server-side rendering needs a private backend URL, set `BACKEND_API_URL` as w
 ## Project Structure
 
 ```text
-carer-platform/
+nexushq/
 ├── public/                  # Static assets
 ├── src/
 │   ├── components/          # UI and page components
@@ -82,4 +82,4 @@ The frontend expects these backend endpoints:
 - `GET /api/research-areas`
 - `GET /api/certifications`
 
-Backend secrets such as `DATABASE_URL` and `RESEND_API_KEY` belong only in the `carer-backend` environment.
+Backend secrets such as `DATABASE_URL` and `RESEND_API_KEY` belong only in the `nexushq-backend` environment.
