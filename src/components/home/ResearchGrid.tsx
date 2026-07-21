@@ -159,7 +159,7 @@ interface FeaturesGridProps {
 
 const ResearchGrid = ({ areas }: FeaturesGridProps) => {
   return (
-    <section className="w-full pb-24 md:pb-32 pt-8 md:pt-12 bg-[#030014]/90 backdrop-blur-sm relative overflow-hidden">
+    <section className="w-full pb-24 md:pb-32 pt-16 md:pt-24 bg-[#030014]/90 backdrop-blur-sm relative overflow-hidden">
       {/* Top glowing divider */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
       
