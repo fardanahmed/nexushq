@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { CreditCard, Video, Calendar, MessageSquare, FileText, Mail, Link as LinkIcon } from 'lucide-react';
 
 const integrationTools = [
-  { id: 'stripe', icon: CreditCard, color: '#6366f1', angle: -20, radius: 140, label: 'Stripe' },
+  { id: 'stripe', icon: CreditCard, color: '#6366f1', angle: -20, radius: 150, label: 'Stripe' },
   { id: 'zoom', icon: Video, color: '#3b82f6', angle: 40, radius: 160, label: 'Zoom' },
-  { id: 'calendar', icon: Calendar, color: '#f59e0b', angle: 100, radius: 130, label: 'Google Calendar' },
+  { id: 'calendar', icon: Calendar, color: '#f59e0b', angle: 100, radius: 140, label: 'Google Calendar' },
   { id: 'notion', icon: FileText, color: '#94a3b8', angle: 160, radius: 170, label: 'Notion' },
-  { id: 'slack', icon: MessageSquare, color: '#f43f5e', angle: 220, radius: 140, label: 'Slack' },
-  { id: 'mailchimp', icon: Mail, color: '#eab308', angle: 280, radius: 160, label: 'Mailchimp' },
+  { id: 'slack', icon: MessageSquare, color: '#f43f5e', angle: 220, radius: 170, label: 'Slack' },
+  { id: 'mailchimp', icon: Mail, color: '#eab308', angle: 280, radius: 150, label: 'Mailchimp' },
 ];
 
 export default function Integrations() {
@@ -71,7 +71,11 @@ export default function Integrations() {
               const opacity = hoveredTool === null || isHovered ? 1 : 0.3;
 
               return (
-                <div key={tool.id} className="absolute top-1/2 left-1/2" style={{ transform: `translate(${x}px, ${y}px)` }}>
+                <div 
+                  key={tool.id} 
+                  className="absolute top-1/2 left-1/2 w-16 h-16" 
+                  style={{ transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))` }}
+                >
                   
                   {/* Connecting Line (SVG) */}
                   <svg className="absolute top-1/2 left-1/2 w-[400px] h-[400px] pointer-events-none -translate-x-1/2 -translate-y-1/2 -z-10" style={{ opacity }}>
@@ -89,7 +93,7 @@ export default function Integrations() {
                   <div 
                     onMouseEnter={() => setHoveredTool(tool.id)}
                     onMouseLeave={() => setHoveredTool(null)}
-                    className="relative z-10 w-16 h-16 rounded-2xl bg-slate-900/80 backdrop-blur-md border border-white/10 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110"
+                    className="relative z-10 w-full h-full rounded-2xl bg-slate-900/80 backdrop-blur-md border border-white/10 flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110"
                     style={{ 
                       opacity,
                       boxShadow: isHovered ? `0 0 30px ${tool.color}40` : 'none',
