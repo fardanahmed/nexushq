@@ -2,7 +2,7 @@
 import { ArrowRight } from 'lucide-react';
 import { getSiteSettings } from '../../lib/content-api';
 import type { HeroContent, SiteData } from '../../types';
-import HeroInteractiveCanvas from './HeroInteractiveCanvas';
+import HeroVisual from './HeroVisual';
 
 const heroContent = await getSiteSettings<HeroContent>('hero_content');
 const siteData = await getSiteSettings<SiteData>('site_data');
@@ -40,7 +40,7 @@ const headlinePart2 = headlineWords.slice(-2).join(' ');
     </div>
 
     <!-- Content Container -->
-    <div class="container relative z-20 mx-auto w-full max-w-7xl px-6 py-12 lg:py-20 pointer-events-none min-h-[90vh] flex items-center">
+    <div class="container relative z-20 mx-auto w-full max-w-7xl px-6 pt-28 pb-12 lg:pt-32 lg:pb-20 pointer-events-none min-h-[90vh] flex items-center">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
         
         <!-- Left Column: Typography and CTAs -->
@@ -108,9 +108,9 @@ const headlinePart2 = headlineWords.slice(-2).join(' ');
           </div>
         </div>
 
-        <!-- Right Column: Interactive 3D Canvas -->
+        <!-- Right Column: Animated Gradient Orb -->
         <div class="lg:col-span-5 w-full flex items-center justify-center pointer-events-auto order-1 lg:order-2">
-          <HeroInteractiveCanvas client:load />
+          <HeroVisual client:load />
         </div>
         
       </div>
