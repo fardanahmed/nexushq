@@ -32,8 +32,8 @@ export default function Testimonials() {
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fadeInUp">
-          <h2 className="font-heading text-4xl font-extrabold tracking-tight sm:text-5xl text-white mb-6">
-            Loved by <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">top mentors</span>
+          <h2 className="font-heading text-4xl font-extrabold tracking-tight sm:text-5xl text-white mb-6 pb-1">
+            Loved by <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent inline-block pb-1">top mentors</span>
           </h2>
           <p className="text-lg text-slate-400 font-medium">
             Don't just take our word for it. See how coaches are reclaiming their time and scaling their businesses with NexusHQ.

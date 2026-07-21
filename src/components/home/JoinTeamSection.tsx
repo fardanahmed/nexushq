@@ -35,7 +35,7 @@ const JoinTeamSection = () => {
             <div className="inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-900/20 px-5 py-2 text-xs font-bold text-indigo-350 shadow-[0_0_20px_rgba(99,102,241,0.15)] uppercase tracking-widest backdrop-blur-md">
               Get Early Access
             </div>
-            <h2 className="font-heading text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-slate-400 sm:text-5xl drop-shadow-xl uppercase">
+            <h2 className="font-heading text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-slate-400 sm:text-5xl drop-shadow-xl uppercase pb-2">
               Ready to Level Up Your Practice?
             </h2>
             <p className="text-slate-400 text-base md:text-lg leading-relaxed font-medium">

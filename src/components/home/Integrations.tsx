@@ -29,8 +29,8 @@ export default function Integrations() {
           
           {/* Left: Copy */}
           <div className="space-y-8 lg:max-w-xl animate-fadeInUp">
-            <h2 className="font-heading text-4xl font-extrabold tracking-tight sm:text-5xl text-white">
-              Plays nice with your <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">favorite tools</span>
+            <h2 className="font-heading text-4xl font-extrabold tracking-tight sm:text-5xl text-white pb-1">
+              Plays nice with your <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent inline-block pb-1">favorite tools</span>
             </h2>
             <p className="text-lg text-slate-400 leading-relaxed font-medium">
               You don't have to abandon the software you already know and love. NexusHQ acts as the central brain, seamlessly connecting to your existing stack so you never have to copy-paste data again.
