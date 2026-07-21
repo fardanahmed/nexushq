@@ -1,185 +1,180 @@
-import { useState, useEffect, useMemo } from 'react';
-
-const features = [
-  { id: 'schedule', label: 'Scheduling', icon: '📅', x: 0, y: -160, color: 'text-indigo-400' },
-  { id: 'crm', label: 'Client CRM', icon: '👥', x: 160, y: 0, color: 'text-violet-400' },
-  { id: 'video', label: 'HD Video', icon: '🎥', x: 0, y: 160, color: 'text-emerald-400' },
-  { id: 'billing', label: 'Billing', icon: '💳', x: -160, y: 0, color: 'text-amber-400' },
-];
+import { useRef } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { Calendar, Video, CreditCard, TrendingUp } from 'lucide-react';
 
 export default function HeroVisual() {
-  const [mounted, setMounted] = useState(false);
-  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Mouse tracking for 3D tilt effect
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
-  // Generate stable random particles once
-  const particles = useMemo(() => {
-    return [...Array(12)].map(() => ({
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-      z: Math.random() * -100,
-      duration: 5 + Math.random() * 5,
-      delay: Math.random() * -5,
-    }));
-  }, []);
+  // Smooth springs for fluid motion
+  const smoothX = useSpring(mouseX, { damping: 20, stiffness: 100, mass: 0.5 });
+  const smoothY = useSpring(mouseY, { damping: 20, stiffness: 100, mass: 0.5 });
 
-  useEffect(() => {
-    setMounted(true);
+  // Transforms for the main dashboard (moves opposite to mouse)
+  const rotateX = useTransform(smoothY, [-1, 1], [8, -8]);
+  const rotateY = useTransform(smoothX, [-1, 1], [-8, 8]);
+  
+  // Transforms for floating elements (moves more dramatically)
+  const floatX1 = useTransform(smoothX, [-1, 1], [-20, 20]);
+  const floatY1 = useTransform(smoothY, [-1, 1], [-20, 20]);
+  
+  const floatX2 = useTransform(smoothX, [-1, 1], [30, -30]);
+  const floatY2 = useTransform(smoothY, [-1, 1], [30, -30]);
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 30; // Max rotation X
-      const y = (e.clientY / window.innerHeight - 0.5) * 30; // Max rotation Y
-      setMouseOffset({ x, y });
-    };
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    const { left, top, width, height } = containerRef.current.getBoundingClientRect();
+    const x = (e.clientX - left) / width * 2 - 1; // -1 to 1
+    const y = (e.clientY - top) / height * 2 - 1; // -1 to 1
+    mouseX.set(x);
+    mouseY.set(y);
+  };
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  if (!mounted) {
-    return (
-      <div className="h-[400px] lg:h-[480px] w-full rounded-[2.5rem] bg-slate-950/20 border border-white/5 flex items-center justify-center">
-        <div className="h-10 w-10 border-t-2 border-indigo-400 rounded-full animate-spin" />
-      </div>
-    );
-  }
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   return (
-    <div className="relative w-full h-[400px] lg:h-[480px] flex items-center justify-center select-none perspective-[1000px]">
-      
-      {/* Container with 3D tilt */}
-      <div 
-        className="relative w-full h-full flex items-center justify-center transition-transform duration-300 ease-out preserve-3d"
-        style={{
-          transform: `rotateX(${-mouseOffset.y}deg) rotateY(${mouseOffset.x}deg)`,
-        }}
+    <div 
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative w-full h-[450px] lg:h-[550px] flex items-center justify-center perspective-[2000px] select-none"
+    >
+      {/* Ambient glowing background aura */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-indigo-500/20 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/4 -translate-y-1/4 w-[250px] h-[250px] bg-violet-600/20 blur-[80px] rounded-full pointer-events-none" />
+
+      {/* Main Dashboard Card */}
+      <motion.div
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="relative z-10 w-[90%] max-w-[420px] rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-2xl shadow-2xl p-6"
       >
-        {/* SVG Data Lines */}
-        <svg 
-          className="absolute inset-0 w-full h-full pointer-events-none z-0" 
-          viewBox="-250 -250 500 500" 
-          fill="none" 
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {features.map((feat) => {
-            // Calculate a curved path from the feature to the center
-            const controlPointX = feat.x * 0.5;
-            const controlPointY = feat.y * 0.5;
-            const pathData = `M ${feat.x} ${feat.y} Q ${controlPointX + (feat.y !== 0 ? 50 : 0)} ${controlPointY + (feat.x !== 0 ? 50 : 0)} 0 0`;
+        {/* Top bar */}
+        <div className="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center text-white font-bold text-sm shadow-[0_0_15px_rgba(99,102,241,0.5)]">
+              N
+            </div>
+            <span className="font-semibold text-slate-200">NexusHQ</span>
+          </div>
+          <div className="flex gap-2">
+            <div className="w-2.5 h-2.5 rounded-full bg-slate-700" />
+            <div className="w-2.5 h-2.5 rounded-full bg-slate-700" />
+          </div>
+        </div>
 
-            return (
-              <g key={`path-${feat.id}`}>
-                {/* Background Line */}
-                <path 
-                  d={pathData} 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  className="text-indigo-500/20"
+        {/* Dashboard Content Mockup */}
+        <div className="space-y-4">
+          <div className="flex justify-between items-end">
+            <div>
+              <div className="text-xs text-slate-400 font-medium mb-1">Monthly Revenue</div>
+              <div className="text-3xl font-bold text-white">$12,450</div>
+            </div>
+            <div className="flex items-center gap-1 text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded text-xs font-semibold">
+              <TrendingUp className="w-3 h-3" />
+              <span>+14%</span>
+            </div>
+          </div>
+
+          <div className="h-24 w-full flex items-end gap-2 pt-4">
+            {[40, 70, 45, 90, 65, 85, 100].map((height, i) => (
+              <div key={i} className="flex-1 bg-indigo-500/20 rounded-t-sm hover:bg-indigo-500/40 transition-colors relative group">
+                <div 
+                  className="absolute bottom-0 w-full bg-gradient-to-t from-indigo-600 to-indigo-400 rounded-t-sm"
+                  style={{ height: `${height}%` }}
                 />
-                
-                {/* Flowing Data Stream */}
-                <path 
-                  d={pathData} 
-                  stroke="url(#glow-gradient)" 
-                  strokeWidth="2" 
-                  strokeLinecap="round"
-                  strokeDasharray="4 24"
-                  className="animate-data-flow"
-                />
-              </g>
-            );
-          })}
-
-          <defs>
-            <linearGradient id="glow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#818cf8" />
-              <stop offset="50%" stopColor="#c084fc" />
-              <stop offset="100%" stopColor="#fbbf24" />
-            </linearGradient>
-          </defs>
-        </svg>
-
-        {/* Central Core */}
-        <div className="absolute z-20 flex items-center justify-center translate-z-[40px]">
-          {/* Core Outer Glow */}
-          <div className="absolute w-[180px] h-[180px] rounded-full bg-indigo-600/30 blur-2xl animate-pulse" />
-          
-          {/* Hexagon Shape */}
-          <div className="relative w-28 h-28 bg-slate-900/80 backdrop-blur-xl border border-indigo-500/40 shadow-[0_0_30px_rgba(99,102,241,0.4)] flex items-center justify-center overflow-hidden rotate-45 transition-transform duration-500 hover:scale-105 hover:border-indigo-400/80 hover:shadow-[0_0_50px_rgba(99,102,241,0.6)] group cursor-default">
-            {/* Inner rotating gradient */}
-            <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,rgba(139,92,246,0.5)_360deg)] animate-[spin_4s_linear_infinite]" />
-            
-            <div className="absolute inset-1 bg-slate-950 flex flex-col items-center justify-center -rotate-45 z-10">
-              <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-slate-400">
-                N
               </div>
-              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-indigo-300 mt-1">
-                Core
-              </div>
+            ))}
+          </div>
+
+          <div className="pt-2">
+            <div className="text-xs text-slate-400 font-medium mb-3">Upcoming Sessions</div>
+            <div className="space-y-2">
+              {[
+                { name: 'Sarah J.', type: 'Strategy Sync', time: '10:00 AM', color: 'bg-violet-500' },
+                { name: 'Mike T.', type: 'Onboarding', time: '1:30 PM', color: 'bg-emerald-500' },
+              ].map((session, i) => (
+                <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold ${session.color}`}>
+                      {session.name.charAt(0)}
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-slate-200">{session.name}</div>
+                      <div className="text-xs text-slate-400">{session.type}</div>
+                    </div>
+                  </div>
+                  <div className="text-xs font-medium text-slate-300 bg-white/5 px-2 py-1 rounded">
+                    {session.time}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Satellite Nodes */}
-        {features.map((feat) => (
-          <div
-            key={feat.id}
-            className="absolute z-30 translate-z-[20px]"
-            style={{
-              transform: `translate(${feat.x}px, ${feat.y}px)`,
-            }}
-          >
-            <div className="relative flex flex-col items-center justify-center group cursor-default">
-              {/* Outer Ring */}
-              <div className="absolute w-16 h-16 rounded-full border border-white/5 bg-slate-900/60 backdrop-blur-md shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:border-white/20 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]" />
-              
-              {/* Icon Container */}
-              <div className={`relative z-10 w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 border border-white/10 ${feat.color}`}>
-                <span className="text-xl drop-shadow-md">{feat.icon}</span>
-              </div>
-              
-              {/* Label */}
-              <div className="absolute -bottom-8 whitespace-nowrap opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                <span className="px-3 py-1 rounded-full bg-slate-900/90 border border-white/10 text-xs font-semibold text-slate-200 shadow-xl backdrop-blur-md">
-                  {feat.label}
-                </span>
-              </div>
-            </div>
+        {/* Floating Accent Border */}
+        <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 pointer-events-none" style={{ transform: "translateZ(1px)" }} />
+      </motion.div>
+
+      {/* Floating Widget 1 - Calendar/Scheduling */}
+      <motion.div
+        style={{ x: floatX1, y: floatY1, rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="absolute top-10 right-[5%] z-20 w-48 rounded-2xl border border-white/10 bg-slate-900/80 backdrop-blur-xl shadow-2xl p-4"
+      >
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+            <Calendar className="w-4 h-4" />
           </div>
-        ))}
-        
-        {/* Floating background particles */}
-        {particles.map((p, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 rounded-full bg-indigo-400/50"
-            style={{
-              left: p.left,
-              top: p.top,
-              transform: `translateZ(${p.z}px)`,
-              animation: `float-particle ${p.duration}s ease-in-out infinite alternate`,
-              animationDelay: `${p.delay}s`,
-            }}
-          />
-        ))}
+          <div className="text-sm font-semibold text-white">Smart Booking</div>
+        </div>
+        <div className="space-y-2">
+          <div className="h-2 w-full bg-white/10 rounded-full" />
+          <div className="h-2 w-3/4 bg-white/10 rounded-full" />
+        </div>
+      </motion.div>
 
-      </div>
+      {/* Floating Widget 2 - Video Call */}
+      <motion.div
+        style={{ x: floatX2, y: floatY2, rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="absolute bottom-12 left-[2%] z-20 w-56 rounded-2xl border border-white/10 bg-slate-900/80 backdrop-blur-xl shadow-2xl p-4"
+      >
+        <div className="flex items-center gap-3 mb-2">
+          <div className="relative w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 border border-emerald-500/30">
+            <Video className="w-4 h-4" />
+            <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full ring-2 ring-slate-900" />
+          </div>
+          <div>
+            <div className="text-sm font-semibold text-white">Session Active</div>
+            <div className="text-xs text-emerald-400 font-medium animate-pulse">Recording...</div>
+          </div>
+        </div>
+      </motion.div>
 
-      <style>{`
-        .preserve-3d {
-          transform-style: preserve-3d;
-        }
-        @keyframes float-particle {
-          0% { transform: translateY(0) scale(1); opacity: 0.2; }
-          100% { transform: translateY(-40px) scale(1.5); opacity: 0.8; }
-        }
-        @keyframes data-flow {
-          0% { stroke-dashoffset: 28; }
-          100% { stroke-dashoffset: 0; }
-        }
-        .animate-data-flow {
-          animation: data-flow 1s linear infinite;
-        }
-      `}</style>
+      {/* Floating Widget 3 - CRM/Payments */}
+      <motion.div
+        style={{ 
+          x: useTransform(smoothX, [-1, 1], [15, -15]), 
+          y: useTransform(smoothY, [-1, 1], [-30, 30]), 
+          rotateX, rotateY, transformStyle: "preserve-3d" 
+        }}
+        className="absolute bottom-24 right-[2%] z-0 w-40 rounded-2xl border border-indigo-500/20 bg-indigo-950/60 backdrop-blur-md shadow-2xl p-4 flex flex-col items-center text-center"
+      >
+        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white mb-2 shadow-lg shadow-amber-500/30">
+          <CreditCard className="w-5 h-5" />
+        </div>
+        <div className="text-xs font-medium text-indigo-200 mb-1">Invoice Paid</div>
+        <div className="text-lg font-bold text-white">$450.00</div>
+      </motion.div>
+
+      {/* Background geometric accents */}
+      <div className="absolute top-20 left-20 w-32 h-32 border border-white/5 rounded-full animate-[spin_10s_linear_infinite]" />
+      <div className="absolute bottom-20 right-20 w-48 h-48 border border-white/5 rounded-full border-dashed animate-[spin_20s_linear_infinite_reverse]" />
     </div>
   );
 }
