@@ -1,0 +1,84 @@
+---
+import { CreditCard, Video, Calendar, MessageSquare, FileText, Mail } from 'lucide-react';
+---
+
+<section class="border-y border-white/5 bg-slate-950/50 py-8 backdrop-blur-sm overflow-hidden relative">
+  <!-- Gradient fades for the edges -->
+  <div class="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#030014] to-transparent z-10 pointer-events-none" />
+  <div class="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#030014] to-transparent z-10 pointer-events-none" />
+
+  <div class="container mx-auto px-6 max-w-7xl">
+    <p class="text-center text-xs font-bold uppercase tracking-widest text-slate-500 mb-8">
+      Seamlessly integrates with your existing workflow
+    </p>
+
+    <div class="relative flex overflow-x-hidden">
+      <div class="animate-marquee flex whitespace-nowrap items-center gap-16 md:gap-24">
+        <!-- Group 1 -->
+        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+          <CreditCard class="h-6 w-6 text-indigo-400" />
+          <span class="text-lg font-bold font-heading tracking-tight">Stripe</span>
+        </div>
+        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+          <Video class="h-6 w-6 text-blue-400" />
+          <span class="text-lg font-bold font-heading tracking-tight">Zoom</span>
+        </div>
+        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+          <Calendar class="h-6 w-6 text-amber-400" />
+          <span class="text-lg font-bold font-heading tracking-tight">Google Calendar</span>
+        </div>
+        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+          <FileText class="h-6 w-6 text-slate-200" />
+          <span class="text-lg font-bold font-heading tracking-tight">Notion</span>
+        </div>
+        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+          <MessageSquare class="h-6 w-6 text-rose-400" />
+          <span class="text-lg font-bold font-heading tracking-tight">Slack</span>
+        </div>
+        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+          <Mail class="h-6 w-6 text-yellow-400" />
+          <span class="text-lg font-bold font-heading tracking-tight">Mailchimp</span>
+        </div>
+        
+        <!-- Group 2 (Duplicate for seamless loop) -->
+        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 ml-16 md:ml-24">
+          <CreditCard class="h-6 w-6 text-indigo-400" />
+          <span class="text-lg font-bold font-heading tracking-tight">Stripe</span>
+        </div>
+        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+          <Video class="h-6 w-6 text-blue-400" />
+          <span class="text-lg font-bold font-heading tracking-tight">Zoom</span>
+        </div>
+        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+          <Calendar class="h-6 w-6 text-amber-400" />
+          <span class="text-lg font-bold font-heading tracking-tight">Google Calendar</span>
+        </div>
+        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+          <FileText class="h-6 w-6 text-slate-200" />
+          <span class="text-lg font-bold font-heading tracking-tight">Notion</span>
+        </div>
+        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+          <MessageSquare class="h-6 w-6 text-rose-400" />
+          <span class="text-lg font-bold font-heading tracking-tight">Slack</span>
+        </div>
+        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+          <Mail class="h-6 w-6 text-yellow-400" />
+          <span class="text-lg font-bold font-heading tracking-tight">Mailchimp</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <style>
+    .animate-marquee {
+      animation: marquee 30s linear infinite;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); } /* Shift exactly half to loop seamlessly since we duplicated the group */
+    }
+  </style>
+</section>

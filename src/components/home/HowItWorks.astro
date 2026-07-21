@@ -1,0 +1,87 @@
+---
+import { Settings, CalendarCheck, Video, LineChart } from 'lucide-react';
+
+const steps = [
+  {
+    num: "01",
+    title: "Setup & Customize",
+    description: "Connect your calendar, set your availability, and link Stripe to start accepting payments.",
+    icon: Settings,
+    color: "from-indigo-500 to-blue-500"
+  },
+  {
+    num: "02",
+    title: "Clients Book & Pay",
+    description: "Share your beautiful booking link. Clients select a slot and pay upfront in one seamless flow.",
+    icon: CalendarCheck,
+    color: "from-violet-500 to-fuchsia-500"
+  },
+  {
+    num: "03",
+    title: "Meet & Coach",
+    description: "Join HD video sessions directly from your dashboard. No more hunting for zoom links.",
+    icon: Video,
+    color: "from-cyan-500 to-blue-500"
+  },
+  {
+    num: "04",
+    title: "Track Progress",
+    description: "Log session notes, share resources, and track client milestones all in their dedicated CRM profile.",
+    icon: LineChart,
+    color: "from-amber-500 to-orange-500"
+  }
+];
+---
+
+<section class="py-24 relative overflow-hidden bg-[#030014]">
+  <!-- Glows -->
+  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-500/10 blur-[150px] rounded-full pointer-events-none" />
+
+  <div class="container mx-auto px-6 max-w-7xl relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-20 animate-fadeInUp">
+      <div class="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-4 py-1.5 text-sm font-semibold text-indigo-400 mb-6">
+        How it Works
+      </div>
+      <h2 class="font-heading text-4xl font-extrabold tracking-tight sm:text-5xl text-white mb-6">
+        Your entire coaching business,<br />
+        <span class="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">streamlined into one flow.</span>
+      </h2>
+      <p class="text-lg text-slate-400 font-medium">
+        Stop duct-taping five different tools together. NexusHQ handles the logistics so you can focus on coaching.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+      <!-- Connecting Line for desktop -->
+      <div class="hidden lg:block absolute top-12 left-1/8 right-1/8 h-0.5 bg-gradient-to-r from-indigo-500/0 via-indigo-500/20 to-indigo-500/0 z-0" />
+
+      {steps.map((step) => {
+        const Icon = step.icon;
+        return (
+          <div class="relative z-10 flex flex-col items-center text-center group">
+            <!-- Icon/Number Circle -->
+            <div class="relative w-24 h-24 mb-8 flex items-center justify-center">
+              <div class="absolute inset-0 rounded-full bg-slate-900 border border-white/10 group-hover:border-indigo-500/50 transition-colors duration-500 shadow-xl" />
+              <div class={`absolute inset-2 rounded-full bg-gradient-to-br ${step.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
+              
+              <Icon class="w-8 h-8 text-white relative z-10" />
+              
+              <!-- Number badge -->
+              <div class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center text-xs font-bold border-4 border-[#030014] shadow-lg">
+                {step.num}
+              </div>
+            </div>
+
+            <!-- Content -->
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors">
+              {step.title}
+            </h3>
+            <p class="text-slate-400 leading-relaxed text-sm">
+              {step.description}
+            </p>
+          </div>
+        )
+      })}
+    </div>
+  </div>
+</section>

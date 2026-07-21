@@ -1,0 +1,17 @@
+
+
+echo "=== Running Pre-commit Checks ==="
+
+echo "1. Running lint-staged (Formatting & Linting)..."
+pnpm exec lint-staged
+
+echo "2. Running TypeScript Type Check..."
+pnpm exec tsc --noEmit
+
+echo "3. Running Astro Check..."
+pnpm exec astro check
+
+echo "4. Running Playwright Frontend Tests..."
+pnpm run test:e2e
+
+echo "=== All Checks Passed! ==="

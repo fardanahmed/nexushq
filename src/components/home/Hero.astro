@@ -8,8 +8,8 @@ const heroContent = await getSiteSettings<HeroContent>('hero_content');
 const siteData = await getSiteSettings<SiteData>('site_data');
 
 const defaultHeroContent: HeroContent = {
-  headline: 'The Command Centre for Modern Mentors',
-  subheadline: 'NexusHQ brings smart scheduling, secure client intake, Stripe billing, and HD video rooms into a single workspace on nexushq.tech.',
+  headline: 'Deliver a Masterclass Experience.',
+  subheadline: 'Impress your clients from the first booking to the final session. NexusHQ is the premium, all-in-one workspace designed to make your mentorship business look effortless.',
   ctaPrimary: 'Start Free Trial',
   ctaSecondary: 'Explore Features'
 };
@@ -40,7 +40,7 @@ const headlinePart2 = headlineWords.slice(-2).join(' ');
     </div>
 
     <!-- Content Container -->
-    <div class="container relative z-20 mx-auto w-full max-w-7xl px-6 pt-28 pb-12 lg:pt-32 lg:pb-20 pointer-events-none min-h-[90vh] flex items-center">
+    <div class="container relative z-20 mx-auto w-full max-w-7xl px-6 pt-28 pb-16 lg:pt-32 lg:pb-20 pointer-events-none min-h-[90vh] flex items-center">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
         
         <!-- Left Column: Typography and CTAs -->
@@ -49,10 +49,10 @@ const headlinePart2 = headlineWords.slice(-2).join(' ');
             <!-- Tagline Badge -->
             <div class="inline-flex items-center gap-3 rounded-full border border-indigo-400/20 bg-indigo-900/20 px-5 py-2 text-xs uppercase tracking-wider font-bold text-indigo-300 backdrop-blur-md shadow-lg shadow-indigo-500/10 transition-transform duration-300 hover:scale-105">
               <span class="relative flex h-2 w-2">
-                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
+                <span class="absolute inline-flex h-full w-full animate-pulse rounded-full bg-amber-400 opacity-75"></span>
                 <span class="relative inline-flex h-2 w-2 rounded-full bg-amber-500 shadow-[0_0_8px_#f59e0b]"></span>
               </span>
-              {siteData?.tagline || '✦ The Unified Mentorship Workspace ✦'}
+              {siteData?.tagline || '✦ Elevate Your Practice ✦'}
             </div>
 
             <!-- Headline -->
@@ -73,13 +73,13 @@ const headlinePart2 = headlineWords.slice(-2).join(' ');
           </div>
 
           <!-- Glass Card with CTAs -->
-          <div class="w-full max-w-[34rem] p-8 md:p-10 rounded-[2rem] bg-slate-950/40 backdrop-blur-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] ring-1 ring-inset ring-white/5 relative overflow-hidden transition-transform duration-500 hover:-translate-y-1 hover:border-indigo-500/30">
+          <div class="w-full max-w-[34rem] p-8 md:p-10 rounded-[2rem] bg-slate-950/40 backdrop-blur-3xl transform-gpu border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] ring-1 ring-inset ring-white/5 relative overflow-hidden transition-transform duration-500 hover:-translate-y-1 hover:border-indigo-500/30">
             <!-- Inner ambient glow -->
             <div class="absolute -inset-2 bg-gradient-to-br from-indigo-500/20 via-transparent to-amber-500/10 opacity-50 blur-2xl z-0 pointer-events-none"></div>
             
             <div class="relative z-10">
               <p class="mb-6 text-sm md:text-base leading-relaxed text-slate-350 font-medium">
-                Stop juggling calendars, billing apps, and video tools. NexusHQ brings everything together so you can focus on building a world-class practice.
+                Stop patching together generic calendars and clunky video links. Give your clients the unified, high-end portal they deserve.
               </p>
 
               {(ctaPrimary || ctaSecondary) && (

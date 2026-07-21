@@ -1,6 +1,7 @@
 import type { Certification, Feature, ResearchArea } from '@/types';
 
 // Simple in-memory cache to speed up dev mode and build compiles
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const apiCache = new Map<string, { data: any; expiry: number }>();
 const CACHE_TTL = 30000; // 30 seconds for successful requests
 const FALLBACK_CACHE_TTL = 5000; // 5 seconds for failed requests
@@ -67,6 +68,7 @@ async function fetchFromBackend<T>(path: string, fallback: T): Promise<T> {
     apiCache.set(path, { data, expiry: now + CACHE_TTL });
     isBackendOffline = false; // Reset offline status on success
     return data;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     clearTimeout(timeoutId);
     

@@ -66,13 +66,10 @@ const values = [
 
 <Layout title="About NexusHQ" schema={schema}>
   <!-- Hero Section -->
-  <section class="relative overflow-hidden border-b border-border/50 py-24 md:py-32 bg-gradient-to-b from-[#030014]/60 to-transparent">
-    <!-- Geometric backdrop shape -->
-    <div class="absolute inset-0 opacity-5 pointer-events-none select-none">
-      <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <path d="M0 100 C 20 0 50 0 100 100 Z" fill="currentColor" class="text-primary"></path>
-      </svg>
-    </div>
+  <section class="relative overflow-hidden border-b border-border/50 pt-32 pb-24 md:pt-40 md:pb-32 bg-[#030014]">
+    <!-- Glowing background accents -->
+    <div class="absolute -top-40 -right-20 h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none"></div>
+    <div class="absolute top-20 -left-20 h-[400px] w-[400px] rounded-full bg-violet-600/10 blur-[100px] pointer-events-none"></div>
     
     <div class="container mx-auto max-w-7xl px-6 relative z-10">
       <div class="max-w-4xl animate-fadeInUp">

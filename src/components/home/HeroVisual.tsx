@@ -1,22 +1,33 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 const features = [
-  { label: 'Scheduling', icon: '📅', angle: 0 },
-  { label: 'Client CRM', icon: '👥', angle: 90 },
-  { label: 'HD Video', icon: '🎥', angle: 180 },
-  { label: 'Billing', icon: '💳', angle: 270 },
+  { id: 'schedule', label: 'Scheduling', icon: '📅', x: 0, y: -160, color: 'text-indigo-400' },
+  { id: 'crm', label: 'Client CRM', icon: '👥', x: 160, y: 0, color: 'text-violet-400' },
+  { id: 'video', label: 'HD Video', icon: '🎥', x: 0, y: 160, color: 'text-emerald-400' },
+  { id: 'billing', label: 'Billing', icon: '💳', x: -160, y: 0, color: 'text-amber-400' },
 ];
 
 export default function HeroVisual() {
   const [mounted, setMounted] = useState(false);
   const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
 
+  // Generate stable random particles once
+  const particles = useMemo(() => {
+    return [...Array(12)].map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      z: Math.random() * -100,
+      duration: 5 + Math.random() * 5,
+      delay: Math.random() * -5,
+    }));
+  }, []);
+
   useEffect(() => {
     setMounted(true);
 
     const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 20;
-      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      const x = (e.clientX / window.innerWidth - 0.5) * 30; // Max rotation X
+      const y = (e.clientY / window.innerHeight - 0.5) * 30; // Max rotation Y
       setMouseOffset({ x, y });
     };
 
@@ -33,97 +44,140 @@ export default function HeroVisual() {
   }
 
   return (
-    <div className="relative w-full h-[400px] lg:h-[480px] flex items-center justify-center select-none">
-      {/* Outer ambient glow */}
-      <div
-        className="absolute w-[340px] h-[340px] lg:w-[420px] lg:h-[420px] rounded-full opacity-30 blur-[80px] transition-transform duration-700 ease-out"
+    <div className="relative w-full h-[400px] lg:h-[480px] flex items-center justify-center select-none perspective-[1000px]">
+      
+      {/* Container with 3D tilt */}
+      <div 
+        className="relative w-full h-full flex items-center justify-center transition-transform duration-300 ease-out preserve-3d"
         style={{
-          background: 'radial-gradient(circle, #6366f1 0%, #7c3aed 40%, #f59e0b 100%)',
-          transform: `translate(${mouseOffset.x * 0.3}px, ${mouseOffset.y * 0.3}px)`,
-        }}
-      />
-
-      {/* Core orb container */}
-      <div
-        className="relative w-[260px] h-[260px] lg:w-[320px] lg:h-[320px] transition-transform duration-500 ease-out"
-        style={{
-          transform: `translate(${mouseOffset.x * 0.5}px, ${mouseOffset.y * 0.5}px)`,
+          transform: `rotateX(${-mouseOffset.y}deg) rotateY(${mouseOffset.x}deg)`,
         }}
       >
-        {/* Animated rotating ring */}
-        <div className="absolute inset-[-20px] lg:inset-[-28px] rounded-full border border-indigo-500/20 animate-[spin_25s_linear_infinite]" />
-        <div className="absolute inset-[-40px] lg:inset-[-52px] rounded-full border border-violet-500/10 animate-[spin_35s_linear_infinite_reverse]" />
-        <div className="absolute inset-[-60px] lg:inset-[-76px] rounded-full border border-amber-500/[0.07] animate-[spin_45s_linear_infinite]" />
+        {/* SVG Data Lines */}
+        <svg 
+          className="absolute inset-0 w-full h-full pointer-events-none z-0" 
+          viewBox="-250 -250 500 500" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {features.map((feat) => {
+            // Calculate a curved path from the feature to the center
+            const controlPointX = feat.x * 0.5;
+            const controlPointY = feat.y * 0.5;
+            const pathData = `M ${feat.x} ${feat.y} Q ${controlPointX + (feat.y !== 0 ? 50 : 0)} ${controlPointY + (feat.x !== 0 ? 50 : 0)} 0 0`;
 
-        {/* Tick marks on the middle ring */}
-        {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
+            return (
+              <g key={`path-${feat.id}`}>
+                {/* Background Line */}
+                <path 
+                  d={pathData} 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  className="text-indigo-500/20"
+                />
+                
+                {/* Flowing Data Stream */}
+                <path 
+                  d={pathData} 
+                  stroke="url(#glow-gradient)" 
+                  strokeWidth="2" 
+                  strokeLinecap="round"
+                  strokeDasharray="4 24"
+                  className="animate-data-flow"
+                />
+              </g>
+            );
+          })}
+
+          <defs>
+            <linearGradient id="glow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#818cf8" />
+              <stop offset="50%" stopColor="#c084fc" />
+              <stop offset="100%" stopColor="#fbbf24" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        {/* Central Core */}
+        <div className="absolute z-20 flex items-center justify-center translate-z-[40px]">
+          {/* Core Outer Glow */}
+          <div className="absolute w-[180px] h-[180px] rounded-full bg-indigo-600/30 blur-2xl animate-pulse" />
+          
+          {/* Hexagon Shape */}
+          <div className="relative w-28 h-28 bg-slate-900/80 backdrop-blur-xl border border-indigo-500/40 shadow-[0_0_30px_rgba(99,102,241,0.4)] flex items-center justify-center overflow-hidden rotate-45 transition-transform duration-500 hover:scale-105 hover:border-indigo-400/80 hover:shadow-[0_0_50px_rgba(99,102,241,0.6)] group cursor-default">
+            {/* Inner rotating gradient */}
+            <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,rgba(139,92,246,0.5)_360deg)] animate-[spin_4s_linear_infinite]" />
+            
+            <div className="absolute inset-1 bg-slate-950 flex flex-col items-center justify-center -rotate-45 z-10">
+              <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-slate-400">
+                N
+              </div>
+              <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-indigo-300 mt-1">
+                Core
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Satellite Nodes */}
+        {features.map((feat) => (
           <div
-            key={deg}
-            className="absolute top-1/2 left-1/2 w-[1px] h-2 bg-indigo-400/30 origin-bottom"
+            key={feat.id}
+            className="absolute z-30 translate-z-[20px]"
             style={{
-              transform: `translate(-50%, -50%) rotate(${deg}deg) translateY(-170px)`,
+              transform: `translate(${feat.x}px, ${feat.y}px)`,
+            }}
+          >
+            <div className="relative flex flex-col items-center justify-center group cursor-default">
+              {/* Outer Ring */}
+              <div className="absolute w-16 h-16 rounded-full border border-white/5 bg-slate-900/60 backdrop-blur-md shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:border-white/20 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]" />
+              
+              {/* Icon Container */}
+              <div className={`relative z-10 w-12 h-12 flex items-center justify-center rounded-full bg-slate-800 border border-white/10 ${feat.color}`}>
+                <span className="text-xl drop-shadow-md">{feat.icon}</span>
+              </div>
+              
+              {/* Label */}
+              <div className="absolute -bottom-8 whitespace-nowrap opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                <span className="px-3 py-1 rounded-full bg-slate-900/90 border border-white/10 text-xs font-semibold text-slate-200 shadow-xl backdrop-blur-md">
+                  {feat.label}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+        
+        {/* Floating background particles */}
+        {particles.map((p, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 rounded-full bg-indigo-400/50"
+            style={{
+              left: p.left,
+              top: p.top,
+              transform: `translateZ(${p.z}px)`,
+              animation: `float-particle ${p.duration}s ease-in-out infinite alternate`,
+              animationDelay: `${p.delay}s`,
             }}
           />
         ))}
 
-        {/* Main gradient orb */}
-        <div className="absolute inset-0 rounded-full overflow-hidden shadow-[0_0_80px_rgba(99,102,241,0.3),0_0_160px_rgba(124,58,237,0.15)]">
-          {/* Base gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-violet-600 to-indigo-800 animate-[pulse_4s_ease-in-out_infinite]" />
-
-          {/* Inner highlight */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.15)_0%,transparent_60%)]" />
-
-          {/* Shimmer sweep */}
-          <div className="absolute inset-0 bg-[linear-gradient(115deg,transparent_30%,rgba(255,255,255,0.08)_45%,transparent_60%)] animate-[shimmer_3s_ease-in-out_infinite]" />
-
-          {/* Noise-like texture */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:8px_8px]" />
-        </div>
-
-        {/* Center label */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
-          <div className="text-3xl lg:text-4xl font-black text-white/90 tracking-tighter drop-shadow-[0_2px_12px_rgba(99,102,241,0.5)]">
-            N
-          </div>
-          <div className="text-[10px] lg:text-xs font-bold uppercase tracking-[0.25em] text-indigo-200/70 mt-1">
-            NexusHQ
-          </div>
-        </div>
-
-        {/* Floating feature pills orbiting the orb */}
-        {features.map((feat, i) => {
-          const radius = 190; // orbit radius in px
-          const angleRad = (feat.angle * Math.PI) / 180;
-          const x = Math.cos(angleRad) * radius;
-          const y = Math.sin(angleRad) * radius;
-
-          return (
-            <div
-              key={feat.label}
-              className="absolute top-1/2 left-1/2 z-20 animate-fadeIn"
-              style={{
-                transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
-                animationDelay: `${i * 150}ms`,
-              }}
-            >
-              <div
-                className="flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/70 backdrop-blur-xl px-3.5 py-2 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:border-indigo-500/40 hover:shadow-[0_4px_30px_rgba(99,102,241,0.2)] transition-all duration-300 cursor-default whitespace-nowrap"
-                style={{ animation: `float ${3 + i * 0.5}s ease-in-out infinite`, animationDelay: `${i * 0.8}s` }}
-              >
-                <span className="text-sm">{feat.icon}</span>
-                <span className="text-xs font-semibold text-slate-300">{feat.label}</span>
-              </div>
-            </div>
-          );
-        })}
       </div>
 
-      {/* CSS Keyframes */}
       <style>{`
-        @keyframes shimmer {
-          0%, 100% { transform: translateX(-100%) rotate(15deg); }
-          50% { transform: translateX(100%) rotate(15deg); }
+        .preserve-3d {
+          transform-style: preserve-3d;
+        }
+        @keyframes float-particle {
+          0% { transform: translateY(0) scale(1); opacity: 0.2; }
+          100% { transform: translateY(-40px) scale(1.5); opacity: 0.8; }
+        }
+        @keyframes data-flow {
+          0% { stroke-dashoffset: 28; }
+          100% { stroke-dashoffset: 0; }
+        }
+        .animate-data-flow {
+          animation: data-flow 1s linear infinite;
         }
       `}</style>
     </div>

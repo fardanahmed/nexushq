@@ -1,8 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/home/Hero.astro';
+import TrustBar from '../components/home/TrustBar.astro';
+import HowItWorks from '../components/home/HowItWorks.astro';
 import ResearchGrid from '../components/home/ResearchGrid';
 import GoalsSection from '../components/home/GoalsSection.astro';
+import Integrations from '../components/home/Integrations';
+import Testimonials from '../components/home/Testimonials';
 import JoinTeamSection from '../components/home/JoinTeamSection';
 
 
@@ -30,16 +34,28 @@ const schema = (siteData && siteData.contact) ? {
 } : undefined;
 ---
 <Layout schema={schema}>
-  <!-- Static Hero Component (zero client JS) -->
+  <!-- Static Hero Component -->
   <Hero />
   
-  <!-- Interactive Features Grid hydrated immediately for framer-motion -->
+  <!-- Immediate Social Proof -->
+  <TrustBar />
+
+  <!-- Process Visualization -->
+  <HowItWorks />
+  
+  <!-- Interactive Features Grid -->
   <ResearchGrid client:load areas={areas} />
   
-  <!-- Static Value Props Section (zero client JS) -->
+  <!-- Deep Dive Value Props -->
   <GoalsSection />
   
-  <!-- Interactive signup form hydrated immediately -->
+  <!-- Tech Stack Integration Node Graph -->
+  <Integrations client:load />
+
+  <!-- Hard Social Proof -->
+  <Testimonials />
+  
+  <!-- Final CTA / Signup Form -->
   <JoinTeamSection client:load />
 
 </Layout>

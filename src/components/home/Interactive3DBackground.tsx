@@ -279,6 +279,7 @@ function GlobalLoaderNotifier() {
 
   useEffect(() => {
     if (!active && progress === 100) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).is3dSceneLoaded = true;
       window.dispatchEvent(new Event('3d-scene-ready'));
     }
