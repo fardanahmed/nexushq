@@ -20,10 +20,8 @@ test.describe('Homepage E2E', () => {
       page.locator('span.font-heading').filter({ hasText: 'Stripe' }).first()
     ).toBeVisible();
 
-    // 5. Verify the new Bento Box Features section
-    await expect(
-      page.locator('h2').filter({ hasText: /^Everything You Need$/ })
-    ).toBeVisible();
+    // 5. Verify the VIP Offer Section renders
+    await expect(page.locator('h2').filter({ hasText: /Your Unfair Advantage/i })).toBeVisible();
 
     // 6. Verify Join Team section waitlist form renders
     await expect(

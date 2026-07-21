@@ -170,10 +170,10 @@ const ResearchGrid = ({ areas }: FeaturesGridProps) => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="mb-20 flex flex-col items-center text-center justify-between gap-6 max-w-3xl mx-auto animate-fadeInUp">
           <div className="inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-900/20 px-5 py-2 text-xs font-bold text-indigo-350 shadow-[0_0_20px_rgba(99,102,241,0.15)] uppercase tracking-widest backdrop-blur-md">
-            Features & Capabilities
+            Core Infrastructure
           </div>
           <h2 className="text-4xl font-black tracking-tighter sm:text-5xl lg:text-[4rem] text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-200 to-slate-400 drop-shadow-xl pb-2">
-            Everything You Need
+            The Complete Toolkit
           </h2>
           <p className="text-lg text-slate-400 font-medium max-w-2xl">
             Replace your disjointed tool stack with a unified, intelligent platform built exclusively for professional mentors.

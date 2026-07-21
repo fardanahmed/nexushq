@@ -2,19 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/home/Hero.astro';
 import TrustBar from '../components/home/TrustBar.astro';
+import TheOffer from '../components/home/TheOffer.astro';
 import HowItWorks from '../components/home/HowItWorks.astro';
-import ResearchGrid from '../components/home/ResearchGrid';
-import GoalsSection from '../components/home/GoalsSection.astro';
-import Integrations from '../components/home/Integrations';
 import Testimonials from '../components/home/Testimonials';
 import JoinTeamSection from '../components/home/JoinTeamSection';
 
-
-import { getFeatures, getSiteSettings } from '../lib/content-api';
+import { getSiteSettings } from '../lib/content-api';
 import type { SiteData } from '../types';
 
 // Fetch data from backend (or fallback)
-const areas = await getFeatures();
 const siteData = await getSiteSettings<SiteData>('site_data');
 
 const schema = (siteData && siteData.contact) ? {
@@ -40,17 +36,11 @@ const schema = (siteData && siteData.contact) ? {
   <!-- Immediate Social Proof -->
   <TrustBar />
 
+  <!-- The Irresistible VIP Beta Offer -->
+  <TheOffer />
+
   <!-- Process Visualization -->
   <HowItWorks />
-  
-  <!-- Interactive Features Grid -->
-  <ResearchGrid client:load areas={areas} />
-  
-  <!-- Deep Dive Value Props -->
-  <GoalsSection />
-  
-  <!-- Tech Stack Integration Node Graph -->
-  <Integrations client:load />
 
   <!-- Hard Social Proof -->
   <Testimonials />

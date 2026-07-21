@@ -1,13 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { Calendar, Users, Video, CreditCard, Zap, Activity, Sprout, Cpu, ArrowRight, type LucideIcon } from 'lucide-react';
+import ResearchGrid from '../components/home/ResearchGrid';
+import Integrations from '../components/home/Integrations';
 import { getFeatures } from '../lib/content-api';
 
 const features = await getFeatures();
-
-const iconMap: Record<string, LucideIcon> = { Calendar, Users, Video, CreditCard, Zap, Activity, Sprout, Cpu };
 
 const schema = {
   "@context": "https://schema.org",
@@ -35,84 +32,49 @@ const schema = {
 
 <Layout title="Platform Features" schema={schema}>
   <!-- Hero section -->
-  <section class="relative pt-32 pb-24 md:pt-40 md:pb-32 w-full overflow-hidden bg-gradient-to-b from-[#030014]/40 to-transparent border-b border-border/50">
-    <div class="absolute inset-0 bg-radial-at-t from-primary/10 via-transparent to-transparent pointer-events-none" />
+  <section class="relative pt-32 pb-8 md:pt-40 md:pb-8 w-full overflow-hidden bg-gradient-to-b from-[#030014]/40 to-transparent">
+    <div class="absolute inset-0 bg-radial-at-t from-indigo-500/10 via-transparent to-transparent pointer-events-none" />
     
     <div class="relative z-10 flex flex-col items-center justify-center px-6 text-center max-w-4xl mx-auto">
-      <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
+      <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-900/20 px-4 py-1.5 text-sm font-bold text-indigo-400">
         Platform Capabilities
       </div>
-      <h1 class="mb-6 font-heading text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl">
-        Powerful <span class="bg-gradient-to-r from-primary to-violet-400 bg-clip-text text-transparent">Features</span>
+      <h1 class="mb-6 font-heading text-5xl font-black tracking-tighter sm:text-6xl md:text-7xl text-white drop-shadow-lg">
+        Powerful <span class="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">Features</span>
       </h1>
-      <p class="max-w-2xl text-lg text-muted-foreground sm:text-xl font-light leading-relaxed">
+      <p class="max-w-2xl text-lg text-slate-400 sm:text-xl font-medium leading-relaxed">
         Everything you need to run a professional coaching business — scheduling, client management, video sessions, and payments in one platform.
       </p>
     </div>
   </section>
 
-  <!-- Features Grid Section -->
-  <section class="py-24 relative">
-    <div class="container mx-auto max-w-7xl px-6">
-      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {features.map((feature) => {
-          const Icon = iconMap[feature.icon] || Zap;
-          return (
-            <article class="flex flex-col h-full">
-              <Card className="group flex flex-col flex-1 relative overflow-hidden border-border bg-card/45 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-primary/50 hover:bg-card">
-                <!-- Animated hover accent border -->
-                <div class="absolute left-0 top-0 h-full w-1.5 bg-primary scale-y-0 transition-transform duration-300 group-hover:scale-y-100" />
-                
-                <CardHeader className="flex-none pb-4">
-                  <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
-                    <Icon className="h-6 w-6" />
-                  </div>
-                  <CardTitle className="text-2xl font-bold tracking-tight text-foreground transition-colors duration-200 group-hover:text-primary">
-                    {feature.title}
-                  </CardTitle>
-                </CardHeader>
-                
-                <CardContent className="flex-grow">
-                  <p class="text-muted-foreground leading-relaxed text-base">
-                    {feature.description}
-                  </p>
-                </CardContent>
-                
-                <div class="p-6 pt-0 flex-none">
-                  <Button variant="ghost" className="group pl-0 text-primary hover:text-primary/80 hover:bg-transparent transition-colors font-semibold">
-                    <span>Learn more</span>
-                    <ArrowRight class="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </div>
-              </Card>
-            </article>
-          );
-        })}
-      </div>
-    </div>
-  </section>
+  <!-- Dynamic Bento Grid (Migrated from Homepage) -->
+  <ResearchGrid client:load areas={features} />
+
+  <!-- Integrations Graph (Migrated from Homepage) -->
+  <Integrations client:load />
 
   <!-- CTA Section -->
-  <section class="border-t border-border/50 bg-muted/20 py-24 relative overflow-hidden">
-    <div class="absolute bottom-0 right-1/4 h-80 w-80 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
+  <section class="border-t border-white/5 bg-[#030014] py-24 relative overflow-hidden">
+    <div class="absolute bottom-0 right-1/4 h-80 w-80 rounded-full bg-indigo-500/5 blur-3xl pointer-events-none" />
     
     <div class="container mx-auto max-w-4xl px-6 text-center relative z-10 space-y-8">
-      <h2 class="font-heading text-3xl font-extrabold tracking-tight sm:text-4xl text-foreground">
+      <h2 class="font-heading text-4xl font-black tracking-tighter sm:text-5xl text-white">
         Ready to Streamline Your Practice?
       </h2>
-      <p class="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+      <p class="text-xl text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
         Join thousands of coaches who've replaced their patchwork of tools with one powerful platform.
       </p>
-      <div class="flex flex-col justify-center gap-4 sm:flex-row">
+      <div class="flex flex-col justify-center gap-4 sm:flex-row pt-4">
         <a 
           href="https://app.nexushq.tech" 
-          class="inline-flex items-center justify-center rounded-full bg-primary px-8 py-4 text-base font-bold text-white shadow-xl shadow-primary/10 transition-all duration-300 hover:scale-105 hover:bg-primary/95"
+          class="inline-flex items-center justify-center rounded-full bg-indigo-600 px-8 py-4 text-base font-bold text-white shadow-[0_0_20px_rgba(79,70,229,0.3)] transition-all duration-300 hover:scale-105 hover:bg-indigo-500"
         >
           Start Free Trial
         </a>
         <a 
           href="/pricing" 
-          class="inline-flex items-center justify-center rounded-full border border-border bg-card px-8 py-4 text-base font-bold text-foreground transition-all duration-300 hover:scale-105 hover:bg-accent"
+          class="inline-flex items-center justify-center rounded-full border border-white/10 bg-slate-900/50 px-8 py-4 text-base font-bold text-white transition-all duration-300 hover:scale-105 hover:bg-white/5"
         >
           View Pricing
         </a>
