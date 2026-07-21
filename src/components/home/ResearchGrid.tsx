@@ -159,7 +159,7 @@ interface FeaturesGridProps {
 
 const ResearchGrid = ({ areas }: FeaturesGridProps) => {
   return (
-    <section className="w-full py-24 md:py-32 bg-[#030014]/90 backdrop-blur-sm relative overflow-hidden">
+    <section className="w-full pb-24 md:pb-32 pt-8 md:pt-12 bg-[#030014]/90 backdrop-blur-sm relative overflow-hidden">
       {/* Top glowing divider */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
       
@@ -168,17 +168,6 @@ const ResearchGrid = ({ areas }: FeaturesGridProps) => {
       <div className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-violet-600/10 blur-[150px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="mb-20 flex flex-col items-center text-center justify-between gap-6 max-w-3xl mx-auto animate-fadeInUp">
-          <div className="inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-900/20 px-5 py-2 text-xs font-bold text-indigo-350 shadow-[0_0_20px_rgba(99,102,241,0.15)] uppercase tracking-widest backdrop-blur-md">
-            Core Infrastructure
-          </div>
-          <h2 className="text-4xl font-black tracking-tighter sm:text-5xl lg:text-[4rem] text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-200 to-slate-400 drop-shadow-xl pb-2">
-            The Complete Toolkit
-          </h2>
-          <p className="text-lg text-slate-400 font-medium max-w-2xl">
-            Replace your disjointed tool stack with a unified, intelligent platform built exclusively for professional mentors.
-          </p>
-        </div>
 
         {/* Bento Box Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto auto-rows-[minmax(200px,auto)]">
