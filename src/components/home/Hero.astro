@@ -2,15 +2,16 @@
 import { ArrowRight } from 'lucide-react';
 import { getSiteSettings } from '../../lib/content-api';
 import type { HeroContent, SiteData } from '../../types';
+import HeroInteractiveCanvas from './HeroInteractiveCanvas';
 
 const heroContent = await getSiteSettings<HeroContent>('hero_content');
 const siteData = await getSiteSettings<SiteData>('site_data');
 
 const defaultHeroContent: HeroContent = {
-  headline: 'Nasir Uddin Centre for Applied Research & Educational Resources',
-  subheadline: 'Knowledge, when nurtured and applied with integrity, has the power to transform societies.',
-  ctaPrimary: 'Our People',
-  ctaSecondary: 'Research Domains'
+  headline: 'The Command Centre for Modern Mentors',
+  subheadline: 'NexusHQ brings smart scheduling, secure client intake, Stripe billing, and HD video rooms into a single workspace on nexushq.tech.',
+  ctaPrimary: 'Start Free Trial',
+  ctaSecondary: 'Explore Features'
 };
 
 const headline = heroContent?.headline || defaultHeroContent.headline;
@@ -25,85 +26,94 @@ const headlinePart2 = headlineWords.slice(-2).join(' ');
 
 <section class="relative w-full bg-transparent overflow-hidden">
   <!-- Dynamic, modern background layer -->
-  <div class="relative flex min-h-[90vh] sm:min-h-[600px] w-full overflow-hidden bg-transparent">
+  <div class="relative flex min-h-[90vh] w-full overflow-hidden bg-transparent">
     <div class="absolute inset-0 z-0">
       
-      <!-- Theme-aware overlay: dark slate in dark mode, soft blue-grey in light mode -->
-      <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/20 z-10 pointer-events-none" />
+      <!-- Theme-aware overlay -->
+      <div class="absolute inset-0 bg-gradient-to-r from-[#030014]/95 via-[#030014]/75 to-[#030014]/30 z-10 pointer-events-none" />
       
       <!-- Subtle primary tint glow -->
-      <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500/30 via-transparent to-transparent z-10 mix-blend-overlay pointer-events-none" />
+      <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 via-transparent to-transparent z-10 mix-blend-overlay pointer-events-none" />
       
       <!-- Smooth fade to page background at the very bottom -->
-      <div class="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-slate-950/80 via-slate-950/50 to-transparent z-10 pointer-events-none" />
+      <div class="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#030014]/90 via-[#030014]/60 to-transparent z-10 pointer-events-none" />
     </div>
 
     <!-- Content Container -->
-    <div class="container relative z-20 mx-auto w-full max-w-7xl px-6 py-16 sm:py-20 pointer-events-none min-h-[90vh] flex flex-col justify-between">
-      
-      <!-- Top Left: Massive Headline -->
-      <div class="w-full max-w-4xl self-start pointer-events-auto mt-4 lg:mt-12">
-        <!-- Tagline Badge -->
-        <div class="mb-8 inline-flex items-center gap-3 rounded-full border border-cyan-400/20 bg-cyan-900/20 px-5 py-2 text-xs uppercase tracking-wider font-bold text-cyan-300 backdrop-blur-md shadow-lg shadow-cyan-500/10 transition-transform duration-300 hover:scale-105">
-          <span class="relative flex h-2 w-2">
-            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75"></span>
-            <span class="relative inline-flex h-2 w-2 rounded-full bg-cyan-500 shadow-[0_0_8px_#06b6d4]"></span>
-          </span>
-          {siteData?.tagline || 'Integrity. Innovation. Impact.'}
-        </div>
-
-        <!-- Headline -->
-        <h1 class="font-heading text-5xl font-black leading-[1.1] tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-slate-400 md:text-7xl lg:text-[5.5rem] drop-shadow-xl">
-          {headlinePart1}
-          {headlinePart2 && (
-            <span class="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent block mt-2">
-              {headlinePart2}
-            </span>
-          )}
-        </h1>
+    <div class="container relative z-20 mx-auto w-full max-w-7xl px-6 py-12 lg:py-20 pointer-events-none min-h-[90vh] flex items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
         
-        {subheadline && (
-          <p class="mt-8 max-w-2xl text-xl sm:text-2xl leading-relaxed text-slate-300 font-light">
-            {subheadline}
-          </p>
-        )}
-      </div>
+        <!-- Left Column: Typography and CTAs -->
+        <div class="lg:col-span-7 flex flex-col justify-center space-y-8 pointer-events-auto order-2 lg:order-1 mt-4 lg:mt-0 animate-fadeInUp">
+          <div class="space-y-4">
+            <!-- Tagline Badge -->
+            <div class="inline-flex items-center gap-3 rounded-full border border-indigo-400/20 bg-indigo-900/20 px-5 py-2 text-xs uppercase tracking-wider font-bold text-indigo-300 backdrop-blur-md shadow-lg shadow-indigo-500/10 transition-transform duration-300 hover:scale-105">
+              <span class="relative flex h-2 w-2">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-amber-500 shadow-[0_0_8px_#f59e0b]"></span>
+              </span>
+              {siteData?.tagline || '✦ The Unified Mentorship Workspace ✦'}
+            </div>
 
-      <!-- Bottom Right: Glass Card with CTAs -->
-      <div class="w-full max-w-[34rem] self-end mt-12 mb-8 p-8 md:p-12 rounded-[2.5rem] bg-slate-900/50 backdrop-blur-3xl border border-white/10 shadow-[0_30px_100px_rgba(0,0,0,0.4)] ring-1 ring-inset ring-white/10 relative overflow-hidden pointer-events-auto transition-transform duration-500 hover:-translate-y-1">
-        <!-- Inner ambient glow -->
-        <div class="absolute -inset-2 bg-gradient-to-br from-cyan-500/20 via-transparent to-purple-500/10 opacity-50 blur-2xl z-0 pointer-events-none"></div>
-        
-        <div class="relative z-10">
-          <p class="mb-10 text-lg leading-relaxed text-slate-300 font-medium">
-            Explore our comprehensive research initiatives and meet the visionary minds driving innovation across industries.
-          </p>
-
-          {(ctaPrimary || ctaSecondary) && (
-            <div class="flex flex-col gap-4 sm:flex-row sm:gap-4">
-              {ctaPrimary && (
-                <a
-                  href="/team"
-                  class="group flex-1 inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-4 text-base font-bold text-white shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:shadow-cyan-500/40 hover:brightness-110 border border-cyan-400/20"
-                >
-                  <span>{ctaPrimary}</span>
-                  <ArrowRight class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1.5" />
-                </a>
+            <!-- Headline -->
+            <h1 class="font-heading text-4xl font-black leading-[1.1] tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-slate-400 md:text-6xl lg:text-[4.2rem] drop-shadow-xl">
+              {headlinePart1}
+              {headlinePart2 && (
+                <span class="bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400 bg-clip-text text-transparent block mt-2">
+                  {headlinePart2}
+                </span>
               )}
+            </h1>
+            
+            {subheadline && (
+              <p class="max-w-2xl text-lg sm:text-xl leading-relaxed text-slate-300 font-light">
+                {subheadline}
+              </p>
+            )}
+          </div>
 
-              {ctaSecondary && (
-                <a
-                  href="/about"
-                  class="flex-1 inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-6 py-4 text-base font-bold text-white backdrop-blur-md transition-all duration-300 hover:bg-white/10 hover:border-white/40"
-                >
-                  {ctaSecondary}
-                </a>
+          <!-- Glass Card with CTAs -->
+          <div class="w-full max-w-[34rem] p-8 md:p-10 rounded-[2rem] bg-slate-950/40 backdrop-blur-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] ring-1 ring-inset ring-white/5 relative overflow-hidden transition-transform duration-500 hover:-translate-y-1 hover:border-indigo-500/30">
+            <!-- Inner ambient glow -->
+            <div class="absolute -inset-2 bg-gradient-to-br from-indigo-500/20 via-transparent to-amber-500/10 opacity-50 blur-2xl z-0 pointer-events-none"></div>
+            
+            <div class="relative z-10">
+              <p class="mb-6 text-sm md:text-base leading-relaxed text-slate-350 font-medium">
+                Stop juggling calendars, billing apps, and video tools. NexusHQ brings everything together so you can focus on building a world-class practice.
+              </p>
+
+              {(ctaPrimary || ctaSecondary) && (
+                <div class="flex flex-col gap-4 sm:flex-row sm:gap-4">
+                  {ctaPrimary && (
+                    <a
+                      href="https://app.nexushq.tech"
+                      class="group flex-1 inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-600 px-6 py-4 text-base font-bold text-white shadow-lg shadow-indigo-500/25 transition-all duration-300 hover:shadow-indigo-500/40 hover:brightness-110 border border-indigo-400/20"
+                    >
+                      <span>{ctaPrimary}</span>
+                      <ArrowRight class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1.5" />
+                    </a>
+                  )}
+
+                  {ctaSecondary && (
+                    <a
+                      href="/features"
+                      class="flex-1 inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-6 py-4 text-base font-bold text-white backdrop-blur-md transition-all duration-300 hover:bg-white/10 hover:border-white/40"
+                    >
+                      {ctaSecondary}
+                    </a>
+                  )}
+                </div>
               )}
             </div>
-          )}
+          </div>
         </div>
+
+        <!-- Right Column: Interactive 3D Canvas -->
+        <div class="lg:col-span-5 w-full flex items-center justify-center pointer-events-auto order-1 lg:order-2">
+          <HeroInteractiveCanvas client:load />
+        </div>
+        
       </div>
-      
     </div>
   </div>
 </section>

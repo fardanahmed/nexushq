@@ -6,30 +6,26 @@ import GoalsSection from '../components/home/GoalsSection.astro';
 import JoinTeamSection from '../components/home/JoinTeamSection';
 
 
-import { getResearchAreas, getSiteSettings } from '../lib/content-api';
+import { getFeatures, getSiteSettings } from '../lib/content-api';
 import type { SiteData } from '../types';
 
-// Fetch data from Neon DB
-const areas = await getResearchAreas();
+// Fetch data from backend (or fallback)
+const areas = await getFeatures();
 const siteData = await getSiteSettings<SiteData>('site_data');
 
 const schema = (siteData && siteData.contact) ? {
   "@context": "https://schema.org",
-  "@type": "ResearchOrganization",
-  "name": siteData.name,
-  "alternateName": siteData.abbreviation,
-  "slogan": siteData.tagline,
+  "@type": "SoftwareApplication",
+  "name": "NexusHQ",
+  "applicationCategory": "BusinessApplication",
+  "description": siteData.tagline || "The all-in-one coaching platform for modern mentors.",
   "url": Astro.url.href,
   "logo": new URL('/favicon.png', Astro.url).href,
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": siteData.contact.phone,
-    "email": siteData.contact.email,
-    "contactType": "customer service"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": siteData.contact.address
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "description": "Free trial available"
   }
 } : undefined;
 ---
@@ -37,10 +33,10 @@ const schema = (siteData && siteData.contact) ? {
   <!-- Static Hero Component (zero client JS) -->
   <Hero />
   
-  <!-- Interactive Research Grid hydrated immediately for framer-motion -->
+  <!-- Interactive Features Grid hydrated immediately for framer-motion -->
   <ResearchGrid client:load areas={areas} />
   
-  <!-- Static Goals Section (zero client JS) -->
+  <!-- Static Value Props Section (zero client JS) -->
   <GoalsSection />
   
   <!-- Interactive signup form hydrated immediately -->

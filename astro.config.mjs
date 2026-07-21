@@ -4,7 +4,7 @@ import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://carer.edu.pk',
+  site: 'https://nexushq.tech',
   integrations: [react(), sitemap()],
   output: 'static',
   adapter: vercel(),

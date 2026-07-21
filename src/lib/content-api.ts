@@ -1,4 +1,4 @@
-import type { Certification, ResearchArea } from '@/types';
+import type { Certification, Feature, ResearchArea } from '@/types';
 
 // Simple in-memory cache to speed up dev mode and build compiles
 const apiCache = new Map<string, { data: any; expiry: number }>();
@@ -91,12 +91,12 @@ export async function getSiteSettings<T = unknown>(
   key: string
 ): Promise<T | null> {
   const defaultMentorship = {
-    title: "Expert Mentorship Program",
-    description: "Guidance from leading researchers and industry professionals.",
+    title: "Expert Coaching Tools",
+    description: "Everything you need to run a professional coaching business.",
     benefits: [
-      "One-on-one sessions with domain experts",
-      "Career development and networking opportunities",
-      "Hands-on project guidance"
+      "Automated scheduling and booking management",
+      "Client progress tracking and analytics",
+      "Integrated video session hosting"
     ]
   };
 
@@ -110,20 +110,25 @@ export async function getSiteSettings<T = unknown>(
   return result.value;
 }
 
-export async function getResearchAreas(): Promise<ResearchArea[]> {
-  const result = await fetchFromBackend<{ items: ResearchArea[] }>(
-    '/api/research-areas',
+export async function getFeatures(): Promise<Feature[]> {
+  const result = await fetchFromBackend<{ items: Feature[] }>(
+    '/api/features',
     { 
       items: [
-        { id: '1', title: 'Sustainable Energy', description: 'Advanced research in solar, wind, and next-generation battery technologies.', icon: 'Zap', created_at: new Date().toISOString() },
-        { id: '2', title: 'Health Systems', description: 'Data-driven approaches to optimizing healthcare delivery and patient outcomes.', icon: 'Activity', created_at: new Date().toISOString() },
-        { id: '3', title: 'AgriTech', description: 'Sustainable agriculture solutions using IoT, drones, and machine learning.', icon: 'Sprout', created_at: new Date().toISOString() },
-        { id: '4', title: 'AI & Computation', description: 'Foundational research in artificial intelligence and high-performance computing.', icon: 'Cpu', created_at: new Date().toISOString() },
+        { id: '1', title: 'Smart Scheduling', description: 'Automated booking system with calendar sync, timezone detection, and buffer time management.', icon: 'Calendar', created_at: new Date().toISOString() },
+        { id: '2', title: 'Client Management', description: 'Track client progress, session notes, and outcomes with a centralized roster.', icon: 'Users', created_at: new Date().toISOString() },
+        { id: '3', title: 'Video Sessions', description: 'Host, record, and manage video coaching sessions with built-in screen sharing.', icon: 'Video', created_at: new Date().toISOString() },
+        { id: '4', title: 'Payments & Invoicing', description: 'Accept payments, send invoices, and manage subscriptions — all in one dashboard.', icon: 'CreditCard', created_at: new Date().toISOString() },
       ]
     }
   );
 
   return result.items;
+}
+
+/** @deprecated Use getFeatures instead */
+export async function getResearchAreas(): Promise<ResearchArea[]> {
+  return getFeatures();
 }
 
 export async function getCertifications(): Promise<Certification[]> {

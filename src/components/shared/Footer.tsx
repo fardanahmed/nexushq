@@ -9,13 +9,13 @@ export default function Footer({ siteData }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   const fallbackSiteData: SiteData = {
-    name: 'Nasir Uddin Centre for Applied Research & Educational Resources',
-    abbreviation: 'CARER',
-    tagline: 'Bridging Academia & Industry',
+    name: 'NexusHQ Technologies',
+    abbreviation: 'NexusHQ',
+    tagline: 'The Coaching Platform for Modern Mentors',
     contact: {
-      email: 'contact@carer.edu.pk',
-      phone: '+92-21-111-222-333',
-      address: 'Karachi, Pakistan',
+      email: 'hello@nexushq.tech',
+      phone: '+1-800-NEXUS-HQ',
+      address: 'Remote-first, Global',
     },
   };
 
@@ -29,7 +29,9 @@ export default function Footer({ siteData }: FooterProps) {
   };
 
   return (
-    <footer className="border-t border-border bg-card text-muted-foreground">
+    <footer className="relative border-t border-border bg-card text-muted-foreground">
+      {/* Gradient accent line */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
       <div className="container mx-auto max-w-7xl px-6 py-12">
         <div className="grid gap-8 md:grid-cols-3 lg:gap-12">
           {/* Left: Logo and Tagline */}
@@ -48,18 +50,18 @@ export default function Footer({ siteData }: FooterProps) {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="/research"
+                  href="/features"
                   className="transition-colors hover:text-primary"
                 >
-                  Research
+                  Features
                 </a>
               </li>
               <li>
                 <a
-                  href="/resources"
+                  href="/pricing"
                   className="transition-colors hover:text-primary"
                 >
-                  Resources
+                  Pricing
                 </a>
               </li>
               <li>

@@ -2,23 +2,22 @@
 import Layout from '../layouts/Layout.astro';
 import { Target, Lightbulb, Scale } from 'lucide-react';
 import { getSiteSettings } from '../lib/content-api';
-import { getImageUrl, images } from '../lib/images';
 import type { AboutContent, SiteData } from '../types';
 
 const defaultAboutContent: AboutContent = {
-  mission: 'Our mission is to pioneer sustainable development and advance human knowledge.',
-  preamble: 'CARER was founded with a singular vision to drive research that matters.\\n\\nToday, we continue to lead in applied research.',
-  vision: 'A world where sustainability is the norm, driven by cutting-edge research.'
+  mission: 'Our mission is to empower coaches, tutors, and mentors with the tools they need to build thriving businesses.',
+  preamble: 'NexusHQ was born from a simple observation: coaches spend more time on admin than on coaching.\\n\\nWe built a platform that handles scheduling, payments, client management, and video sessions — so you can focus on what you do best.',
+  vision: 'A world where every great coach has the tools to scale their impact, without the overhead.'
 };
 
 const defaultSiteData: SiteData = {
-  name: 'CARER Research',
-  abbreviation: 'CARER',
-  tagline: 'Pioneering Sustainable Development',
+  name: 'NexusHQ Technologies',
+  abbreviation: 'NexusHQ',
+  tagline: 'The Coaching Platform for Modern Mentors',
   contact: {
-    email: 'contact@carer.example.com',
-    phone: '+1 800 555 0199',
-    address: '100 Innovation Drive, Tech City'
+    email: 'hello@nexushq.tech',
+    phone: '+1-800-NEXUS-HQ',
+    address: 'Remote-first, Global'
   }
 };
 
@@ -26,7 +25,7 @@ const aboutContent = (await getSiteSettings<AboutContent>('about_content')) || d
 const siteData = (await getSiteSettings<SiteData>('site_data')) || defaultSiteData;
 
 const orgSchema = (siteData && siteData.contact) ? {
-  "@type": "ResearchOrganization",
+  "@type": "Organization",
   "@id": `${Astro.url.origin}/#organization`,
   "name": siteData.name,
   "alternateName": siteData.abbreviation,
@@ -38,10 +37,6 @@ const orgSchema = (siteData && siteData.contact) ? {
     "telephone": siteData.contact.phone,
     "email": siteData.contact.email,
     "contactType": "customer service"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": siteData.contact.address
   }
 } : null;
 
@@ -49,7 +44,7 @@ const aboutPageSchema = {
   "@type": "AboutPage",
   "@id": Astro.url.href,
   "url": Astro.url.href,
-  "name": "About Our Mission",
+  "name": "About NexusHQ",
   "description": aboutContent.mission,
   "about": orgSchema ? { "@id": `${Astro.url.origin}/#organization` } : undefined
 };
@@ -62,18 +57,16 @@ const schema = {
   ]
 };
 
-const historyImgUrl = getImageUrl(images.leadership);
-
 const values = [
-  { title: 'Integrity', icon: Scale, desc: 'We adhere to the highest ethical standards in all our research and operations.' },
-  { title: 'Innovation', icon: Lightbulb, desc: 'We constantly push boundaries to find novel solutions to complex global problems.' },
-  { title: 'Impact', icon: Target, desc: 'We focus on tangible outcomes that make a measurable difference in society.' },
+  { title: 'Simplicity', icon: Scale, desc: 'We believe powerful software should be effortless to use. No training manuals required.' },
+  { title: 'Coach-First', icon: Lightbulb, desc: 'Every feature we build starts with one question: does this help coaches serve their clients better?' },
+  { title: 'Reliability', icon: Target, desc: 'Your clients depend on you, and you depend on us. We take that seriously with 99.9% uptime.' },
 ];
 ---
 
-<Layout title="About Our Mission" schema={schema}>
+<Layout title="About NexusHQ" schema={schema}>
   <!-- Hero Section -->
-  <section class="relative overflow-hidden border-b border-border/50 py-24 md:py-32 bg-gradient-to-b from-slate-950/20 to-transparent">
+  <section class="relative overflow-hidden border-b border-border/50 py-24 md:py-32 bg-gradient-to-b from-[#030014]/60 to-transparent">
     <!-- Geometric backdrop shape -->
     <div class="absolute inset-0 opacity-5 pointer-events-none select-none">
       <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -82,14 +75,14 @@ const values = [
     </div>
     
     <div class="container mx-auto max-w-7xl px-6 relative z-10">
-      <div class="max-w-4xl">
+      <div class="max-w-4xl animate-fadeInUp">
         <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
-          Who We Are
+          About Us
         </div>
         <h1 class="mb-8 font-heading text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-          Pioneering the future of <span class="bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">sustainable development</span>
+          Built by coaches, <span class="bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent">for coaches</span>
         </h1>
-        <p class="text-xl leading-relaxed text-muted-foreground sm:text-2xl font-light">
+        <p class="text-xl leading-relaxed text-slate-300 sm:text-2xl font-light">
           {aboutContent.mission}
         </p>
       </div>
@@ -97,19 +90,20 @@ const values = [
   </section>
 
   <!-- Values Grid -->
-  <section class="py-24">
+  <section class="py-24 relative">
+    <div class="absolute top-1/3 left-10 h-96 w-96 rounded-full bg-indigo-500/5 blur-3xl pointer-events-none" />
     <div class="container mx-auto max-w-7xl px-6">
       <div class="grid gap-8 md:grid-cols-3">
         {values.map((val) => {
           const Icon = val.icon;
 
           return (
-            <div class="group relative overflow-hidden rounded-2xl border border-border bg-card/50 p-8 transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5">
+            <div class="group relative overflow-hidden rounded-2xl border border-white/5 bg-slate-950/45 p-8 transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 glow-border">
               <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
                 <Icon className="h-7 w-7" aria-hidden="true" />
               </div>
-              <h3 class="mb-4 font-heading text-2xl font-bold text-foreground">{val.title}</h3>
-              <p class="text-muted-foreground leading-relaxed text-base md:text-lg">{val.desc}</p>
+              <h3 class="mb-4 font-heading text-2xl font-bold text-white group-hover:text-primary transition-colors">{val.title}</h3>
+              <p class="text-slate-400 leading-relaxed text-sm md:text-base font-medium">{val.desc}</p>
             </div>
           );
         })}
@@ -118,48 +112,33 @@ const values = [
   </section>
 
   <!-- Story Section -->
-  <section class="border-y border-border/50 bg-muted/20 py-24">
+  <section class="border-y border-border/50 bg-[#030014]/40 py-24">
     <div class="container mx-auto max-w-7xl px-6">
-      <div class="grid gap-16 lg:grid-cols-2 lg:items-center">
-        <!-- Story Text -->
-        <div class="space-y-6">
-          <p class="text-sm font-semibold uppercase tracking-widest text-primary">Our Story</p>
-          <h2 class="font-heading text-3xl font-extrabold tracking-tight sm:text-4xl text-foreground">The Journey of CARER</h2>
-          
-          <div class="prose prose-lg dark:prose-invert text-muted-foreground space-y-6 text-lg leading-relaxed">
-            {aboutContent.preamble
-              .replace(/\\n\\n/g, '\n\n')
-              .replace(/\\n/g, ' ')
-              .split('\n\n')
-              .filter((p) => p.trim())
-              .map((paragraph) => (
-                <p>{paragraph.trim()}</p>
-              ))}
-          </div>
-        </div>
+      <div class="max-w-3xl mx-auto space-y-6 animate-fadeInUp">
+        <p class="text-sm font-semibold uppercase tracking-widest text-primary">Our Story</p>
+        <h2 class="font-heading text-3xl font-extrabold tracking-tight sm:text-4xl text-white">Why We Built NexusHQ</h2>
         
-        <!-- Story Image Container -->
-        <div class="relative">
-          <div class="absolute -inset-1 bg-gradient-to-r from-primary to-blue-500 rounded-2xl blur opacity-15" />
-          <div class="relative aspect-[4/3] md:aspect-[16/10] lg:aspect-auto lg:h-[550px] overflow-hidden rounded-2xl border border-border/50 shadow-2xl">
-            <img 
-              src={historyImgUrl} 
-              alt="CARER History & Leadership" 
-              class="h-full w-full object-cover transition-transform duration-[8000ms] hover:scale-105" 
-            />
-          </div>
+        <div class="prose prose-lg dark:prose-invert text-slate-400 space-y-6 text-base md:text-lg leading-relaxed font-medium">
+          {aboutContent.preamble
+            .replace(/\\\\n\\\\n/g, '\n\n')
+            .replace(/\\\\n/g, ' ')
+            .split('\n\n')
+            .filter((p) => p.trim())
+            .map((paragraph) => (
+              <p>{paragraph.trim()}</p>
+            ))}
         </div>
       </div>
     </div>
   </section>
 
   <!-- Vision Section -->
-  <section class="py-24 relative overflow-hidden bg-gradient-to-t from-slate-950/20 to-transparent">
+  <section class="py-24 relative overflow-hidden bg-gradient-to-t from-[#030014]/60 to-transparent">
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-80 w-80 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
     
-    <div class="container mx-auto max-w-7xl px-6 text-center relative z-10">
+    <div class="container mx-auto max-w-7xl px-6 text-center relative z-10 animate-fadeInUp">
       <p class="mb-6 text-sm font-semibold uppercase tracking-widest text-primary">Our Vision</p>
-      <blockquote class="mx-auto max-w-4xl font-heading text-2xl font-semibold italic leading-relaxed text-foreground md:text-3xl lg:text-4xl">
+      <blockquote class="mx-auto max-w-4xl font-heading text-2xl font-semibold italic leading-relaxed text-white md:text-3xl lg:text-4xl">
         &ldquo;{aboutContent.vision}&rdquo;
       </blockquote>
     </div>

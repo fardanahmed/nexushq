@@ -48,7 +48,7 @@ export interface ContactFormState {
 }
 
 // Backend Content Types
-export interface ResearchArea {
+export interface Feature {
   id: string;
   title: string;
   description: string;
@@ -56,6 +56,19 @@ export interface ResearchArea {
   created_at?: string;
 }
 
+/** @deprecated Use Feature instead */
+export type ResearchArea = Feature;
+
+export interface PricingTier {
+  id: string;
+  name: string;
+  price: string;
+  description: string;
+  features: string[];
+  highlighted?: boolean;
+}
+
+/** @deprecated Use PricingTier instead */
 export interface Certification {
   id: string;
   title: string;
@@ -73,7 +86,11 @@ export type IconName =
   | 'Shield'
   | 'Lightbulb'
   | 'Target'
-  | 'Scale';
+  | 'Scale'
+  | 'Calendar'
+  | 'Users'
+  | 'Video'
+  | 'CreditCard';
 
 export interface TeamMember {
   id: number;

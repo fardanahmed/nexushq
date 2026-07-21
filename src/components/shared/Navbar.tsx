@@ -9,6 +9,7 @@ interface NavbarProps {
 const Navbar = ({ pathname: propPathname }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [pathname, setPathname] = useState(propPathname || '');
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -16,24 +17,30 @@ const Navbar = ({ pathname: propPathname }: NavbarProps) => {
     }
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const navLinks = [
     { href: '/', label: 'Home' },
+    { href: '/features', label: 'Features' },
+    { href: '/pricing', label: 'Pricing' },
     { href: '/about', label: 'About' },
-    { href: '/research', label: 'Research' },
-    { href: '/resources', label: 'Resources' },
     { href: '/contact', label: 'Contact' },
   ];
 
   return (
-    <nav className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
+    <nav className={`fixed top-0 z-50 w-full border-b transition-all duration-300 ${scrolled ? 'border-border/60 bg-background/95 shadow-lg shadow-black/10 backdrop-blur-xl' : 'border-border/40 bg-background/80 backdrop-blur-md'}`}>
       <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
         {/* Logo */}
         <a href="/" className="flex items-center gap-2">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-xl">
-            C
+            N
           </div>
           <span className="text-xl font-bold text-foreground tracking-tight">
-            CARER
+            NexusHQ
           </span>
         </a>
 
@@ -58,7 +65,7 @@ const Navbar = ({ pathname: propPathname }: NavbarProps) => {
           })}
 
           <Button asChild className="ml-4 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 font-semibold shadow-lg shadow-primary/20">
-            <a href="/team">Join Us</a>
+            <a href="https://app.nexushq.tech">Get Started</a>
           </Button>
         </div>
 
@@ -105,7 +112,7 @@ const Navbar = ({ pathname: propPathname }: NavbarProps) => {
               className="w-full bg-primary text-primary-foreground"
               onClick={() => setIsMenuOpen(false)}
             >
-              <a href="/team">Join Us</a>
+              <a href="https://app.nexushq.tech">Get Started</a>
             </Button>
           </div>
         </div>

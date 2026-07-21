@@ -19,10 +19,10 @@ const { title, description, schema } = Astro.props;
 const siteData = await getSiteSettings<SiteData>('site_data');
 const defaultTitle = siteData 
   ? `${siteData.abbreviation} | ${siteData.name}`
-  : 'CARER | Nasir Uddin Centre for Applied Research & Educational Resources';
+  : 'NexusHQ | The Coaching Platform for Modern Mentors';
 
-const defaultDesc = siteData?.tagline || 'Bridging academia and industry through cutting-edge research in energy, health, agriculture, and digital systems.';
-const displayTitle = title ? `${title} | CARER` : defaultTitle;
+const defaultDesc = siteData?.tagline || 'The all-in-one platform for coaches, tutors, and mentors to manage clients, bookings, and sessions.';
+const displayTitle = title ? `${title} | NexusHQ` : defaultTitle;
 const displayDesc = description || defaultDesc;
 ---
 
@@ -34,7 +34,7 @@ const displayDesc = description || defaultDesc;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#1e40af" />
+    <meta name="theme-color" content="#4f46e5" />
     
     <title>{displayTitle}</title>
     <meta name="description" content={displayDesc} />
@@ -63,14 +63,58 @@ const displayDesc = description || defaultDesc;
         localStorage.setItem('theme', 'dark');
       }
 
-      // Prevent loading screen flash on page transition swap
-      document.addEventListener('astro:before-swap', (ev) => {
+      // Unified loader manager
+      const hideLoader = () => {
+        const loader = document.getElementById('global-loader');
+        if (loader) {
+          loader.style.opacity = '0';
+          setTimeout(() => {
+            loader.remove();
+            document.body.style.overflow = '';
+          }, 700);
+        } else {
+          document.body.style.overflow = '';
+        }
+      };
+
+      // Listen for the React 3D scene ready signal
+      window.addEventListener('3d-scene-ready', () => {
+        window.is3dSceneLoaded = true;
+        hideLoader();
+      });
+
+      // Handle after-swap during Astro ClientRouter navigations
+      document.addEventListener('astro:after-swap', () => {
         if (window.is3dSceneLoaded === true) {
-          const loader = ev.newDocument.getElementById('global-loader');
+          const loader = document.getElementById('global-loader');
           if (loader) {
             loader.style.display = 'none';
+            loader.remove();
           }
-          ev.newDocument.body.style.overflow = '';
+          document.body.style.overflow = '';
+        }
+      });
+
+      // Handle page-load (covers initial load and after-transition completes)
+      document.addEventListener('astro:page-load', () => {
+        if (window.is3dSceneLoaded === true) {
+          // If already loaded, immediately remove the loader
+          const loader = document.getElementById('global-loader');
+          if (loader) {
+            loader.style.display = 'none';
+            loader.remove();
+          }
+          document.body.style.overflow = '';
+        } else {
+          // If this is the initial site load, lock scroll
+          document.body.style.overflow = 'hidden';
+          
+          // Failsafe timer (4 seconds)
+          setTimeout(() => {
+            if (!window.is3dSceneLoaded) {
+              window.dispatchEvent(new Event('3d-scene-ready'));
+            }
+          }, 4000);
         }
       });
     </script>
@@ -91,7 +135,7 @@ const displayDesc = description || defaultDesc;
     </div>
 
     <!-- Global Loading Screen overlay -->
-    <div id="global-loader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-slate-950 transition-opacity duration-700">
+    <div id="global-loader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0f0a1e] transition-opacity duration-700">
       <!-- 3D Gyroscope Loader -->
       <div class="gyroscope mb-12">
         <div class="gyro-ring"></div>
@@ -101,8 +145,8 @@ const displayDesc = description || defaultDesc;
       </div>
       
       <!-- Text -->
-      <h2 class="text-3xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-400 animate-pulse">CARER</h2>
-      <p class="text-slate-400 mt-2 tracking-widest text-sm uppercase">Initializing WebGL</p>
+      <h2 class="text-3xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-amber-400 animate-pulse">NexusHQ</h2>
+      <p class="text-slate-400 mt-2 tracking-widest text-sm uppercase">Initializing</p>
     </div>
     
     <style>
@@ -122,18 +166,18 @@ const displayDesc = description || defaultDesc;
         box-shadow: inset 0 0 15px rgba(255,255,255,0.05);
       }
       .gyro-ring:nth-child(1) {
-        border-top-color: #06b6d4; /* Cyan */
-        border-bottom-color: #06b6d4;
+        border-top-color: #6366f1; /* Indigo */
+        border-bottom-color: #6366f1;
         animation: spin1 2s linear infinite;
       }
       .gyro-ring:nth-child(2) {
-        border-right-color: #8b5cf6; /* Violet */
-        border-left-color: #8b5cf6;
+        border-right-color: #f59e0b; /* Amber */
+        border-left-color: #f59e0b;
         animation: spin2 2.5s linear infinite;
       }
       .gyro-ring:nth-child(3) {
-        border-top-color: #3b82f6; /* Blue */
-        border-bottom-color: #3b82f6;
+        border-top-color: #818cf8; /* Indigo-400 */
+        border-bottom-color: #818cf8;
         animation: spin3 3s linear infinite;
       }
       .gyro-core {
@@ -143,9 +187,9 @@ const displayDesc = description || defaultDesc;
         width: 30px;
         height: 30px;
         margin: -15px 0 0 -15px;
-        background: radial-gradient(circle, #06b6d4, #8b5cf6);
+        background: radial-gradient(circle, #6366f1, #f59e0b);
         border-radius: 50%;
-        box-shadow: 0 0 30px #06b6d4, 0 0 60px #8b5cf6;
+        box-shadow: 0 0 30px #6366f1, 0 0 60px #f59e0b;
         animation: pulse-core 2s infinite alternate;
       }
 
@@ -167,35 +211,6 @@ const displayDesc = description || defaultDesc;
       }
     </style>
 
-    <script is:inline>
-      if (window.is3dSceneLoaded === true) {
-        // Bypass the loading screen entirely for repeat visits
-        const loader = document.getElementById('global-loader');
-        if (loader) {
-          loader.style.display = 'none';
-        }
-      } else {
-        // Because we use 'scrollbar-gutter: stable' in html, we can safely lock body scrolling
-        // without causing a horizontal layout shift.
-        document.body.style.overflow = 'hidden';
-      }
-      
-      // Listen for the React component to signal it's done
-      window.addEventListener('3d-scene-ready', () => {
-        const loader = document.getElementById('global-loader');
-        if (loader) {
-          loader.style.opacity = '0';
-          setTimeout(() => {
-            loader.remove();
-            document.body.style.overflow = '';
-          }, 700);
-        }
-      });
-      
-      // Failsafe: if the 3D scene crashes or takes too long, remove the loader after 5s
-      setTimeout(() => {
-        window.dispatchEvent(new Event('3d-scene-ready'));
-      }, 5000);
-    </script>
+    <!-- Unified loader manager in head handles this script block -->
   </body>
 </html>

@@ -3,59 +3,59 @@ import { CheckCircle2 } from 'lucide-react';
 
 const goals = [
   {
-    title: 'Academic Excellence',
-    description: 'Promote academic excellence through mentorship and advanced training programs.',
+    title: 'Manage Your Client Roster',
+    description: 'Keep every client organized with secure profiles, full session history logs, detailed progress notes, and custom classification tags.',
   },
   {
-    title: 'Academia-Industry Synergy',
-    description: 'Bridge the gap between academia and industry to create commercially viable, real-world solutions.',
+    title: 'Automate Bookings & Calendars',
+    description: 'Allow clients to self-book from your live availability. Syncs with Google Calendar, handles timezones automatically, and drafts reminders.',
   },
   {
-    title: 'Collaborative Research',
-    description: 'Foster collaborative research initiatives at both national and international levels.',
+    title: 'Host & Record Private Sessions',
+    description: 'Launch WebRTC high-definition video sessions directly inside your web app with split-screen sharing, recording, and transcript generation.',
   },
 ];
 ---
 
-<section class="bg-slate-950/80 backdrop-blur-sm border-y border-white/5 py-24 md:py-32 relative overflow-hidden">
+<section class="bg-[#030014]/95 backdrop-blur-sm border-y border-white/5 py-24 md:py-32 relative overflow-hidden">
   <!-- Subtle background glow -->
-  <div class="absolute -left-48 top-1/4 h-[500px] w-[500px] rounded-full bg-cyan-500/10 blur-[150px] pointer-events-none" />
-  <div class="absolute right-0 bottom-1/4 h-[400px] w-[400px] rounded-full bg-purple-600/10 blur-[120px] pointer-events-none" />
+  <div class="absolute -left-48 top-1/4 h-[500px] w-[500px] rounded-full bg-indigo-500/5 blur-[150px] pointer-events-none" />
+  <div class="absolute right-0 bottom-1/4 h-[400px] w-[400px] rounded-full bg-amber-600/5 blur-[120px] pointer-events-none" />
   
   <div class="container mx-auto max-w-7xl px-6 relative z-10">
     <div class="grid gap-16 lg:grid-cols-[1fr_2fr] items-center">
       
       <!-- Left Column: Title and context -->
-      <div class="space-y-8">
-        <div class="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-900/20 px-5 py-2 text-xs font-bold text-cyan-300 shadow-[0_0_20px_rgba(8,145,178,0.15)] uppercase tracking-widest backdrop-blur-md">
-          Core Mission
+      <div class="space-y-8 animate-fadeInUp">
+        <div class="inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-900/20 px-5 py-2 text-xs font-bold text-indigo-350 shadow-[0_0_20px_rgba(99,102,241,0.1)] uppercase tracking-widest backdrop-blur-md">
+          Why NexusHQ
         </div>
-        <h2 class="font-heading text-4xl font-black tracking-tighter text-white sm:text-5xl lg:text-6xl drop-shadow-xl">
-          CARER's <span class="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent block mt-2 pb-1">Strategic Goals</span>
+        <h2 class="font-heading text-4xl font-black tracking-tighter text-white sm:text-5xl lg:text-6xl drop-shadow-xl uppercase">
+          Everything You <span class="bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400 bg-clip-text text-transparent block mt-2 pb-1">Need to Coach</span>
         </h2>
-        <p class="text-slate-300 text-lg leading-relaxed font-light">
-          Through innovation, integrity, and relentless application, we align academic talent with industry challenges to pioneer sustainable technology.
+        <p class="text-slate-350 text-base md:text-lg leading-relaxed font-medium">
+          NexusHQ replaces the patchwork of tools you're using today — calendars, invoice builders, video utilities, and spreadsheets — with one unified space on <span class="text-indigo-400 font-bold">nexushq.tech</span>.
         </p>
       </div>
 
-      <!-- Right Column: Goals Cards (Uplifted with glassmorphic cards and hover borders) -->
-      <div class="grid gap-6">
+      <!-- Right Column: Value Prop Cards -->
+      <div class="grid gap-6 animate-fadeInUp">
         {goals.map((goal, i) => (
-          <div class="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/40 backdrop-blur-3xl p-8 md:p-10 transition-all duration-500 hover:-translate-y-2 hover:border-cyan-500/30 hover:shadow-[0_20px_60px_rgba(8,145,178,0.15)] ring-1 ring-inset ring-white/5 hover:ring-cyan-500/20">
+          <div class="group relative overflow-hidden rounded-[2rem] border border-white/5 bg-slate-950/40 backdrop-blur-3xl p-8 md:p-10 transition-all duration-500 hover:-translate-y-1.5 hover:border-indigo-500/30 hover:shadow-[0_20px_60px_rgba(99,102,241,0.15)] ring-1 ring-inset ring-white/5 hover:ring-indigo-500/20">
             <!-- Left accent border on hover -->
-            <div class="absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b from-cyan-400 to-purple-500 scale-y-0 transition-transform duration-500 group-hover:scale-y-100 origin-top" />
+            <div class="absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b from-indigo-400 to-amber-500 scale-y-0 transition-transform duration-500 group-hover:scale-y-100 origin-top" />
             
-            <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-amber-500/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
             <div class="flex flex-col sm:flex-row items-start gap-6 relative z-10">
-              <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-slate-800/80 border border-white/10 text-cyan-400 shadow-[0_0_20px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:bg-cyan-500/20 group-hover:border-cyan-400/40 group-hover:text-cyan-300 group-hover:scale-110 group-hover:rotate-3">
-                <CheckCircle2 class="h-8 w-8 drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
+              <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-slate-900/80 border border-white/10 text-indigo-400 shadow-[0_0_20px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:bg-indigo-500/20 group-hover:border-indigo-400/40 group-hover:text-indigo-300 group-hover:scale-110 group-hover:rotate-3">
+                <CheckCircle2 class="h-8 w-8 drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]" />
               </div>
               <div class="space-y-3">
-                <h3 class="font-heading text-2xl font-bold text-white group-hover:text-cyan-300 transition-colors duration-300">
+                <h3 class="font-heading text-2xl font-bold text-white group-hover:text-indigo-300 transition-colors duration-300">
                   {goal.title}
                 </h3>
-                <p class="text-slate-300 leading-relaxed text-base md:text-lg font-medium">
+                <p class="text-slate-400 leading-relaxed text-sm md:text-base font-medium">
                   {goal.description}
                 </p>
               </div>

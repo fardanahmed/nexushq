@@ -1,11 +1,11 @@
 {
-  "name": "CARER",
-  "short_name": "CARER",
-  "description": "Nasir Uddin Centre for Applied Research & Educational Resources - Bridging Academia & Industry",
+  "name": "NexusHQ",
+  "short_name": "NexusHQ",
+  "description": "The all-in-one platform for coaches, tutors, and mentors to manage clients, bookings, and sessions.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#1e40af",
+  "background_color": "#0f0a1e",
+  "theme_color": "#4f46e5",
   "icons": [
     {
       "src": "/favicon.png",

@@ -1,0 +1,138 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Check, ArrowRight } from 'lucide-react';
+
+const tiers = [
+  {
+    name: 'Starter',
+    price: '$19',
+    period: '/month',
+    description: 'Perfect for solo coaches just getting started.',
+    features: [
+      'Up to 20 active clients',
+      'Automated scheduling',
+      'Google Calendar sync',
+      'Email reminders',
+      'Basic analytics',
+    ],
+    cta: 'Start Free Trial',
+    highlighted: false,
+  },
+  {
+    name: 'Professional',
+    price: '$49',
+    period: '/month',
+    description: 'For established coaches ready to scale.',
+    features: [
+      'Unlimited clients',
+      'Video sessions with recording',
+      'Stripe payment integration',
+      'Custom booking page',
+      'Client progress tracking',
+      'Advanced analytics',
+      'Priority support',
+    ],
+    cta: 'Start Free Trial',
+    highlighted: true,
+  },
+  {
+    name: 'Enterprise',
+    price: 'Custom',
+    period: '',
+    description: 'For coaching firms and large teams.',
+    features: [
+      'Everything in Professional',
+      'Multi-coach management',
+      'White-label branding',
+      'API access',
+      'SSO authentication',
+      'Dedicated account manager',
+      'Custom integrations',
+    ],
+    cta: 'Contact Sales',
+    highlighted: false,
+  },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": Astro.url.href,
+  "url": Astro.url.href,
+  "name": "Pricing",
+  "description": "Simple, transparent pricing for every stage of your coaching business.",
+};
+---
+
+<Layout title="Pricing" schema={schema}>
+  <!-- Header Section -->
+  <section class="border-b border-border/50 py-20 sm:py-24 lg:py-28 bg-gradient-to-b from-[#0f0a1e]/20 to-transparent">
+    <div class="container mx-auto max-w-7xl px-6">
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-primary">Pricing</p>
+        <h1 class="mb-6 font-heading text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+          Simple, <span class="bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent">transparent</span> pricing
+        </h1>
+        <p class="text-xl leading-relaxed text-muted-foreground font-light">
+          No hidden fees. No surprise charges. Start free and upgrade as you grow.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Grid -->
+  <section class="py-20 relative">
+    <div class="absolute top-1/4 right-0 h-96 w-96 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
+    <div class="absolute bottom-10 left-10 h-80 w-80 rounded-full bg-violet-500/5 blur-3xl pointer-events-none" />
+    
+    <div class="container mx-auto max-w-7xl px-6 relative z-10">
+      <div class="grid gap-8 md:grid-cols-3 items-stretch">
+        {tiers.map((tier) => (
+          <div class={`relative flex flex-col rounded-2xl border p-8 transition-all duration-300 hover:-translate-y-1 ${
+            tier.highlighted 
+              ? 'border-primary/50 bg-card shadow-xl shadow-primary/10 ring-1 ring-primary/20' 
+              : 'border-border bg-card/50 hover:border-primary/30 hover:shadow-lg'
+          }`}>
+            {tier.highlighted && (
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center rounded-full bg-primary px-4 py-1 text-xs font-bold text-white uppercase tracking-wider">
+                Most Popular
+              </div>
+            )}
+            
+            <div class="mb-8">
+              <h3 class="text-xl font-bold text-foreground mb-2">{tier.name}</h3>
+              <p class="text-muted-foreground text-sm mb-6">{tier.description}</p>
+              <div class="flex items-baseline gap-1">
+                <span class="text-5xl font-black text-foreground tracking-tight">{tier.price}</span>
+                {tier.period && <span class="text-muted-foreground text-lg">{tier.period}</span>}
+              </div>
+            </div>
+
+            <ul class="space-y-4 mb-8 flex-grow">
+              {tier.features.map((feature) => (
+                <li class="flex items-start gap-3 text-sm">
+                  <Check className="h-5 w-5 shrink-0 text-primary mt-0.5" />
+                  <span class="text-muted-foreground">{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a 
+              href={tier.name === 'Enterprise' ? '/contact' : 'https://app.nexushq.tech'}
+              class={`inline-flex items-center justify-center rounded-xl px-6 py-3.5 text-base font-bold transition-all duration-300 ${
+                tier.highlighted 
+                  ? 'bg-primary text-white shadow-lg shadow-primary/20 hover:brightness-110' 
+                  : 'border border-border bg-card text-foreground hover:bg-accent hover:border-primary/30'
+              }`}
+            >
+              {tier.cta}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ or trust bar could go here in the future -->
+</Layout>
