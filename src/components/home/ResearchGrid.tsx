@@ -172,7 +172,7 @@ const ResearchGrid = ({ areas }: FeaturesGridProps) => {
           <div className="inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-900/20 px-5 py-2 text-xs font-bold text-indigo-350 shadow-[0_0_20px_rgba(99,102,241,0.15)] uppercase tracking-widest backdrop-blur-md">
             Features & Capabilities
           </div>
-          <h2 className="text-4xl font-black tracking-tighter sm:text-5xl lg:text-[4rem] text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-200 to-slate-400 drop-shadow-xl">
+          <h2 className="text-4xl font-black tracking-tighter sm:text-5xl lg:text-[4rem] text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-200 to-slate-400 drop-shadow-xl pb-2">
             Everything You Need
           </h2>
           <p className="text-lg text-slate-400 font-medium max-w-2xl">
