@@ -9,6 +9,13 @@ export const Logo: React.FC<LogoProps> = ({
   className = 'h-9 w-9',
   size = 36,
 }) => {
+  const instanceId = React.useId().replace(/:/g, '');
+  const leftGradId = `nexusLeftGrad-${instanceId}`;
+  const rightGradId = `nexusRightGrad-${instanceId}`;
+  const diagGradId = `nexusDiagGrad-${instanceId}`;
+  const hexGradId = `nexusHexGrad-${instanceId}`;
+  const shadowId = `nexus3DShadow-${instanceId}`;
+
   return (
     <svg
       width={size}
@@ -21,33 +28,33 @@ export const Logo: React.FC<LogoProps> = ({
     >
       <defs>
         {/* Left Pillar Gradient */}
-        <linearGradient id="nexusLeftGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <linearGradient id={leftGradId} x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#ffffff" />
           <stop offset="100%" stopColor="#6366f1" />
         </linearGradient>
 
         {/* Right Pillar Gradient */}
-        <linearGradient id="nexusRightGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+        <linearGradient id={rightGradId} x1="0%" y1="100%" x2="0%" y2="0%">
           <stop offset="0%" stopColor="#3730a3" />
           <stop offset="100%" stopColor="#6366f1" />
         </linearGradient>
 
         {/* Floating Diagonal Bridge Gradient */}
-        <linearGradient id="nexusDiagGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id={diagGradId} x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#38bdf8" />
           <stop offset="50%" stopColor="#8b5cf6" />
           <stop offset="100%" stopColor="#c026d3" />
         </linearGradient>
 
         {/* Hex Shield Border Gradient */}
-        <linearGradient id="nexusHexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id={hexGradId} x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#6366f1" stopOpacity="0.6" />
           <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.2" />
           <stop offset="100%" stopColor="#c026d3" stopOpacity="0.5" />
         </linearGradient>
 
         {/* 3D Drop Shadow for Diagonal Bridge */}
-        <filter id="nexus3DShadow" x="-20%" y="-20%" width="140%" height="140%">
+        <filter id={shadowId} x="-20%" y="-20%" width="140%" height="140%">
           <feDropShadow
             dx="2"
             dy="4"
@@ -61,7 +68,7 @@ export const Logo: React.FC<LogoProps> = ({
       {/* Hexagonal Shield Background Frame */}
       <polygon
         points="50,6 88,27 88,73 50,94 12,73 12,27"
-        stroke="url(#nexusHexGrad)"
+        stroke={`url(#${hexGradId})`}
         strokeWidth="2.5"
         strokeLinejoin="round"
         fill="none"
@@ -71,7 +78,7 @@ export const Logo: React.FC<LogoProps> = ({
       {/* Left Vertical Pillar */}
       <path
         d="M 28 26 V 74"
-        stroke="url(#nexusLeftGrad)"
+        stroke={`url(#${leftGradId})`}
         strokeWidth="15"
         strokeLinecap="round"
       />
@@ -79,7 +86,7 @@ export const Logo: React.FC<LogoProps> = ({
       {/* Right Vertical Pillar */}
       <path
         d="M 72 26 V 74"
-        stroke="url(#nexusRightGrad)"
+        stroke={`url(#${rightGradId})`}
         strokeWidth="15"
         strokeLinecap="round"
       />
@@ -87,10 +94,10 @@ export const Logo: React.FC<LogoProps> = ({
       {/* 3D Floating Diagonal Bridge (Casts shadow on pillars) */}
       <path
         d="M 26 26 L 74 74"
-        stroke="url(#nexusDiagGrad)"
+        stroke={`url(#${diagGradId})`}
         strokeWidth="15"
         strokeLinecap="round"
-        filter="url(#nexus3DShadow)"
+        filter={`url(#${shadowId})`}
       />
     </svg>
   );

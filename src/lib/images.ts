@@ -1,10 +1,16 @@
 /**
- * Image URL helper for Cloudflare R2 storage
- * Returns R2 URL in production, falls back to local /assets in development
+ * Image URL helper for application assets
+ * Resolves to Cloudflare R2 CDN URL if PUBLIC_R2_PUBLIC_URL is configured,
+ * otherwise defaults to local static assets in /assets/
  */
 
 export function getImageUrl(filename: string): string {
-  // Always use local assets to avoid external dependencies breaking
+  const r2BaseUrl = import.meta.env.PUBLIC_R2_PUBLIC_URL;
+  if (r2BaseUrl && typeof r2BaseUrl === 'string' && r2BaseUrl.trim() !== '') {
+    const cleanBase = r2BaseUrl.replace(/\/+$/, '');
+    const cleanFile = filename.replace(/^\/+/, '');
+    return `${cleanBase}/${cleanFile}`;
+  }
   return `/assets/${filename}`;
 }
 
