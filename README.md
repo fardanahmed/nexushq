@@ -1,85 +1,77 @@
 # NexusHQ Platform
 
-Frontend marketing and beta platform for NexusHQ — The Command Centre for Modern Mentors.
+Frontend marketing and client portal platform for **NexusHQ** — *The Command Centre for Modern Mentors*.
 
-This project is frontend-only. The backend is located in the sibling project:
+## Stack & Architecture
 
-```text
-../nexushq-backend
-```
+- **Core Framework:** [Astro v6](https://astro.build) (Static export + Vercel deployment)
+- **UI Components:** React 19 Islands + Tailwind CSS v4 + Framer Motion
+- **Icons:** Lucide React
+- **Brand Identity:** 3D Hex Shield Emblem (SVG Vector System)
+- **Toolchain:** TypeScript 5.6+, pnpm v10, ESLint v10, Prettier v3, Husky
+- **Testing:** Playwright E2E
 
-## Stack
-
-- Astro
-- React islands
-- TypeScript
-- Tailwind CSS
-- Vercel adapter
+---
 
 ## Local Development
 
-Start the backend first:
+1. **Clone & Setup:**
+   ```bash
+   git clone https://github.com/fardanahmed/nexushq.git
+   cd nexushq
+   pnpm install
+   cp .env.example .env.local
+   ```
 
-```bash
-cd ../nexushq-backend
-pnpm install
-cp .env.example .env.local
-pnpm dev
-```
+2. **Start Development Server:**
+   ```bash
+   pnpm dev
+   ```
 
-Then start this frontend:
+3. **Verify Environment Variables:**
+   Configure `PUBLIC_BACKEND_API_URL` in `.env.local` to point to the backend service (default: `http://localhost:8787`).
 
-```bash
-cd ../nexushq
-pnpm install
-cp .env.example .env.local
-pnpm dev
-```
-
-Set the frontend API URL in `.env.local`:
-
-```env
-PUBLIC_BACKEND_API_URL=http://localhost:8787
-```
-
-If server-side rendering needs a private backend URL, set `BACKEND_API_URL` as well.
+---
 
 ## Project Structure
 
 ```text
 nexushq/
-├── public/                  # Static assets
+├── .github/
+│   ├── ISSUE_TEMPLATE/     # Standard bug report and feature request templates
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   └── workflows/ci.yml    # GitHub Actions CI workflow (Node 22 + pnpm 10)
+├── public/                 # Static assets (logo.svg, favicon.svg, compressed WebP images)
 ├── src/
-│   ├── components/          # UI and page components
-│   ├── layouts/             # Astro layouts
-│   ├── lib/
-│   │   ├── content-api.ts   # HTTP client for the separate backend
-│   │   ├── images.ts        # Asset URL helpers
-│   │   └── utils.ts         # UI utilities
-│   ├── pages/               # Astro pages
-│   ├── styles/              # Global styles
-│   └── types/               # Shared frontend types
-└── tests/                   # Frontend resiliency and schema tests
+│   ├── components/
+│   │   ├── home/           # Homepage feature sections (Hero, TrustBar, HowItWorks, etc.)
+│   │   ├── shared/         # Navbar, Footer, Logo
+│   │   └── ui/             # Reusable UI primitives (button.tsx, card.tsx)
+│   ├── layouts/            # Layout templates (Layout.astro)
+│   ├── lib/                # Utilities and Content API client
+│   ├── pages/              # Astro routes (index, about, pricing, features, contact)
+│   ├── styles/             # Global Tailwind v4 styles & theme tokens
+│   └── types/              # TypeScript interface definitions
+└── tests/                  # Playwright E2E testing suite
 ```
 
-## Scripts
+---
 
-```bash
-pnpm dev
-pnpm build
-pnpm preview
-pnpm test
-pnpm lint
-pnpm format:check
-```
+## Git & PR Workflow Guidelines
 
-## Backend Contract
+We strictly follow a structured Git & GitHub workflow:
 
-The frontend expects these backend endpoints:
+`Milestone → Issue → Feature Branch → Commits → Pull Request → Squash-Merge`
 
-- `POST /api/contact`
-- `GET /api/settings/:key`
-- `GET /api/research-areas`
-- `GET /api/certifications`
+- **Branch Naming:** `feat/`, `fix/`, `chore/`, `refactor/`, `security/`, `docs/`
+- **Conventional Commits:** `feat:`, `fix:`, `chore:`, `docs:`, `security:`, `refactor:`
+- **PR Requirement:** Every PR must reference an issue (`Closes #<number>`) and pass all pre-commit hooks and CI runs before merge.
 
-Backend secrets such as `DATABASE_URL` and `RESEND_API_KEY` belong only in the `nexushq-backend` environment.
+---
+
+## Quality Assurance & Testing
+
+- **Typecheck & Astro Check:** `pnpm typecheck`
+- **Linter & Formatting:** `pnpm lint` / `pnpm format:check`
+- **Production Build:** `pnpm build`
+- **End-to-End Tests:** `pnpm test:e2e`
