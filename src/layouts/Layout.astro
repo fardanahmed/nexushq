@@ -74,7 +74,7 @@ const displayDesc = description || defaultDesc;
         <slot />
       </main>
       <!-- Footer handles dynamic data passed from server frontmatter -->
-      <Footer client:load siteData={siteData} />
+      <Footer siteData={siteData} />
     </div>
 
     <!-- Unified loader manager in head handles this script block -->
