@@ -20,8 +20,10 @@ test.describe('Homepage E2E', () => {
       page.locator('span.font-heading').filter({ hasText: 'Stripe' }).first()
     ).toBeVisible();
 
-    // 5. Verify the VIP Offer Section renders
-    await expect(page.locator('h2').filter({ hasText: /Your Unfair Advantage/i })).toBeVisible();
+    // 5. Verify HowItWorks section renders
+    await expect(
+      page.locator('h2').filter({ hasText: /coaching business/i })
+    ).toBeVisible();
 
     // 6. Verify Join Team section waitlist form renders
     await expect(
@@ -29,6 +31,18 @@ test.describe('Homepage E2E', () => {
     ).toBeVisible();
     await expect(
       page.locator('button', { hasText: 'Request Access Slot' })
+    ).toBeVisible();
+  });
+
+  test('pricing page should load and render VIP offer section', async ({
+    page,
+  }) => {
+    await page.goto('/pricing');
+    await expect(
+      page.locator('h1').filter({ hasText: 'transparent' })
+    ).toBeVisible();
+    await expect(
+      page.locator('h2').filter({ hasText: /Your Unfair Advantage/i })
     ).toBeVisible();
   });
 

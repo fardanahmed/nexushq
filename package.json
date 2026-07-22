@@ -7,6 +7,7 @@
     "build": "node -e \"const fs = require('fs'); fs.rmSync('.vercel', { recursive: true, force: true }); fs.rmSync('dist', { recursive: true, force: true });\" && astro build",
     "preview": "astro preview",
     "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "typecheck": "astro check",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "format": "prettier --write .",
@@ -15,9 +16,12 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx,astro}": [
+    "*.{js,ts,jsx,tsx}": [
       "eslint --fix",
       "prettier --write"
+    ],
+    "*.astro": [
+      "eslint --fix"
     ]
   },
   "dependencies": {
@@ -25,9 +29,6 @@
     "@astrojs/sitemap": "^3.7.3",
     "@astrojs/vercel": "^10.0.8",
     "@radix-ui/react-slot": "^1.3.0",
-    "@radix-ui/react-tabs": "^1.1.15",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.6.1",
     "astro": "^6.4.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -35,16 +36,15 @@
     "lucide-react": "^1.21.0",
     "react": "19.2.7",
     "react-dom": "19.2.7",
-    "tailwind-merge": "^3.6.0",
-    "three": "^0.185.1"
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
     "@playwright/test": "^1.61.1",
     "@tailwindcss/postcss": "^4.3.1",
     "@types/node": "^26.0.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@types/three": "^0.185.1",
     "eslint": "^10.5.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-astro": "^1.7.0",

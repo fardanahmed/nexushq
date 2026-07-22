@@ -15,4 +15,9 @@ export const images = {
   mentorship: 'mentorship.webp',
   aboutUs: 'about-us.webp',
   institutionalPartners: 'institutional-partners.webp',
+  avatars: {
+    sarah: 'avatars/sarah.webp',
+    marcus: 'avatars/marcus.webp',
+    elena: 'avatars/elena.webp',
+  },
 } as const;
