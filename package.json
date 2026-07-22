@@ -2,6 +2,7 @@
   "name": "nexushq-marketing",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.27.0",
   "scripts": {
     "dev": "astro dev",
     "build": "node -e \"const fs = require('fs'); fs.rmSync('.vercel', { recursive: true, force: true }); fs.rmSync('dist', { recursive: true, force: true });\" && astro build",
