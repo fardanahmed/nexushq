@@ -1,0 +1,19 @@
+name: Feature Request
+description: Suggest an idea or feature enhancement for NexusHQ.
+title: 'feat: '
+labels: ['enhancement']
+body:
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: Is your feature request related to a problem? Please describe.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like.
+    validations:
+      required: true
