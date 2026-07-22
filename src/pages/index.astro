@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/home/Hero.astro';
 import TrustBar from '../components/home/TrustBar.astro';
-import TheOffer from '../components/home/TheOffer.astro';
 import HowItWorks from '../components/home/HowItWorks.astro';
 import Testimonials from '../components/home/Testimonials';
 import JoinTeamSection from '../components/home/JoinTeamSection';
@@ -20,7 +19,7 @@ const schema = (siteData && siteData.contact) ? {
   "applicationCategory": "BusinessApplication",
   "description": siteData.tagline || "The all-in-one coaching platform for modern mentors.",
   "url": Astro.url.href,
-  "logo": new URL('/favicon.png', Astro.url).href,
+  "logo": new URL('/favicon.svg', Astro.url).href,
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -35,9 +34,6 @@ const schema = (siteData && siteData.contact) ? {
   
   <!-- Immediate Social Proof -->
   <TrustBar />
-
-  <!-- The Irresistible VIP Beta Offer -->
-  <TheOffer />
 
   <!-- Process Visualization -->
   <HowItWorks />

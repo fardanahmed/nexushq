@@ -1,5 +1,6 @@
 import { Mail, Phone, MapPin } from 'lucide-react';
 import type { SiteData } from '@/types';
+import { Logo } from './Logo';
 
 interface FooterProps {
   siteData?: SiteData | null;
@@ -24,8 +25,8 @@ export default function Footer({ siteData }: FooterProps) {
     ...siteData,
     contact: {
       ...fallbackSiteData.contact,
-      ...siteData?.contact
-    }
+      ...siteData?.contact,
+    },
   };
 
   return (
@@ -36,9 +37,12 @@ export default function Footer({ siteData }: FooterProps) {
         <div className="grid gap-8 md:grid-cols-3 lg:gap-12">
           {/* Left: Logo and Tagline */}
           <div>
-            <h3 className="mb-2 text-2xl font-bold text-foreground">
-              {data.abbreviation}
-            </h3>
+            <div className="flex items-center gap-3 mb-3">
+              <Logo className="h-9 w-9" />
+              <h3 className="text-2xl font-bold font-heading bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
+                {data.abbreviation}
+              </h3>
+            </div>
             <p className="text-sm text-muted-foreground">{data.tagline}</p>
           </div>
 

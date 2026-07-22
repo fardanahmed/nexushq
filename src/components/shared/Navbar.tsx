@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { Logo } from './Logo';
 
 interface NavbarProps {
   pathname?: string;
@@ -32,14 +33,14 @@ const Navbar = ({ pathname: propPathname }: NavbarProps) => {
   ];
 
   return (
-    <nav className={`fixed top-0 z-50 w-full border-b transition-all duration-300 ${scrolled ? 'border-border/60 bg-background/95 shadow-lg shadow-black/10 backdrop-blur-xl' : 'border-border/40 bg-background/80 backdrop-blur-md'}`}>
+    <nav
+      className={`fixed top-0 z-50 w-full border-b transition-all duration-300 ${scrolled ? 'border-border/60 bg-background/95 shadow-lg shadow-black/10 backdrop-blur-xl' : 'border-border/40 bg-background/80 backdrop-blur-md'}`}
+    >
       <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-xl">
-            N
-          </div>
-          <span className="text-xl font-bold text-foreground tracking-tight">
+        <a href="/" className="flex items-center gap-3 group">
+          <Logo className="h-10 w-10 group-hover:scale-105" />
+          <span className="text-xl font-bold font-heading bg-gradient-to-r from-white via-slate-100 to-indigo-200 bg-clip-text text-transparent tracking-tight">
             NexusHQ
           </span>
         </a>
@@ -64,7 +65,10 @@ const Navbar = ({ pathname: propPathname }: NavbarProps) => {
             );
           })}
 
-          <Button asChild className="ml-4 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 font-semibold shadow-lg shadow-primary/20">
+          <Button
+            asChild
+            className="ml-4 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 font-semibold shadow-lg shadow-primary/20"
+          >
             <a href="https://app.nexushq.tech">Get Started</a>
           </Button>
         </div>

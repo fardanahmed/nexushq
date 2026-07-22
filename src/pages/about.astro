@@ -31,7 +31,7 @@ const orgSchema = (siteData && siteData.contact) ? {
   "alternateName": siteData.abbreviation,
   "slogan": siteData.tagline,
   "url": Astro.url.origin,
-  "logo": new URL('/favicon.png', Astro.url).href,
+  "logo": new URL('/favicon.svg', Astro.url).href,
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": siteData.contact.phone,
@@ -111,33 +111,65 @@ const values = [
   <!-- Story Section -->
   <section class="border-y border-border/50 bg-[#030014]/40 py-24">
     <div class="container mx-auto max-w-7xl px-6">
-      <div class="max-w-3xl mx-auto space-y-6 animate-fadeInUp">
-        <p class="text-sm font-semibold uppercase tracking-widest text-primary">Our Story</p>
-        <h2 class="font-heading text-3xl font-extrabold tracking-tight sm:text-4xl text-white">Why We Built NexusHQ</h2>
-        
-        <div class="prose prose-lg dark:prose-invert text-slate-400 space-y-6 text-base md:text-lg leading-relaxed font-medium">
-          {aboutContent.preamble
-            .replace(/\\\\n\\\\n/g, '\n\n')
-            .replace(/\\\\n/g, ' ')
-            .split('\n\n')
-            .filter((p) => p.trim())
-            .map((paragraph) => (
-              <p>{paragraph.trim()}</p>
-            ))}
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6 animate-fadeInUp">
+          <p class="text-sm font-semibold uppercase tracking-widest text-primary">Our Story</p>
+          <h2 class="font-heading text-3xl font-extrabold tracking-tight sm:text-4xl text-white">Why We Built NexusHQ</h2>
+          
+          <div class="prose prose-lg dark:prose-invert text-slate-400 space-y-6 text-base md:text-lg leading-relaxed font-medium">
+            {aboutContent.preamble
+              .replace(/\\\\n\\\\n/g, '\n\n')
+              .replace(/\\\\n/g, ' ')
+              .split('\n\n')
+              .filter((p) => p.trim())
+              .map((paragraph) => (
+                <p>{paragraph.trim()}</p>
+              ))}
+          </div>
+        </div>
+
+        <div class="relative group rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-indigo-500/10 glow-border animate-fadeInUp">
+          <img 
+            src="/assets/about-us.webp" 
+            alt="NexusHQ Team Collaboration" 
+            class="w-full h-[400px] object-cover transition-transform duration-500 group-hover:scale-105" 
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#030014] via-transparent to-transparent opacity-60"></div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <span class="text-xs font-bold uppercase tracking-wider text-primary bg-primary/10 border border-primary/20 px-3 py-1 rounded-full backdrop-blur-md">
+              Team & Mission
+            </span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Vision Section -->
+  <!-- Leadership & Vision Section -->
   <section class="py-24 relative overflow-hidden bg-gradient-to-t from-[#030014]/60 to-transparent">
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-80 w-80 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
     
-    <div class="container mx-auto max-w-7xl px-6 text-center relative z-10 animate-fadeInUp">
-      <p class="mb-6 text-sm font-semibold uppercase tracking-widest text-primary">Our Vision</p>
-      <blockquote class="mx-auto max-w-4xl font-heading text-2xl font-semibold italic leading-relaxed text-white md:text-3xl lg:text-4xl">
-        &ldquo;{aboutContent.vision}&rdquo;
-      </blockquote>
+    <div class="container mx-auto max-w-7xl px-6 relative z-10">
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+        <div class="relative group rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-violet-500/10 glow-border order-2 md:order-1 animate-fadeInUp">
+          <img 
+            src="/assets/leadership.webp" 
+            alt="Executive Leadership Environment" 
+            class="w-full h-[380px] object-cover transition-transform duration-500 group-hover:scale-105" 
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#030014] via-transparent to-transparent opacity-60"></div>
+        </div>
+
+        <div class="order-1 md:order-2 space-y-6 text-left animate-fadeInUp">
+          <p class="text-sm font-semibold uppercase tracking-widest text-primary">Our Vision</p>
+          <blockquote class="font-heading text-2xl font-semibold italic leading-relaxed text-white md:text-3xl">
+            &ldquo;{aboutContent.vision}&rdquo;
+          </blockquote>
+          <p class="text-slate-400 font-medium text-base leading-relaxed">
+            We are dedicated to building infrastructure that scales mentor impact globally without administrative overhead.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 </Layout>

@@ -16,7 +16,7 @@ export interface AboutContent {
   mission: string;
   vision: string;
   preamble: string;
-  values: {
+  values?: {
     title: string;
     description: string;
     icon: string;
@@ -56,9 +56,6 @@ export interface Feature {
   created_at?: string;
 }
 
-/** @deprecated Use Feature instead */
-export type ResearchArea = Feature;
-
 export interface PricingTier {
   id: string;
   name: string;
@@ -66,15 +63,6 @@ export interface PricingTier {
   description: string;
   features: string[];
   highlighted?: boolean;
-}
-
-/** @deprecated Use PricingTier instead */
-export interface Certification {
-  id: string;
-  title: string;
-  description: string;
-  duration: string;
-  created_at?: string;
 }
 
 // Icon Map Type

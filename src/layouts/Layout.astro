@@ -26,12 +26,12 @@ const displayDesc = description || defaultDesc;
 ---
 
 <!doctype html>
-<html lang="en" class="dark" style="scrollbar-gutter: stable;" suppressHydrationWarning>
+<html lang="en" class="dark" style="scrollbar-gutter: stable;">
   <head>
     <ClientRouter />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#4f46e5" />
     
@@ -74,7 +74,7 @@ const displayDesc = description || defaultDesc;
         <slot />
       </main>
       <!-- Footer handles dynamic data passed from server frontmatter -->
-      <Footer siteData={siteData} />
+      <Footer client:load siteData={siteData} />
     </div>
 
     <!-- Unified loader manager in head handles this script block -->
