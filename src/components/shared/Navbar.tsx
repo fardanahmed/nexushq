@@ -65,12 +65,13 @@ const Navbar = ({ pathname: propPathname }: NavbarProps) => {
             );
           })}
 
-          <Button
-            asChild
-            className="ml-4 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 font-semibold shadow-lg shadow-primary/20"
+          <a
+            href="https://app.nexushq.tech"
+            className="group relative ml-4 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-indigo-500/30 transition-all duration-300 hover:scale-105 hover:shadow-indigo-500/50 border border-indigo-400/30 overflow-hidden"
           >
-            <a href="https://app.nexushq.tech">Get Started</a>
-          </Button>
+            <span className="absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 transform bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shine pointer-events-none" />
+            <span className="relative z-10">Get Started</span>
+          </a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -111,13 +112,14 @@ const Navbar = ({ pathname: propPathname }: NavbarProps) => {
                 </a>
               );
             })}
-            <Button
-              asChild
-              className="w-full bg-primary text-primary-foreground"
+            <a
+              href="https://app.nexushq.tech"
+              className="group relative w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 px-6 py-4 text-base font-bold text-white shadow-lg shadow-indigo-500/30 transition-all duration-300 hover:shadow-indigo-500/50 border border-indigo-400/30 overflow-hidden"
               onClick={() => setIsMenuOpen(false)}
             >
-              <a href="https://app.nexushq.tech">Get Started</a>
-            </Button>
+              <span className="absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 transform bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shine pointer-events-none" />
+              <span className="relative z-10">Get Started</span>
+            </a>
           </div>
         </div>
       )}
