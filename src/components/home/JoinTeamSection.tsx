@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type SubmitEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Loader2, CheckCircle2, ArrowRight } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
@@ -14,7 +14,7 @@ const JoinTeamSection = () => {
 
   const shouldReduceMotion = useReducedMotion();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     // Simulate API waitlist submission
