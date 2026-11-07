@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 const JoinTeamSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -17,10 +18,30 @@ const JoinTeamSection = () => {
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API waitlist submission
-    await new Promise((resolve) => setTimeout(resolve, 1400));
-    setIsSubmitting(false);
-    setSubmitted(true);
+    setError('');
+    try {
+      const backendApiUrl = (
+        import.meta.env.PUBLIC_BACKEND_API_URL || ''
+      ).replace(/\/$/, '');
+      const response = await fetch(`${backendApiUrl}/api/waitlist`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: formData.email }),
+      });
+      if (!response.ok) {
+        const result = await response.json().catch(() => ({}));
+        throw new Error(
+          result.message || `Request failed (${response.status}).`
+        );
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : 'Could not join the waitlist.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -170,6 +191,11 @@ const JoinTeamSection = () => {
                       placeholder="e.g. Executive, Tech, Design, Academics"
                     />
                   </div>
+                  {error && (
+                    <p role="alert" className="text-sm text-red-400">
+                      {error}
+                    </p>
+                  )}
                   <div className="pt-2">
                     <Button
                       type="submit"

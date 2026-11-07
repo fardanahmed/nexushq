@@ -47,6 +47,13 @@ test.describe('Homepage E2E', () => {
   });
 
   test('waitlist form should submit successfully', async ({ page }) => {
+    await page.route('**/api/waitlist', (route) =>
+      route.fulfill({
+        status: 201,
+        contentType: 'application/json',
+        body: JSON.stringify({ message: 'ok' }),
+      })
+    );
     await page.goto('/');
 
     // Wait for Astro island hydration
@@ -60,7 +67,7 @@ test.describe('Homepage E2E', () => {
     // Click submit
     await page.click('button:has-text("Request Early Access")');
 
-    // Verify success state appears (it has a ~1.4s mock delay, Playwright auto-waits)
+    // Verify success state appears (the API route is mocked)
     await expect(page.getByText("You're on the list!")).toBeVisible({
       timeout: 5000,
     });

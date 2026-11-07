@@ -29,22 +29,24 @@ export default function ContactForm() {
     setStatus(null);
 
     try {
-      const payload = new FormData();
-      payload.append('name', formData.name);
-      payload.append('email', formData.email);
-      payload.append('subject', formData.subject);
-      payload.append('message', formData.message);
-
       const backendApiUrl = (
         import.meta.env.PUBLIC_BACKEND_API_URL || ''
       ).replace(/\/$/, '');
       const response = await fetch(`${backendApiUrl}/api/contact`, {
         method: 'POST',
-        body: payload,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
 
-      const result = await response.json();
-      setStatus({ success: response.ok, message: result.message });
+      const result = await response.json().catch(() => ({}));
+      setStatus({
+        success: response.ok,
+        message:
+          result.message ||
+          (response.ok
+            ? 'Message sent.'
+            : `Request failed (${response.status}).`),
+      });
 
       if (response.ok) {
         setFormData({
