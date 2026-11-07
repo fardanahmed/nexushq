@@ -1,101 +1,63 @@
 ---
 import { getSiteSettings } from '../../lib/content-api';
-import type { HeroContent, SiteData } from '../../types';
+import type { HeroContent } from '../../types';
 import HeroVisual from './HeroVisual';
 import HeroScrollBackground from './HeroScrollBackground';
-import { ArrowRight } from 'lucide-react';
 
 const heroContent = await getSiteSettings<HeroContent>('hero_content');
-const siteData = await getSiteSettings<SiteData>('site_data');
 
 const defaultHeroContent: HeroContent = {
-  headline: 'The Operating System for Elite Mentorship.',
-  subheadline: 'Unify scheduling, HD video, CRM, and billing into one commanding client portal.',
-  ctaPrimary: 'Start Free Trial',
-  ctaSecondary: 'Explore Features'
+  headline: 'Run your coaching practice from one place.',
+  subheadline:
+    'Clients book and pay, you meet on video, and notes and progress stay with the client. Built for solo coaches, tutors and mentors.',
+  ctaPrimary: 'Join the waitlist',
+  ctaSecondary: 'See features',
 };
 
 const headline = heroContent?.headline || defaultHeroContent.headline;
 const subheadline = heroContent?.subheadline || defaultHeroContent.subheadline;
 const ctaPrimary = heroContent?.ctaPrimary || defaultHeroContent.ctaPrimary;
 const ctaSecondary = heroContent?.ctaSecondary || defaultHeroContent.ctaSecondary;
-
-const headlineWords = typeof headline === 'string' && headline.trim() ? headline.trim().split(/\s+/) : [];
-const headlinePart1 = headlineWords.slice(0, -2).join(' ');
-const headlinePart2 = headlineWords.slice(-2).join(' ');
 ---
 
-<section class="relative w-full bg-transparent overflow-hidden">
-  <!-- Interactive 3D Scroll Perspective Matrix Background -->
+<section class="relative w-full overflow-hidden">
   <HeroScrollBackground client:load />
 
-  <div class="relative flex min-h-[90dvh] w-full overflow-hidden bg-transparent">
-    <!-- Content Container -->
-    <div class="container relative z-20 mx-auto w-full max-w-7xl px-6 pt-24 pb-16 lg:pt-28 lg:pb-20 pointer-events-none min-h-[90dvh] flex items-center">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
-        
-        <!-- Left Column: Typography and CTAs -->
-        <div class="lg:col-span-7 flex flex-col justify-center space-y-8 pointer-events-auto order-2 lg:order-1 mt-4 lg:mt-0 animate-fadeInUp">
-          <div class="space-y-6">
-            <!-- Tagline Badge (1 of max 3 eyebrows site-wide) -->
-            <div class="inline-flex items-center gap-2.5 rounded-full border border-emerald-400/30 bg-emerald-950/40 px-4 py-1.5 text-xs font-bold text-emerald-300 backdrop-blur-md shadow-lg shadow-emerald-500/10">
-              <span class="relative flex h-2 w-2">
-                <span class="absolute inline-flex h-full w-full animate-pulse rounded-full bg-amber-400 opacity-75"></span>
-                <span class="relative inline-flex h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_8px_#fbbf24]"></span>
-              </span>
-              <span>{siteData?.tagline || 'Elevate Your Mentorship Practice'}</span>
-            </div>
-
-            <!-- Headline -->
-            <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-100 to-slate-400 drop-shadow-xl pb-2">
-              {headlinePart1}
-              {headlinePart2 && (
-                <span class="bg-gradient-to-r from-emerald-300 via-teal-300 to-amber-300 bg-clip-text text-transparent block mt-1 pb-2">
-                  {headlinePart2}
-                </span>
-              )}
-            </h1>
-            
-            {subheadline && (
-              <p class="max-w-xl text-lg sm:text-xl leading-relaxed text-slate-300 font-medium">
-                {subheadline}
-              </p>
-            )}
-          </div>
-
-          <!-- CTAs directly below copy — no glass card wrapper -->
-          {(ctaPrimary || ctaSecondary) && (
-            <div class="flex flex-col gap-3.5 sm:flex-row sm:gap-4 max-w-md">
-              {ctaPrimary && (
-                <a
-                  href="https://app.nexushq.tech"
-                  class="group relative flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 px-7 py-4 text-base font-extrabold text-black shadow-xl shadow-emerald-500/25 transition-all duration-300 hover:shadow-emerald-500/40 hover:scale-[1.02] active:scale-[0.98] border border-emerald-300/40 overflow-hidden whitespace-nowrap"
-                >
-                  <span class="absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 transform bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shine pointer-events-none" />
-                  <span class="relative z-10 flex items-center gap-2">
-                    <span>{ctaPrimary}</span>
-                    <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1.5" />
-                  </span>
-                </a>
-              )}
-
-              {ctaSecondary && (
-                <a
-                  href="/features"
-                  class="flex-1 inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-7 py-4 text-base font-bold text-white backdrop-blur-md transition-all duration-300 hover:bg-emerald-500/10 hover:border-emerald-500/30 active:scale-[0.98] whitespace-nowrap"
-                >
-                  {ctaSecondary}
-                </a>
-              )}
-            </div>
+  <div class="container relative z-10 mx-auto max-w-6xl px-6 pt-28 pb-16 lg:pt-36 lg:pb-24">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
+      <div class="hero-rise space-y-8 lg:col-span-7">
+        <div class="space-y-5">
+          <h1 class="max-w-[14ch] text-display">{headline}</h1>
+          {subheadline && (
+            <p class="max-w-[52ch] text-lead text-mist">{subheadline}</p>
           )}
         </div>
 
-        <!-- Right Column: Interactive 3D Card Visual -->
-        <div class="lg:col-span-5 w-full flex items-center justify-center pointer-events-auto order-1 lg:order-2" transition:persist>
-          <HeroVisual client:load />
-        </div>
-        
+        {(ctaPrimary || ctaSecondary) && (
+          <div class="flex flex-col gap-3 sm:flex-row">
+            {ctaPrimary && (
+              <a
+                href="/#join"
+                class="inline-flex h-12 items-center justify-center rounded-control bg-emerald px-6 text-base font-semibold text-ink transition-colors duration-150 hover:bg-sea"
+              >
+                {ctaPrimary}
+              </a>
+            )}
+            {ctaSecondary && (
+              <a
+                href="/features"
+                class="inline-flex h-12 items-center justify-center rounded-control border border-hairline px-6 text-base font-semibold text-chalk transition-colors duration-150 hover:bg-slate-2"
+              >
+                {ctaSecondary}
+              </a>
+            )}
+          </div>
+        )}
+        <p class="text-sm text-mist">Private beta. No card needed to join the list.</p>
+      </div>
+
+      <div class="w-full lg:col-span-5" transition:persist>
+        <HeroVisual client:load />
       </div>
     </div>
   </div>

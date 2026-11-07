@@ -53,12 +53,7 @@ const displayDesc = description || defaultDesc;
     <!-- Fonts: Bricolage Grotesque (headings) + Inter (body); non-blocking so the headline paints with the fallback first -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
-    />
+    <Fragment set:html={`<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />`} />
     {schema && <script type="application/ld+json" is:inline set:html={JSON.stringify(schema).replace(/</g, '\\u003c').replace(/>/g, '\\u003e')} />}
   </head>
   <body class="bg-background text-foreground font-sans antialiased">

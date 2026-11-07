@@ -12,7 +12,7 @@ test.describe('Homepage E2E', () => {
 
     // 3. Verify Hero section loads
     await expect(
-      page.locator('h1').filter({ hasText: 'Operating System' })
+      page.locator('h1').filter({ hasText: 'coaching practice' })
     ).toBeVisible();
 
     // 4. Verify TrustBar is visible (use first to avoid strict mode error due to marquee loop)

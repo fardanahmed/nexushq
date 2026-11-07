@@ -1,469 +1,297 @@
-import { useCallback, useRef, useState, useEffect } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import {
   motion,
   useMotionValue,
+  useReducedMotion,
   useSpring,
   useTransform,
-  AnimatePresence,
 } from 'framer-motion';
-import {
-  Video,
-  Sparkles,
-  TrendingUp,
-  Users,
-  ShieldCheck,
-  Volume2,
-  CircleDot,
-  CheckCircle2,
-  Lock,
-} from 'lucide-react';
-import { Logo } from '@/components/shared/Logo';
+import { CalendarDays, Wallet, Users, Video } from 'lucide-react';
 
-/* ── Modes Definition ── */
-type HubMode = 'studio' | 'revenue' | 'crm';
+/*
+  The one 3D moment on the site: a coach's day, rendered as a tilted panel.
+  Intro: rises from flat (rotateX 22) to its resting tilt, then idles.
+  Pointer parallax is capped at ±4 degrees. Reduced motion = final frame.
+  Transforms only; no blur layers.
+*/
+type Panel = 'today' | 'income' | 'clients';
 
-const MODES: { id: HubMode; label: string; icon: typeof Video }[] = [
-  { id: 'studio', label: 'Live Studio', icon: Video },
-  { id: 'revenue', label: 'Revenue OS', icon: TrendingUp },
-  { id: 'crm', label: 'Client CRM', icon: Users },
+const PANELS: { id: Panel; label: string; icon: typeof Video }[] = [
+  { id: 'today', label: 'Today', icon: CalendarDays },
+  { id: 'income', label: 'Income', icon: Wallet },
+  { id: 'clients', label: 'Clients', icon: Users },
 ];
 
-/* ── Audio Spectrum Bar Heights ── */
-const SPECTRUM_BARS = [
-  35, 65, 45, 90, 80, 50, 95, 75, 40, 85, 60, 90, 45, 70, 55, 80,
+const SESSIONS = [
+  {
+    time: '10:00',
+    name: 'Elena Rostova',
+    kind: 'Strategy session',
+    paid: true,
+    live: true,
+  },
+  {
+    time: '11:30',
+    name: 'Marcus Kane',
+    kind: 'Check-in',
+    paid: true,
+    live: false,
+  },
+  {
+    time: '14:00',
+    name: 'Open slot',
+    kind: 'Booking link shared',
+    paid: false,
+    live: false,
+  },
 ];
-const REVENUE_BARS = [45, 65, 50, 85, 70, 95, 100];
+
+const MONTH_BARS = [38, 52, 46, 70, 64, 88];
+
+const CLIENTS = [
+  {
+    initials: 'ER',
+    name: 'Elena Rostova',
+    next: 'Today 10:00',
+    progress: '6 of 8 sessions',
+  },
+  {
+    initials: 'MK',
+    name: 'Marcus Kane',
+    next: 'Today 11:30',
+    progress: '2 of 6 sessions',
+  },
+  {
+    initials: 'SJ',
+    name: 'Sarah Jenkins',
+    next: 'Thu 09:00',
+    progress: '4 of 4 sessions',
+  },
+];
+
+const REST = { rotateX: 6, rotateY: -8 };
+const TILT = 4;
 
 export default function HeroVisual() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [activeMode, setActiveMode] = useState<HubMode>('studio');
-  const [sessionSeconds, setSessionSeconds] = useState(2052); // 34:12
+  const reduceMotion = useReducedMotion();
+  const [panel, setPanel] = useState<Panel>('today');
 
-  // Increment session timer smoothly
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSessionSeconds((prev) => prev + 1);
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const formatTimer = (totalSecs: number) => {
-    const mins = Math.floor(totalSecs / 60);
-    const secs = totalSecs % 60;
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-  };
-
-  // Mouse tracking for 3D tilt
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-
-  const smoothX = useSpring(mouseX, { damping: 25, stiffness: 120, mass: 0.4 });
-  const smoothY = useSpring(mouseY, { damping: 25, stiffness: 120, mass: 0.4 });
-
-  const rotateX = useTransform(smoothY, [-1, 1], [7, -7]);
-  const rotateY = useTransform(smoothX, [-1, 1], [-7, 7]);
-
-  // Cursor-following specular glow
-  const glowX = useTransform(smoothX, [-1, 1], [20, 80]);
-  const glowY = useTransform(smoothY, [-1, 1], [20, 80]);
-  const glowLeftPct = useTransform(glowX, (v) => `${v}%`);
-  const glowTopPct = useTransform(glowY, (v) => `${v}%`);
-
-  // Parallax floating widgets
-  const floatX1 = useTransform(smoothX, [-1, 1], [-18, 18]);
-  const floatY1 = useTransform(smoothY, [-1, 1], [-18, 18]);
-
-  const floatX2 = useTransform(smoothX, [-1, 1], [22, -22]);
-  const floatY2 = useTransform(smoothY, [-1, 1], [18, -18]);
+  const smoothX = useSpring(mouseX, { damping: 30, stiffness: 120, mass: 0.5 });
+  const smoothY = useSpring(mouseY, { damping: 30, stiffness: 120, mass: 0.5 });
+  const rotateX = useTransform(
+    smoothY,
+    [-1, 1],
+    [REST.rotateX + TILT, REST.rotateX - TILT]
+  );
+  const rotateY = useTransform(
+    smoothX,
+    [-1, 1],
+    [REST.rotateY - TILT, REST.rotateY + TILT]
+  );
+  const sideX = useTransform(smoothX, [-1, 1], [-10, 10]);
+  const sideY = useTransform(smoothY, [-1, 1], [-8, 8]);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent) => {
-      if (!containerRef.current) return;
+      if (reduceMotion || !containerRef.current) return;
       const { left, top, width, height } =
         containerRef.current.getBoundingClientRect();
       mouseX.set(((e.clientX - left) / width) * 2 - 1);
       mouseY.set(((e.clientY - top) / height) * 2 - 1);
     },
-    [mouseX, mouseY]
+    [mouseX, mouseY, reduceMotion]
   );
-
   const handleMouseLeave = useCallback(() => {
     mouseX.set(0);
     mouseY.set(0);
   }, [mouseX, mouseY]);
 
+  const intro = (delay: number) =>
+    reduceMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y: 40, rotateX: 22 },
+          animate: { opacity: 1, y: 0, rotateX: 0 },
+          transition: {
+            duration: 0.9,
+            delay,
+            ease: [0.22, 1, 0.36, 1] as const,
+          },
+        };
+
   return (
-    <motion.div
+    <div
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="relative w-full h-[480px] sm:h-[520px] lg:h-[580px] flex items-center justify-center select-none"
-      style={{ perspective: 1800 }}
+      className="relative flex h-[440px] w-full items-center justify-center sm:h-[500px]"
+      style={{ perspective: 1600 }}
     >
-      {/* ── Background Core Ambient Glow ── */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] rounded-full pointer-events-none blur-[110px]"
-        style={{
-          background:
-            'radial-gradient(circle, rgba(16,231,178,0.22) 0%, rgba(6,182,212,0.12) 50%, transparent 80%)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* ── Main Nexus Command Console ── */}
       <motion.div
-        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-        className="relative z-10 w-[94%] max-w-[460px] rounded-2xl border border-emerald-500/25 bg-[#03090e]/85 backdrop-blur-2xl shadow-[0_25px_65px_-12px_rgba(0,0,0,0.8),0_0_35px_rgba(16,231,178,0.15)] p-5 sm:p-6 overflow-hidden"
+        {...intro(0.15)}
+        style={{ transformStyle: 'preserve-3d' }}
+        className="relative z-10 w-[92%] max-w-[440px]"
       >
-        {/* Specular cursor glow highlight */}
         <motion.div
-          className="absolute w-[240px] h-[240px] rounded-full pointer-events-none blur-[70px] -translate-x-1/2 -translate-y-1/2 z-0 opacity-40"
-          style={{
-            left: glowLeftPct,
-            top: glowTopPct,
-            background:
-              'radial-gradient(circle, rgba(16,231,178,0.3) 0%, transparent 70%)',
-          }}
-          aria-hidden="true"
-        />
-
-        {/* 4 Corner Crosshairs */}
-        <div className="absolute top-2 left-2 text-emerald-400/40 text-[10px] font-mono leading-none pointer-events-none">
-          +
-        </div>
-        <div className="absolute top-2 right-2 text-emerald-400/40 text-[10px] font-mono leading-none pointer-events-none">
-          +
-        </div>
-        <div className="absolute bottom-2 left-2 text-emerald-400/40 text-[10px] font-mono leading-none pointer-events-none">
-          +
-        </div>
-        <div className="absolute bottom-2 right-2 text-emerald-400/40 text-[10px] font-mono leading-none pointer-events-none">
-          +
-        </div>
-
-        {/* ── Console Header (Telemetry & Status) ── */}
-        <div className="relative z-10 flex items-center justify-between border-b border-emerald-500/15 pb-3.5 mb-4">
-          <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-xl bg-slate-950/90 border border-emerald-500/30 shadow-[0_0_12px_rgba(16,231,178,0.35)] flex items-center justify-center">
-              <Logo size={20} className="h-5 w-5" />
-            </div>
+          style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+          className="rounded-object border border-hairline bg-slate p-5 shadow-object"
+        >
+          <div className="mb-4 flex items-center justify-between border-b border-hairline pb-3">
             <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-heading font-bold text-white tracking-tight text-sm">
-                  Nexus OS
-                </span>
-                <span className="text-[10px] font-mono font-medium text-emerald-300/80 bg-emerald-500/10 px-1.5 py-0.2 rounded border border-emerald-500/20">
-                  v3.4.1
-                </span>
+              <div className="font-heading text-base font-semibold text-chalk">
+                Tuesday 12
               </div>
+              <div className="text-xs text-mist">3 sessions, 1 open slot</div>
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-sea">
+              <span className="h-1.5 w-1.5 rounded-full bg-sea" />
+              Live
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20 tabular-nums">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>12ms</span>
-            </div>
-            <div className="hidden sm:flex items-center gap-1 text-[10px] font-mono text-slate-400 bg-white/5 px-2 py-0.5 rounded-full border border-white/10">
-              <Lock className="w-2.5 h-2.5 text-emerald-400" />
-              <span>AES-256</span>
-            </div>
+          <div
+            role="tablist"
+            aria-label="Hero preview panels"
+            className="mb-4 flex gap-1 rounded-control bg-ink p-1"
+          >
+            {PANELS.map((p) => {
+              const Icon = p.icon;
+              const selected = panel === p.id;
+              return (
+                <button
+                  key={p.id}
+                  role="tab"
+                  aria-selected={selected}
+                  onClick={() => setPanel(p.id)}
+                  className={`flex flex-1 items-center justify-center gap-1.5 rounded-chip py-1.5 text-xs font-medium transition-colors duration-150 ${
+                    selected
+                      ? 'bg-slate-2 text-chalk'
+                      : 'text-mist hover:text-chalk'
+                  }`}
+                >
+                  <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+                  {p.label}
+                </button>
+              );
+            })}
           </div>
-        </div>
 
-        {/* ── Mode Switcher Pills ── */}
-        <div className="relative z-10 flex items-center gap-1.5 p-1 rounded-xl bg-slate-950/60 border border-emerald-500/15 mb-4">
-          {MODES.map((mode) => {
-            const Icon = mode.icon;
-            const isSelected = activeMode === mode.id;
-            return (
-              <button
-                key={mode.id}
-                onClick={() => setActiveMode(mode.id)}
-                className={`relative flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold transition-all duration-200 ${
-                  isSelected
-                    ? 'text-black font-extrabold shadow-md shadow-emerald-500/25'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.03]'
-                }`}
-              >
-                {isSelected && (
-                  <motion.div
-                    layoutId="activeModePill"
-                    className="absolute inset-0 rounded-lg bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 border border-emerald-300/40"
-                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                  />
-                )}
-                <Icon className="relative z-10 w-3.5 h-3.5" />
-                <span className="relative z-10">{mode.label}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* ── Interactive View Canvas ── */}
-        <div className="relative z-10 min-h-[220px]">
-          <AnimatePresence mode="wait">
-            {/* Mode 1: Live Studio */}
-            {activeMode === 'studio' && (
-              <motion.div
-                key="studio"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.2 }}
-                className="space-y-3.5"
-              >
-                {/* Active Session Frame */}
-                <div className="relative rounded-xl border border-emerald-500/20 bg-slate-950/60 p-3.5 overflow-hidden">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2.5">
-                      <div className="relative w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white text-xs font-bold ring-2 ring-emerald-400/40">
-                        ER
-                        <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-[#020408]" />
-                      </div>
-                      <div>
-                        <div className="text-xs font-bold text-white flex items-center gap-1.5">
-                          Elena Rostova
-                          <span className="text-[10px] font-normal text-emerald-300/80 bg-emerald-500/15 px-1.5 py-0.2 rounded">
-                            Series A Founder
-                          </span>
-                        </div>
-                        <div className="text-[11px] text-slate-400 font-mono">
-                          Executive Advisory Sync
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="text-right">
-                      <div className="text-xs font-bold text-emerald-400 font-mono tabular-nums flex items-center gap-1 justify-end">
-                        <CircleDot className="w-3 h-3 animate-pulse" />
-                        {formatTimer(sessionSeconds)}
-                      </div>
-                      <div className="text-[10px] text-slate-500 font-mono">
-                        4K UHD · 60fps
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Animated Live Audio Visualizer Equalizer Spectrum */}
-                  <div className="pt-1 pb-1">
-                    <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 mb-1.5">
-                      <span className="flex items-center gap-1 text-emerald-300">
-                        <Volume2 className="w-3 h-3 text-emerald-400" />
-                        Live Neural Denoising
-                      </span>
-                      <span className="text-emerald-400 font-mono">
-                        0.0% Latency Loss
-                      </span>
-                    </div>
-
-                    <div className="h-10 w-full flex items-end gap-1 px-1 bg-white/[0.02] rounded-lg border border-white/[0.04] py-1">
-                      {SPECTRUM_BARS.map((height, i) => (
-                        <motion.div
-                          key={i}
-                          className="flex-1 rounded-full bg-gradient-to-t from-emerald-500 via-teal-400 to-amber-300"
-                          animate={{
-                            height: [
-                              `${height * 0.4}%`,
-                              `${height}%`,
-                              `${height * 0.6}%`,
-                            ],
-                          }}
-                          transition={{
-                            repeat: Infinity,
-                            duration: 0.8 + (i % 4) * 0.2,
-                            ease: 'easeInOut',
-                          }}
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Live Transcript Snippet */}
-                  <div className="mt-2.5 p-2 rounded-lg bg-emerald-950/40 border border-emerald-500/15 text-[11px] text-slate-300 leading-snug font-mono flex items-start gap-2">
-                    <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
-                    <span>
-                      <strong className="text-emerald-300">AI Co-pilot:</strong>{' '}
-                      Elena noted target ARR of $2.4M by Q4. Follow-up action
-                      item logged to CRM.
+          <div className="min-h-[196px]">
+            {panel === 'today' && (
+              <ul className="space-y-2">
+                {SESSIONS.map((s) => (
+                  <li
+                    key={s.time}
+                    className={`flex items-center gap-3 rounded-control px-3 py-2.5 ${
+                      s.live ? 'bg-slate-2' : ''
+                    }`}
+                  >
+                    <span className="w-11 text-sm tabular-nums text-mist">
+                      {s.time}
                     </span>
-                  </div>
-                </div>
-              </motion.div>
+                    <span className="flex-1">
+                      <span className="block text-sm font-medium text-chalk">
+                        {s.name}
+                      </span>
+                      <span className="block text-xs text-mist">{s.kind}</span>
+                    </span>
+                    {s.live ? (
+                      <span className="inline-flex items-center gap-1.5 rounded-chip bg-emerald px-2.5 py-1 text-xs font-semibold text-ink">
+                        <Video className="h-3 w-3" aria-hidden="true" />
+                        Join
+                      </span>
+                    ) : s.paid ? (
+                      <span className="text-xs text-brass">Paid</span>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
             )}
 
-            {/* Mode 2: Revenue OS */}
-            {activeMode === 'revenue' && (
-              <motion.div
-                key="revenue"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.2 }}
-                className="space-y-3"
-              >
+            {panel === 'income' && (
+              <div className="space-y-4 px-1">
                 <div className="flex items-end justify-between">
                   <div>
-                    <div className="text-[11px] text-slate-400 font-mono uppercase tracking-wider mb-0.5">
-                      Net Monthly Retainer Velocity
-                    </div>
-                    <div className="text-2xl font-black text-white font-heading tracking-tight tabular-nums">
-                      $18,450
-                      <span className="text-sm font-normal text-slate-400">
-                        .00
-                      </span>
+                    <div className="text-xs text-mist">This month</div>
+                    <div className="font-heading text-3xl font-semibold tabular-nums text-brass">
+                      $4,320
                     </div>
                   </div>
-                  <div className="flex items-center gap-1 text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg text-xs font-bold border border-emerald-500/20 tabular-nums">
-                    <TrendingUp className="w-3.5 h-3.5" />
-                    <span>+38.2% MoM</span>
-                  </div>
+                  <div className="text-xs text-mist">18 sessions</div>
                 </div>
-
-                {/* Bar Graph */}
-                <div className="h-24 w-full flex items-end gap-2 pt-2">
-                  {REVENUE_BARS.map((h, i) => (
+                <div className="flex h-20 items-end gap-2">
+                  {MONTH_BARS.map((h, i) => (
                     <div
                       key={i}
-                      className="flex-1 relative group cursor-pointer"
-                    >
-                      <div className="absolute inset-0 bg-white/[0.04] rounded-t" />
-                      <motion.div
-                        initial={{ height: 0 }}
-                        animate={{ height: `${h}%` }}
-                        transition={{ duration: 0.5, delay: i * 0.05 }}
-                        className="w-full rounded-t bg-gradient-to-t from-emerald-600 via-teal-400 to-amber-300 shadow-[0_0_12px_rgba(16,231,178,0.4)]"
-                      />
-                    </div>
+                      className={`flex-1 rounded-t ${i === MONTH_BARS.length - 1 ? 'bg-brass' : 'bg-slate-2'}`}
+                      style={{ height: `${h}%` }}
+                    />
                   ))}
                 </div>
-
-                {/* Instant Settlement Ticker */}
-                <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2 text-emerald-300 font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>Instant Stripe Payout Auto-Settled</span>
-                  </div>
-                  <span className="font-mono font-bold text-white tabular-nums">
-                    +$2,400.00
+                <div className="flex items-center justify-between rounded-control bg-ink px-3 py-2.5 text-xs">
+                  <span className="text-mist">Stripe payout, Friday</span>
+                  <span className="font-medium tabular-nums text-chalk">
+                    $1,180
                   </span>
                 </div>
-              </motion.div>
+              </div>
             )}
 
-            {/* Mode 3: Client CRM */}
-            {activeMode === 'crm' && (
-              <motion.div
-                key="crm"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.2 }}
-                className="space-y-2.5"
-              >
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="p-3 rounded-xl bg-slate-950/60 border border-emerald-500/15">
-                    <div className="text-[10px] text-slate-400 font-mono uppercase">
-                      Retention Rate
-                    </div>
-                    <div className="text-xl font-bold text-white font-heading tabular-nums mt-0.5">
-                      98.4%
-                    </div>
-                    <div className="text-[10px] text-emerald-400 mt-0.5">
-                      Top 1% of Mentors
-                    </div>
-                  </div>
-                  <div className="p-3 rounded-xl bg-slate-950/60 border border-emerald-500/15">
-                    <div className="text-[10px] text-slate-400 font-mono uppercase">
-                      Active Mentees
-                    </div>
-                    <div className="text-xl font-bold text-white font-heading tabular-nums mt-0.5">
-                      24 / 25
-                    </div>
-                    <div className="text-[10px] text-amber-400 mt-0.5">
-                      1 Slot Available
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-full bg-emerald-500/30 text-emerald-300 flex items-center justify-center font-bold text-[10px]">
-                      MK
-                    </div>
-                    <div>
-                      <div className="text-slate-200 font-medium">
-                        Marcus Kane
-                      </div>
-                      <div className="text-[10px] text-slate-500">
-                        6-Month Retainer Renewed
-                      </div>
-                    </div>
-                  </div>
-                  <span className="font-mono text-emerald-400 font-semibold">
-                    $6,000
-                  </span>
-                </div>
-              </motion.div>
+            {panel === 'clients' && (
+              <ul className="space-y-2">
+                {CLIENTS.map((c) => (
+                  <li
+                    key={c.initials}
+                    className="flex items-center gap-3 px-3 py-2"
+                  >
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-2 text-xs font-semibold text-chalk">
+                      {c.initials}
+                    </span>
+                    <span className="flex-1">
+                      <span className="block text-sm font-medium text-chalk">
+                        {c.name}
+                      </span>
+                      <span className="block text-xs text-mist">
+                        {c.progress}
+                      </span>
+                    </span>
+                    <span className="text-xs tabular-nums text-mist">
+                      {c.next}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             )}
-          </AnimatePresence>
-        </div>
+          </div>
+        </motion.div>
       </motion.div>
 
-      {/* ── Floating Tactical Widget 1: Live Mentor Call (Top-Right) ── */}
       <motion.div
-        style={{
-          x: floatX1,
-          y: floatY1,
-          rotateX,
-          rotateY,
-          transformStyle: 'preserve-3d',
-        }}
-        className="absolute top-4 sm:top-6 right-[-2%] sm:right-[0%] z-20 w-44 sm:w-48 rounded-xl border border-emerald-400/30 bg-[#031510]/90 backdrop-blur-xl shadow-[0_15px_35px_rgba(0,0,0,0.7),0_0_20px_rgba(16,231,178,0.2)] p-3 pointer-events-auto"
+        {...intro(0.45)}
+        style={{ x: sideX, y: sideY, transformStyle: 'preserve-3d' }}
+        className="absolute top-3 right-0 z-20 w-40 rounded-card border border-hairline bg-slate-2 p-3 shadow-object sm:right-2"
+        aria-hidden="true"
       >
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-          <span className="text-[11px] font-bold text-white font-heading">
-            VIP Mentee Link
-          </span>
+        <div className="text-xs text-mist">Payment received</div>
+        <div className="mt-0.5 font-heading text-lg font-semibold tabular-nums text-brass">
+          $240
         </div>
-        <div className="text-xs font-semibold text-emerald-200 truncate">
-          Elena Rostova
-        </div>
-        <div className="text-[10px] text-slate-400 font-mono mt-0.5 flex items-center justify-between">
-          <span>Executive Track</span>
-          <span className="text-emerald-400 font-bold">ACTIVE</span>
-        </div>
+        <div className="text-xs text-mist">Elena Rostova, 10:00</div>
       </motion.div>
 
-      {/* ── Floating Tactical Widget 2: Auto-Deposit Confirmed (Bottom-Left) ── */}
       <motion.div
-        style={{
-          x: floatX2,
-          y: floatY2,
-          rotateX,
-          rotateY,
-          transformStyle: 'preserve-3d',
-        }}
-        className="absolute bottom-6 sm:bottom-8 left-[-2%] sm:left-[0%] z-20 w-48 sm:w-52 rounded-xl border border-emerald-500/30 bg-[#031510]/90 backdrop-blur-xl shadow-[0_15px_35px_rgba(0,0,0,0.7),0_0_20px_rgba(16,231,178,0.2)] p-3 pointer-events-auto"
+        {...intro(0.55)}
+        style={{ x: sideY, y: sideX, transformStyle: 'preserve-3d' }}
+        className="absolute bottom-4 left-0 z-20 w-44 rounded-card border border-hairline bg-slate-2 p-3 shadow-object sm:left-2"
+        aria-hidden="true"
       >
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/30">
-            <ShieldCheck className="w-4 h-4" />
-          </div>
-          <div>
-            <div className="text-[10px] text-emerald-300/80 font-mono uppercase tracking-wider">
-              Instant Payout
-            </div>
-            <div className="text-sm font-bold text-white font-heading tabular-nums">
-              +$2,850.00
-            </div>
-          </div>
-        </div>
+        <div className="text-xs text-mist">Session notes</div>
+        <div className="mt-0.5 text-sm font-medium text-chalk">Marcus Kane</div>
+        <div className="text-xs text-mist">2 action items, shared</div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 }

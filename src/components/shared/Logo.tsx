@@ -23,7 +23,7 @@ export const Logo: React.FC<LogoProps> = ({
       viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`transition-all duration-300 hover:scale-105 ${className}`}
+      className={className}
       aria-label="NexusHQ 3D Hex Monogram Logo"
     >
       <defs>
@@ -60,7 +60,7 @@ export const Logo: React.FC<LogoProps> = ({
             dy="4"
             stdDeviation="3.5"
             floodOpacity="0.6"
-            floodColor="#020408"
+            floodColor="#0f1d22"
           />
         </filter>
       </defs>
