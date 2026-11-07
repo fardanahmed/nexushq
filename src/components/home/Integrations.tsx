@@ -1,25 +1,25 @@
 const tools = [
   {
     id: 'stripe',
-    logo: 'https://cdn.simpleicons.org/stripe/f4f1e8',
+    logo: '/assets/icons/stripe.svg',
     label: 'Stripe',
     does: 'Payments and payouts',
   },
   {
     id: 'zoom',
-    logo: 'https://cdn.simpleicons.org/zoom/f4f1e8',
+    logo: '/assets/icons/zoom.svg',
     label: 'Zoom',
     does: 'Video sessions',
   },
   {
     id: 'calendar',
-    logo: 'https://cdn.simpleicons.org/googlecalendar/f4f1e8',
+    logo: '/assets/icons/googlecalendar.svg',
     label: 'Google Calendar',
     does: 'Two-way availability',
   },
   {
     id: 'notion',
-    logo: 'https://cdn.simpleicons.org/notion/f4f1e8',
+    logo: '/assets/icons/notion.svg',
     label: 'Notion',
     does: 'Notes export',
   },
@@ -31,7 +31,7 @@ const tools = [
   },
   {
     id: 'mailchimp',
-    logo: 'https://cdn.simpleicons.org/mailchimp/f4f1e8',
+    logo: '/assets/icons/mailchimp.svg',
     label: 'Mailchimp',
     does: 'Client list sync',
   },
