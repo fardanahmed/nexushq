@@ -15,9 +15,9 @@ test.describe('Homepage E2E', () => {
       page.locator('h1').filter({ hasText: 'coaching practice' })
     ).toBeVisible();
 
-    // 4. Verify TrustBar is visible (use first to avoid strict mode error due to marquee loop)
+    // 4. Verify the integrations row renders
     await expect(
-      page.locator('span.font-heading').filter({ hasText: 'Stripe' }).first()
+      page.locator('li').filter({ hasText: 'Stripe' }).first()
     ).toBeVisible();
 
     // 5. Verify HowItWorks section renders
@@ -27,10 +27,10 @@ test.describe('Homepage E2E', () => {
 
     // 6. Verify Join Team section waitlist form renders
     await expect(
-      page.locator('h2').filter({ hasText: 'Ready to Level Up' })
+      page.locator('h2').filter({ hasText: 'Join the waitlist' })
     ).toBeVisible();
     await expect(
-      page.locator('button', { hasText: 'Request Early Access' })
+      page.locator('button', { hasText: 'Join the waitlist' })
     ).toBeVisible();
   });
 
@@ -42,7 +42,7 @@ test.describe('Homepage E2E', () => {
       page.locator('h1').filter({ hasText: 'transparent' })
     ).toBeVisible();
     await expect(
-      page.locator('h2').filter({ hasText: /Your Unfair Advantage/i })
+      page.locator('h2').filter({ hasText: /Founding members/i })
     ).toBeVisible();
   });
 
@@ -65,10 +65,10 @@ test.describe('Homepage E2E', () => {
     await page.fill('input[name="location"]', 'Tech Coaching');
 
     // Click submit
-    await page.click('button:has-text("Request Early Access")');
+    await page.click('button:has-text("Join the waitlist")');
 
     // Verify success state appears (the API route is mocked)
-    await expect(page.getByText("You're on the list!")).toBeVisible({
+    await expect(page.getByText('You are on the list.')).toBeVisible({
       timeout: 5000,
     });
   });

@@ -1,91 +1,46 @@
 ---
-import { Settings, CalendarCheck, Video, LineChart } from 'lucide-react';
 import PlatformShowcase from './PlatformShowcase';
 
+// A real sequence: setup, book, meet, track. Numbers carry meaning here.
 const steps = [
   {
-    num: "01",
-    title: "Setup & Customize",
-    description: "Connect your calendar, set your availability, and link Stripe to start accepting payments.",
-    icon: Settings,
-    color: "from-emerald-500 to-teal-500"
+    title: 'Connect your calendar and Stripe',
+    description: 'Set your availability once. Payments go to your own Stripe account.',
   },
   {
-    num: "02",
-    title: "Clients Book & Pay",
-    description: "Share your beautiful booking link. Clients select a slot and pay upfront in one seamless flow.",
-    icon: CalendarCheck,
-    color: "from-teal-500 to-cyan-500"
+    title: 'Clients book and pay',
+    description: 'Share one link. A client picks a slot and pays before the session is confirmed.',
   },
   {
-    num: "03",
-    title: "Meet & Coach",
-    description: "Join HD video sessions directly from your dashboard. No more hunting for zoom links.",
-    icon: Video,
-    color: "from-cyan-500 to-emerald-500"
+    title: 'Meet on video',
+    description: 'The session starts from your dashboard. No links to hunt for.',
   },
   {
-    num: "04",
-    title: "Track Progress",
-    description: "Log session notes, share resources, and track client milestones all in their dedicated CRM profile.",
-    icon: LineChart,
-    color: "from-amber-500 to-yellow-500"
-  }
+    title: 'Keep notes with the client',
+    description: 'Session notes, files and progress stay on the client record for next time.',
+  },
 ];
 ---
 
-<section class="py-24 relative overflow-hidden bg-[#020408]">
-  <!-- Background Glows -->
-  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-emerald-500/10 blur-[150px] rounded-full pointer-events-none" />
-
-  <div class="container mx-auto px-6 max-w-7xl relative z-10">
-    <div class="text-center max-w-3xl mx-auto mb-20 animate-fadeInUp">
-      <h2 class="font-heading text-4xl font-extrabold tracking-tight sm:text-5xl text-white mb-6">
-        Your entire coaching business,<br />
-        <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-300 bg-clip-text text-transparent inline-block pb-1">
-          streamlined into one flow.
-        </span>
-      </h2>
-      <p class="text-lg text-slate-400 font-medium">
-        Stop duct-taping five different tools together. NexusHQ handles the logistics so you can focus on coaching.
+<section class="py-24 lg:py-32">
+  <div class="container mx-auto max-w-6xl px-6">
+    <div class="mb-16 max-w-2xl">
+      <h2 class="text-h2">Your whole coaching business, in order.</h2>
+      <p class="mt-4 text-lead text-mist">
+        Four tools today, one flow with NexusHQ. The admin happens around the session, not instead of it.
       </p>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-      <!-- Connecting Line for desktop -->
-      <div class="hidden lg:block absolute top-12 left-1/8 right-1/8 h-0.5 bg-gradient-to-r from-emerald-500/0 via-emerald-500/20 to-emerald-500/0 z-0" />
+    <ol class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      {steps.map((step, i) => (
+        <li class="border-t border-hairline pt-5">
+          <span class="font-heading text-h3 tabular-nums text-sea">{i + 1}</span>
+          <h3 class="mt-3 text-h4">{step.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-mist">{step.description}</p>
+        </li>
+      ))}
+    </ol>
 
-      {steps.map((step) => {
-        const Icon = step.icon;
-        return (
-          <div class="relative z-10 flex flex-col items-center text-center group">
-            <!-- Icon/Number Circle -->
-            <div class="relative w-24 h-24 mb-8 flex items-center justify-center">
-              <div class="absolute inset-0 rounded-full bg-slate-950 border border-emerald-500/20 group-hover:border-emerald-400/60 transition-colors duration-500 shadow-xl" />
-              <div class={`absolute inset-2 rounded-full bg-gradient-to-br ${step.color} opacity-10 group-hover:opacity-25 transition-opacity duration-500`} />
-              
-              <Icon className="w-8 h-8 text-white relative z-10 group-hover:text-emerald-300 transition-colors" />
-              
-              <!-- Number badge -->
-              <div class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 text-black flex items-center justify-center text-xs font-mono font-extrabold border-4 border-[#020408] shadow-lg">
-                {step.num}
-              </div>
-            </div>
-
-            <!-- Content -->
-            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-emerald-300 transition-colors font-heading">
-              {step.title}
-            </h3>
-            <p class="text-slate-400 leading-relaxed text-sm">
-              {step.description}
-            </p>
-          </div>
-        )
-      })}
-    </div>
-
-    <!-- Platform Visual Interactive Showcase Component -->
-    <PlatformShowcase client:load />
-
+    <PlatformShowcase client:visible />
   </div>
 </section>

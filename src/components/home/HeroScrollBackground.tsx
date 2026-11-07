@@ -23,12 +23,12 @@ export default function HeroScrollBackground() {
         className="absolute inset-x-0 bottom-0 h-[55%] origin-bottom"
       >
         <div
-          className="h-full w-full opacity-60"
+          className="h-full w-full opacity-70"
           style={{
             transform: 'rotateX(70deg)',
             transformOrigin: '50% 100%',
             backgroundImage:
-              'linear-gradient(to right, oklch(0.8 0.14 165 / 35%) 1px, transparent 1px), linear-gradient(to bottom, oklch(0.8 0.14 165 / 35%) 1px, transparent 1px)',
+              'linear-gradient(to right, oklch(0.8 0.14 165 / 50%) 1px, transparent 1px), linear-gradient(to bottom, oklch(0.8 0.14 165 / 50%) 1px, transparent 1px)',
             backgroundSize: '56px 56px',
             maskImage:
               'radial-gradient(ellipse 65% 70% at 50% 100%, black 10%, transparent 75%)',

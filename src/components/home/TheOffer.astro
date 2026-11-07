@@ -1,109 +1,53 @@
 ---
-import { CheckCircle2, ArrowRight, Zap, Shield } from 'lucide-react';
+const benefits = [
+  {
+    title: 'Your founding price does not go up',
+    text: 'Pay the beta rate for as long as you keep the subscription, whatever the public price becomes.',
+  },
+  {
+    title: 'We move your clients in for you',
+    text: 'Existing clients, upcoming bookings and billing history are imported from your current tools at no charge.',
+  },
+  {
+    title: 'A direct line to the people building it',
+    text: 'Founding members share a channel with the team and shape what gets built next.',
+  },
+];
 ---
 
-<section class="py-32 relative overflow-hidden bg-[#020408]">
-  <!-- Abstract Backdrops -->
-  <div class="absolute inset-0 z-0 pointer-events-none">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-30 blur-[140px] pointer-events-none"
-         style={{ background: 'radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, rgba(16, 231, 178, 0.15) 50%, transparent 80%)' }} />
-  </div>
-
-  <div class="container mx-auto px-6 relative z-10 max-w-5xl">
-    
-    <div class="text-center mb-16 animate-fadeInUp">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-mono font-bold uppercase tracking-widest mb-4">
-        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-        Founding Cohort Allocation
-      </div>
-      <h2 class="text-5xl font-black font-heading tracking-tight sm:text-6xl md:text-7xl text-transparent bg-clip-text bg-gradient-to-br from-white via-emerald-100 to-amber-400 drop-shadow-xl pb-4">
-        Your Unfair Advantage
-      </h2>
-      <p class="text-lg md:text-xl text-slate-400 font-medium max-w-2xl mx-auto">
-        Join the private beta today and lock in exclusive launch privileges engineered to scale your independent practice.
+<section class="border-t border-hairline py-24 lg:py-32">
+  <div class="container mx-auto max-w-6xl px-6">
+    <div class="mb-12 max-w-2xl">
+      <h2 class="text-h2">Founding members.</h2>
+      <p class="mt-4 text-lead text-mist">
+        The first fifty coaches in the private beta get the founding rate and hands-on setup.
       </p>
     </div>
 
-    <!-- The VIP Pass Card -->
-    <div class="relative max-w-4xl mx-auto group animate-fadeInUp" style={{ animationDelay: '0.1s' }}>
-      <!-- Outer glow -->
-      <div class="absolute -inset-1.5 bg-gradient-to-r from-amber-500/30 via-emerald-500/30 to-amber-500/30 rounded-[3rem] blur-2xl opacity-40 group-hover:opacity-70 transition-opacity duration-700" />
-      
-      <div class="relative flex flex-col md:flex-row items-center rounded-[2.5rem] border border-amber-500/30 bg-[#03090e]/95 backdrop-blur-3xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.9)] ring-1 ring-inset ring-amber-500/20">
-        
-        {/* Shine effect */}
-        <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-amber-400/70 to-transparent opacity-70 group-hover:opacity-100 transition-opacity duration-700" />
-        <div class="absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 transform bg-gradient-to-r from-transparent via-amber-200/10 to-transparent opacity-30 group-hover:animate-shine" />
-
-        <!-- Left Side: Offer Details -->
-        <div class="flex-1 p-10 md:p-14 w-full">
-          <ul class="space-y-8">
-            <li class="flex items-start gap-5">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/30 shadow-[0_0_20px_rgba(245,158,11,0.25)]">
-                <Shield className="w-6 h-6" />
-              </div>
-              <div>
-                <div class="flex items-center gap-2">
-                  <h3 class="text-xl font-bold font-heading text-white">Grandfathered Lifetime Rate</h3>
-                  <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">NEVER INCREASES</span>
-                </div>
-                <p class="text-slate-400 leading-relaxed font-medium mt-1">Lock in our aggressive beta pricing forever. Your subscription cost will never increase, even as we roll out 4K AI models.</p>
-              </div>
-            </li>
-            
-            <li class="flex items-start gap-5">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shadow-[0_0_20px_rgba(16,231,178,0.25)]">
-                <Zap className="w-6 h-6" />
-              </div>
-              <div>
-                <div class="flex items-center gap-2">
-                  <h3 class="text-xl font-bold font-heading text-white">White-Glove Concierge Setup</h3>
-                  <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">1-ON-1 ONBOARDING</span>
-                </div>
-                <p class="text-slate-400 leading-relaxed font-medium mt-1">We'll personally migrate all your existing clients, billing history, and upcoming appointments from legacy software for free.</p>
-              </div>
-            </li>
-
-            <li class="flex items-start gap-5">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-teal-500/10 text-teal-400 border border-teal-500/30 shadow-[0_0_20px_rgba(45,212,191,0.25)]">
-                <CheckCircle2 className="w-6 h-6" />
-              </div>
-              <div>
-                <div class="flex items-center gap-2">
-                  <h3 class="text-xl font-bold font-heading text-white">Direct Founder Slack Line</h3>
-                  <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">PRIORITY ROADMAP</span>
-                </div>
-                <p class="text-slate-400 leading-relaxed font-medium mt-1">Direct Slack access to our core engineering team to prioritize and build features engineered specifically for your workflow.</p>
-              </div>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Right Side: The Ticket Stub / Pricing Action -->
-        <div class="relative w-full md:w-84 border-t md:border-t-0 md:border-l border-amber-500/20 bg-[#020408]/90 p-10 md:p-14 flex flex-col items-center justify-center text-center backdrop-blur-xl h-full">
-          <!-- Dashed perforation line (desktop only) -->
-          <div class="hidden md:block absolute -left-[1.5px] top-4 bottom-4 w-[3px] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMyIgaGVpZ2h0PSIyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSI4IiBmaWxsPSJyZ2JhKDI0NSwgMTU4LCAxMSwgMC4zKSIvPjwvc3ZnPg==')] bg-repeat-y" />
-          
-          <div class="space-y-6 w-full">
-            <div class="space-y-2">
-              <p class="text-amber-400/90 font-bold uppercase tracking-widest text-xs font-mono">VIP Founding Pass</p>
-              <div class="text-5xl font-extrabold text-white tracking-tight drop-shadow-lg flex items-baseline justify-center gap-1 font-heading tabular-nums">
-                $99<span class="text-lg text-slate-500 font-normal font-sans">/mo</span>
-              </div>
-              <p class="text-amber-400 font-bold font-mono text-xs tracking-wider">LIFETIME RATE GUARANTEE</p>
-            </div>
-
-            <a href="/#join" class="group/btn relative inline-flex h-14 w-full items-center justify-center overflow-hidden rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-emerald-400 px-8 font-bold font-heading text-black shadow-[0_0_30px_rgba(245,158,11,0.35)] transition-all duration-300 hover:shadow-[0_0_45px_rgba(245,158,11,0.6)] hover:scale-[1.02]">
-              <span class="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-in-out mix-blend-overlay" />
-              <span class="relative flex items-center gap-2 font-black">
-                Claim VIP Pass <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform text-black" />
-              </span>
-            </a>
-
-            <p class="text-xs text-slate-500 font-medium font-mono">Limited to 50 founding studios.</p>
+    <div class="grid overflow-hidden rounded-object border border-hairline bg-slate md:grid-cols-12">
+      <ul class="space-y-8 p-8 md:col-span-8 md:p-10">
+        {benefits.map((b) => (
+          <li class="max-w-[56ch]">
+            <h3 class="text-h4">{b.title}</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-mist">{b.text}</p>
+          </li>
+        ))}
+      </ul>
+      <div class="flex flex-col justify-center gap-6 border-t border-hairline bg-slate-2 p-8 md:col-span-4 md:border-t-0 md:border-l md:p-10">
+        <div>
+          <div class="text-sm text-mist">Founding rate</div>
+          <div class="mt-1 flex items-baseline gap-1 font-heading">
+            <span class="text-5xl font-semibold tabular-nums text-brass">$99</span>
+            <span class="text-base text-mist">/month</span>
           </div>
+          <div class="mt-1 text-sm text-mist">50 places. Billed monthly, cancel any time.</div>
         </div>
-
+        <a
+          href="/#join"
+          class="inline-flex h-12 items-center justify-center rounded-control bg-emerald px-6 text-base font-semibold text-ink transition-colors duration-150 hover:bg-sea"
+        >
+          Join the waitlist
+        </a>
       </div>
     </div>
   </div>
