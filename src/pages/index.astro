@@ -3,7 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/home/Hero.astro';
 import HowItWorks from '../components/home/HowItWorks.astro';
 import Integrations from '../components/home/Integrations';
-import Testimonials from '../components/home/Testimonials';
 import TheOffer from '../components/home/TheOffer.astro';
 import JoinTeamSection from '../components/home/JoinTeamSection';
 
@@ -33,7 +32,7 @@ const schema = (siteData && siteData.contact) ? {
   <Hero />
   <HowItWorks />
   <Integrations />
-  <Testimonials />
+  <!-- Testimonials.tsx stays on disk, unmounted until real beta quotes exist (owner decision, 7 Nov) -->
   <TheOffer />
   <JoinTeamSection client:visible />
 </Layout>
