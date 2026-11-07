@@ -26,14 +26,14 @@ const displayDesc = description || defaultDesc;
 ---
 
 <!doctype html>
-<html lang="en" class="dark" style="scrollbar-gutter: stable;">
+<html lang="en">
   <head>
     <ClientRouter />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#020408" />
+    <meta name="theme-color" content="#0f1d22" />
     
     <title>{displayTitle}</title>
     <meta name="description" content={displayDesc} />
@@ -50,25 +50,22 @@ const displayDesc = description || defaultDesc;
     <meta property="twitter:description" content={displayDesc} />
     <meta property="twitter:image" content="/og-image.png" />
 
-    <!-- Google Fonts: Inter, Outfit, JetBrains Mono -->
+    <!-- Fonts: Bricolage Grotesque (headings) + Inter (body); non-blocking so the headline paints with the fallback first -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-
-    <!-- Enforce dark mode to match 3D concept aesthetics -->
-    <script is:inline>
-      document.documentElement.classList.add('dark');
-      if (typeof localStorage !== 'undefined') {
-        localStorage.setItem('theme', 'dark');
-      }
-    </script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
     {schema && <script type="application/ld+json" is:inline set:html={JSON.stringify(schema).replace(/</g, '\\u003c').replace(/>/g, '\\u003e')} />}
   </head>
   <body class="bg-background text-foreground font-sans antialiased">
     <!-- Accessible Skip to Content Link for Keyboard / Screen Reader Navigation -->
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-5 focus:py-2.5 focus:bg-emerald-500 focus:text-black focus:font-bold focus:rounded-xl focus:shadow-2xl focus:ring-2 focus:ring-white"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-5 focus:py-2.5 focus:bg-emerald focus:text-ink focus:font-semibold focus:rounded-control"
     >
       Skip to main content
     </a>
