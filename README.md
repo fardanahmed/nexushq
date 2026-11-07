@@ -8,8 +8,8 @@ Frontend marketing and client portal platform for **NexusHQ** — *The Command C
 - **UI Components:** React 19 Islands + Tailwind CSS v4 + Framer Motion
 - **Icons:** Lucide React
 - **Brand Identity:** 3D Hex Shield Emblem (SVG Vector System)
-- **Toolchain:** TypeScript 5.6+, pnpm v10, ESLint v10, Prettier v3, Husky
-- **Testing:** Playwright E2E
+- **Toolchain:** TypeScript 6, pnpm v10, ESLint v10, Prettier v3, Husky
+- **Testing:** `node:test` unit tests, Playwright E2E
 
 ---
 
@@ -29,7 +29,14 @@ Frontend marketing and client portal platform for **NexusHQ** — *The Command C
    ```
 
 3. **Verify Environment Variables:**
-   Configure `PUBLIC_BACKEND_API_URL` in `.env.local` to point to the backend service (default: `http://localhost:5000`).
+   | Variable | Required | Purpose |
+   | --- | --- | --- |
+   | `PUBLIC_BACKEND_API_URL` | no | Backend base URL (default in `.env.example`: `http://localhost:5000`). Unset: content falls back to built-in mock data. |
+   | `BACKEND_API_URL` | no | Server-side-only override of the URL above. |
+   | `PUBLIC_R2_PUBLIC_URL` | no | Cloudflare R2 public URL for images; falls back to `/assets`. |
+
+4. **Run with the backend (optional):**
+   In the `nexushq-backend` repo run `pnpm install && pnpm dev` (API on port 5000, CORS allows `http://localhost:4321`, the Astro dev URL). Start the site with `pnpm dev`. Without the backend the site still renders, but the forms will show an error.
 
 ---
 
@@ -73,5 +80,6 @@ We strictly follow a structured Git & GitHub workflow:
 
 - **Typecheck & Astro Check:** `pnpm typecheck`
 - **Linter & Formatting:** `pnpm lint` / `pnpm format:check`
+- **Unit Tests:** `pnpm test`
 - **Production Build:** `pnpm build`
 - **End-to-End Tests:** `pnpm test:e2e`
