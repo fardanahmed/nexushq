@@ -118,6 +118,29 @@
   animation: hero-rise 0.5s var(--ease-out-quint) both;
 }
 
+@keyframes hero-object {
+  from {
+    opacity: 0;
+    transform: perspective(1600px) rotateX(22deg) translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1600px) rotateX(0) translateY(0);
+  }
+}
+
+.hero-object {
+  transform-style: preserve-3d;
+  animation: hero-object 0.9s var(--ease-out-quint) 0.15s both;
+}
+
+.hero-side {
+  animation: hero-rise 0.6s var(--ease-out-quint) 0.5s both;
+}
+.hero-side + .hero-side {
+  animation-delay: 0.6s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

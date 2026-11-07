@@ -10,7 +10,8 @@ import { CalendarDays, Wallet, Users, Video } from 'lucide-react';
 
 /*
   The one 3D moment on the site: a coach's day, rendered as a tilted panel.
-  Intro: rises from flat (rotateX 22) to its resting tilt, then idles.
+  Intro: CSS keyframes (globals.css .hero-object / .hero-side) so the server
+  HTML never carries opacity 0 and reduced motion gets the final frame.
   Pointer parallax is capped at ±4 degrees. Reduced motion = final frame.
   Transforms only; no blur layers.
 */
@@ -109,19 +110,6 @@ export default function HeroVisual() {
     mouseY.set(0);
   }, [mouseX, mouseY]);
 
-  const intro = (delay: number) =>
-    reduceMotion
-      ? {}
-      : {
-          initial: { opacity: 0, y: 40, rotateX: 22 },
-          animate: { opacity: 1, y: 0, rotateX: 0 },
-          transition: {
-            duration: 0.9,
-            delay,
-            ease: [0.22, 1, 0.36, 1] as const,
-          },
-        };
-
   return (
     <div
       ref={containerRef}
@@ -130,11 +118,7 @@ export default function HeroVisual() {
       className="relative flex h-[440px] w-full items-center justify-center sm:h-[500px]"
       style={{ perspective: 1600 }}
     >
-      <motion.div
-        {...intro(0.15)}
-        style={{ transformStyle: 'preserve-3d' }}
-        className="relative z-10 w-[92%] max-w-[440px]"
-      >
+      <div className="hero-object relative z-10 w-[92%] max-w-[440px]">
         <motion.div
           style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
           className="rounded-object border border-hairline bg-slate p-5 shadow-object"
@@ -267,12 +251,11 @@ export default function HeroVisual() {
             )}
           </div>
         </motion.div>
-      </motion.div>
+      </div>
 
       <motion.div
-        {...intro(0.45)}
-        style={{ x: sideX, y: sideY, transformStyle: 'preserve-3d' }}
-        className="absolute top-3 right-0 z-20 hidden w-40 rounded-card sm:block border border-hairline bg-slate-2 p-3 shadow-object sm:right-2"
+        style={{ x: sideX, y: sideY }}
+        className="hero-side absolute top-3 right-0 z-20 hidden w-40 rounded-card sm:block border border-hairline bg-slate-2 p-3 shadow-object sm:right-2"
         aria-hidden="true"
       >
         <div className="text-xs text-mist">Payment received</div>
@@ -283,9 +266,8 @@ export default function HeroVisual() {
       </motion.div>
 
       <motion.div
-        {...intro(0.55)}
-        style={{ x: sideY, y: sideX, transformStyle: 'preserve-3d' }}
-        className="absolute bottom-4 left-0 z-20 hidden w-44 rounded-card sm:block border border-hairline bg-slate-2 p-3 shadow-object sm:left-2"
+        style={{ x: sideY, y: sideX }}
+        className="hero-side absolute bottom-4 left-0 z-20 hidden w-44 rounded-card sm:block border border-hairline bg-slate-2 p-3 shadow-object sm:left-2"
         aria-hidden="true"
       >
         <div className="text-xs text-mist">Session notes</div>
