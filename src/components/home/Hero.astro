@@ -21,7 +21,7 @@ const ctaSecondary = heroContent?.ctaSecondary || defaultHeroContent.ctaSecondar
 ---
 
 <section class="relative w-full overflow-hidden">
-  <HeroScrollBackground client:load />
+  <HeroScrollBackground client:idle />
 
   <div class="container relative z-10 mx-auto max-w-6xl px-6 pt-28 pb-8 lg:pt-36 lg:pb-12">
     <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
@@ -57,7 +57,7 @@ const ctaSecondary = heroContent?.ctaSecondary || defaultHeroContent.ctaSecondar
       </div>
 
       <div class="w-full lg:col-span-5" transition:persist>
-        <HeroVisual client:load />
+        <HeroVisual client:idle />
       </div>
     </div>
   </div>

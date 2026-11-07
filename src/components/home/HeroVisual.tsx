@@ -272,7 +272,7 @@ export default function HeroVisual() {
       <motion.div
         {...intro(0.45)}
         style={{ x: sideX, y: sideY, transformStyle: 'preserve-3d' }}
-        className="absolute top-3 right-0 z-20 w-40 rounded-card border border-hairline bg-slate-2 p-3 shadow-object sm:right-2"
+        className="absolute top-3 right-0 z-20 hidden w-40 rounded-card sm:block border border-hairline bg-slate-2 p-3 shadow-object sm:right-2"
         aria-hidden="true"
       >
         <div className="text-xs text-mist">Payment received</div>
@@ -285,7 +285,7 @@ export default function HeroVisual() {
       <motion.div
         {...intro(0.55)}
         style={{ x: sideY, y: sideX, transformStyle: 'preserve-3d' }}
-        className="absolute bottom-4 left-0 z-20 w-44 rounded-card border border-hairline bg-slate-2 p-3 shadow-object sm:left-2"
+        className="absolute bottom-4 left-0 z-20 hidden w-44 rounded-card sm:block border border-hairline bg-slate-2 p-3 shadow-object sm:left-2"
         aria-hidden="true"
       >
         <div className="text-xs text-mist">Session notes</div>

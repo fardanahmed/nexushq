@@ -66,9 +66,9 @@ const displayDesc = description || defaultDesc;
     </a>
 
     <div class="flex min-h-screen flex-col">
-      <!-- client:load is needed for mobile collapsible navigation and theme-switching interactions -->
+      <!-- client:idle: the menu and scroll state hydrate after first paint -->
       <header>
-        <Navbar client:load />
+        <Navbar client:idle />
       </header>
       <main id="main-content" class="flex-1 focus:outline-none" tabindex="-1">
         <slot />
