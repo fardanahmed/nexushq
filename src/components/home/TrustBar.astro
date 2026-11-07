@@ -1,69 +1,75 @@
 ---
-import { CreditCard, Video, Calendar, MessageSquare, FileText, Mail } from 'lucide-react';
+// Authentic brand SVGs for social proof / integration logos
 ---
 
-<section class="border-y border-white/5 bg-slate-950/50 py-8 backdrop-blur-sm overflow-hidden relative">
-  <!-- Gradient fades for the edges -->
-  <div class="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#030014] to-transparent z-10 pointer-events-none" />
-  <div class="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#030014] to-transparent z-10 pointer-events-none" />
+<section class="border-y border-emerald-500/15 bg-[#020408]/90 py-9 backdrop-blur-xl overflow-hidden relative">
+  <!-- Gradient fades for smooth edge vanishing -->
+  <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#020408] to-transparent z-10 pointer-events-none" />
+  <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#020408] to-transparent z-10 pointer-events-none" />
 
   <div class="container mx-auto px-6 max-w-7xl">
-    <p class="text-center text-xs font-bold uppercase tracking-widest text-slate-500 mb-8">
-      Seamlessly integrates with your existing workflow
-    </p>
+    <div class="flex items-center justify-center gap-2 mb-7">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400/80 animate-pulse" />
+      <p class="text-center text-[11px] font-mono uppercase tracking-[0.25em] text-emerald-400/80">
+        Enterprise Integration Mesh
+      </p>
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-400/80 animate-pulse" />
+    </div>
 
     <div class="relative flex overflow-x-hidden">
-      <div class="animate-marquee flex whitespace-nowrap items-center gap-16 md:gap-24">
+      <div class="animate-marquee flex whitespace-nowrap items-center gap-6 md:gap-8">
         <!-- Group 1 -->
-        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
-          <CreditCard className="h-6 w-6 text-indigo-400" />
-          <span class="text-lg font-bold font-heading tracking-tight">Stripe</span>
+        <div class="flex items-center gap-3 px-5 py-2.5 rounded-xl border border-emerald-500/15 bg-slate-950/60 text-slate-300 hover:text-white hover:border-emerald-400/40 hover:bg-emerald-950/30 transition-all duration-300 shadow-sm cursor-pointer group">
+          <img src="https://cdn.simpleicons.org/stripe/10e7b2" alt="Stripe" class="h-5 w-5 object-contain group-hover:scale-110 transition-transform" width="20" height="20" loading="lazy" />
+          <span class="text-sm font-bold font-heading tracking-tight text-slate-200 group-hover:text-emerald-300">Stripe Payments</span>
         </div>
-        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
-          <Video className="h-6 w-6 text-blue-400" />
-          <span class="text-lg font-bold font-heading tracking-tight">Zoom</span>
+        <div class="flex items-center gap-3 px-5 py-2.5 rounded-xl border border-emerald-500/15 bg-slate-950/60 text-slate-300 hover:text-white hover:border-emerald-400/40 hover:bg-emerald-950/30 transition-all duration-300 shadow-sm cursor-pointer group">
+          <img src="https://cdn.simpleicons.org/zoom/2D8CFF" alt="Zoom" class="h-5 w-5 object-contain group-hover:scale-110 transition-transform" width="20" height="20" loading="lazy" />
+          <span class="text-sm font-bold font-heading tracking-tight text-slate-200 group-hover:text-emerald-300">Zoom 4K</span>
         </div>
-        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
-          <Calendar className="h-6 w-6 text-amber-400" />
-          <span class="text-lg font-bold font-heading tracking-tight">Google Calendar</span>
+        <div class="flex items-center gap-3 px-5 py-2.5 rounded-xl border border-emerald-500/15 bg-slate-950/60 text-slate-300 hover:text-white hover:border-emerald-400/40 hover:bg-emerald-950/30 transition-all duration-300 shadow-sm cursor-pointer group">
+          <img src="https://cdn.simpleicons.org/googlecalendar/4285F4" alt="Google Calendar" class="h-5 w-5 object-contain group-hover:scale-110 transition-transform" width="20" height="20" loading="lazy" />
+          <span class="text-sm font-bold font-heading tracking-tight text-slate-200 group-hover:text-emerald-300">Google Calendar</span>
         </div>
-        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
-          <FileText className="h-6 w-6 text-slate-200" />
-          <span class="text-lg font-bold font-heading tracking-tight">Notion</span>
+        <div class="flex items-center gap-3 px-5 py-2.5 rounded-xl border border-emerald-500/15 bg-slate-950/60 text-slate-300 hover:text-white hover:border-emerald-400/40 hover:bg-emerald-950/30 transition-all duration-300 shadow-sm cursor-pointer group">
+          <img src="https://cdn.simpleicons.org/notion/ffffff" alt="Notion" class="h-5 w-5 object-contain group-hover:scale-110 transition-transform" width="20" height="20" loading="lazy" />
+          <span class="text-sm font-bold font-heading tracking-tight text-slate-200 group-hover:text-emerald-300">Notion Sync</span>
         </div>
-        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
-          <MessageSquare className="h-6 w-6 text-rose-400" />
-          <span class="text-lg font-bold font-heading tracking-tight">Slack</span>
+        <div class="flex items-center gap-3 px-5 py-2.5 rounded-xl border border-emerald-500/15 bg-slate-950/60 text-slate-300 hover:text-white hover:border-emerald-400/40 hover:bg-emerald-950/30 transition-all duration-300 shadow-sm cursor-pointer group">
+          <img src="/assets/icons/slack.svg" alt="Slack" class="h-5 w-5 object-contain group-hover:scale-110 transition-transform" width="20" height="20" loading="lazy" />
+          <span class="text-sm font-bold font-heading tracking-tight text-slate-200 group-hover:text-emerald-300">Slack Connect</span>
         </div>
-        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
-          <Mail className="h-6 w-6 text-yellow-400" />
-          <span class="text-lg font-bold font-heading tracking-tight">Mailchimp</span>
+        <div class="flex items-center gap-3 px-5 py-2.5 rounded-xl border border-emerald-500/15 bg-slate-950/60 text-slate-300 hover:text-white hover:border-emerald-400/40 hover:bg-emerald-950/30 transition-all duration-300 shadow-sm cursor-pointer group">
+          <img src="https://cdn.simpleicons.org/mailchimp/FFE01B" alt="Mailchimp" class="h-5 w-5 object-contain group-hover:scale-110 transition-transform" width="20" height="20" loading="lazy" />
+          <span class="text-sm font-bold font-heading tracking-tight text-slate-200 group-hover:text-emerald-300">Mailchimp CRM</span>
         </div>
         
-        <!-- Group 2 (Duplicate for seamless loop) -->
-        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 ml-16 md:ml-24">
-          <CreditCard className="h-6 w-6 text-indigo-400" />
-          <span class="text-lg font-bold font-heading tracking-tight">Stripe</span>
-        </div>
-        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
-          <Video className="h-6 w-6 text-blue-400" />
-          <span class="text-lg font-bold font-heading tracking-tight">Zoom</span>
-        </div>
-        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
-          <Calendar className="h-6 w-6 text-amber-400" />
-          <span class="text-lg font-bold font-heading tracking-tight">Google Calendar</span>
-        </div>
-        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
-          <FileText className="h-6 w-6 text-slate-200" />
-          <span class="text-lg font-bold font-heading tracking-tight">Notion</span>
-        </div>
-        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
-          <MessageSquare className="h-6 w-6 text-rose-400" />
-          <span class="text-lg font-bold font-heading tracking-tight">Slack</span>
-        </div>
-        <div class="flex items-center gap-3 text-slate-400 opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
-          <Mail className="h-6 w-6 text-yellow-400" />
-          <span class="text-lg font-bold font-heading tracking-tight">Mailchimp</span>
+        <!-- Group 2 (Duplicate for seamless 30s infinite loop, hidden from screen readers) -->
+        <div aria-hidden="true" class="flex items-center gap-6 md:gap-8 select-none ml-6 md:ml-8">
+          <div class="flex items-center gap-3 px-5 py-2.5 rounded-xl border border-emerald-500/15 bg-slate-950/60 text-slate-300 hover:text-white hover:border-emerald-400/40 hover:bg-emerald-950/30 transition-all duration-300 shadow-sm cursor-pointer group">
+            <img src="https://cdn.simpleicons.org/stripe/10e7b2" alt="" class="h-5 w-5 object-contain group-hover:scale-110 transition-transform" width="20" height="20" loading="lazy" />
+            <span class="text-sm font-bold font-heading tracking-tight text-slate-200 group-hover:text-emerald-300">Stripe Payments</span>
+          </div>
+          <div class="flex items-center gap-3 px-5 py-2.5 rounded-xl border border-emerald-500/15 bg-slate-950/60 text-slate-300 hover:text-white hover:border-emerald-400/40 hover:bg-emerald-950/30 transition-all duration-300 shadow-sm cursor-pointer group">
+            <img src="https://cdn.simpleicons.org/zoom/2D8CFF" alt="" class="h-5 w-5 object-contain group-hover:scale-110 transition-transform" width="20" height="20" loading="lazy" />
+            <span class="text-sm font-bold font-heading tracking-tight text-slate-200 group-hover:text-emerald-300">Zoom 4K</span>
+          </div>
+          <div class="flex items-center gap-3 px-5 py-2.5 rounded-xl border border-emerald-500/15 bg-slate-950/60 text-slate-300 hover:text-white hover:border-emerald-400/40 hover:bg-emerald-950/30 transition-all duration-300 shadow-sm cursor-pointer group">
+            <img src="https://cdn.simpleicons.org/googlecalendar/4285F4" alt="" class="h-5 w-5 object-contain group-hover:scale-110 transition-transform" width="20" height="20" loading="lazy" />
+            <span class="text-sm font-bold font-heading tracking-tight text-slate-200 group-hover:text-emerald-300">Google Calendar</span>
+          </div>
+          <div class="flex items-center gap-3 px-5 py-2.5 rounded-xl border border-emerald-500/15 bg-slate-950/60 text-slate-300 hover:text-white hover:border-emerald-400/40 hover:bg-emerald-950/30 transition-all duration-300 shadow-sm cursor-pointer group">
+            <img src="https://cdn.simpleicons.org/notion/ffffff" alt="" class="h-5 w-5 object-contain group-hover:scale-110 transition-transform" width="20" height="20" loading="lazy" />
+            <span class="text-sm font-bold font-heading tracking-tight text-slate-200 group-hover:text-emerald-300">Notion Sync</span>
+          </div>
+          <div class="flex items-center gap-3 px-5 py-2.5 rounded-xl border border-emerald-500/15 bg-slate-950/60 text-slate-300 hover:text-white hover:border-emerald-400/40 hover:bg-emerald-950/30 transition-all duration-300 shadow-sm cursor-pointer group">
+            <img src="/assets/icons/slack.svg" alt="" class="h-5 w-5 object-contain group-hover:scale-110 transition-transform" width="20" height="20" loading="lazy" />
+            <span class="text-sm font-bold font-heading tracking-tight text-slate-200 group-hover:text-emerald-300">Slack Connect</span>
+          </div>
+          <div class="flex items-center gap-3 px-5 py-2.5 rounded-xl border border-emerald-500/15 bg-slate-950/60 text-slate-300 hover:text-white hover:border-emerald-400/40 hover:bg-emerald-950/30 transition-all duration-300 shadow-sm cursor-pointer group">
+            <img src="https://cdn.simpleicons.org/mailchimp/FFE01B" alt="" class="h-5 w-5 object-contain group-hover:scale-110 transition-transform" width="20" height="20" loading="lazy" />
+            <span class="text-sm font-bold font-heading tracking-tight text-slate-200 group-hover:text-emerald-300">Mailchimp CRM</span>
+          </div>
         </div>
       </div>
     </div>
@@ -78,7 +84,7 @@ import { CreditCard, Video, Calendar, MessageSquare, FileText, Mail } from 'luci
     }
     @keyframes marquee {
       0% { transform: translateX(0%); }
-      100% { transform: translateX(-50%); } /* Shift exactly half to loop seamlessly since we duplicated the group */
+      100% { transform: translateX(-50%); }
     }
   </style>
 </section>

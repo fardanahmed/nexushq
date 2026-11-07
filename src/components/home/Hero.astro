@@ -2,6 +2,7 @@
 import { getSiteSettings } from '../../lib/content-api';
 import type { HeroContent, SiteData } from '../../types';
 import HeroVisual from './HeroVisual';
+import HeroScrollBackground from './HeroScrollBackground';
 import { ArrowRight } from 'lucide-react';
 
 const heroContent = await getSiteSettings<HeroContent>('hero_content');
@@ -9,7 +10,7 @@ const siteData = await getSiteSettings<SiteData>('site_data');
 
 const defaultHeroContent: HeroContent = {
   headline: 'The Operating System for Elite Mentorship.',
-  subheadline: 'Replace your fragmented toolstack. NexusHQ unifies scheduling, HD video sessions, CRM, and billing into one breathtaking client portal.',
+  subheadline: 'Unify scheduling, HD video, CRM, and billing into one commanding client portal.',
   ctaPrimary: 'Start Free Trial',
   ctaSecondary: 'Explore Features'
 };
@@ -25,96 +26,72 @@ const headlinePart2 = headlineWords.slice(-2).join(' ');
 ---
 
 <section class="relative w-full bg-transparent overflow-hidden">
-  <!-- Dynamic, modern background layer -->
-  <div class="relative flex min-h-[90vh] w-full overflow-hidden bg-transparent">
-    <div class="absolute inset-0 z-0">
-      
-      <!-- Theme-aware overlay -->
-      <div class="absolute inset-0 bg-gradient-to-r from-[#030014]/95 via-[#030014]/75 to-[#030014]/30 z-10 pointer-events-none" />
-      
-      <!-- Background Texture Graphic (Decorative) -->
-      <img src="/assets/hero-background.webp" alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-screen pointer-events-none z-0" />
+  <!-- Interactive 3D Scroll Perspective Matrix Background -->
+  <HeroScrollBackground client:load />
 
-      <!-- Subtle primary tint glow -->
-      <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 via-transparent to-transparent z-10 mix-blend-overlay pointer-events-none" />
-      
-      <!-- Smooth fade to page background at the very bottom -->
-      <div class="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#030014]/90 via-[#030014]/60 to-transparent z-10 pointer-events-none" />
-    </div>
-
+  <div class="relative flex min-h-[90dvh] w-full overflow-hidden bg-transparent">
     <!-- Content Container -->
-    <div class="container relative z-20 mx-auto w-full max-w-7xl px-6 pt-28 pb-16 lg:pt-32 lg:pb-20 pointer-events-none min-h-[90vh] flex items-center">
+    <div class="container relative z-20 mx-auto w-full max-w-7xl px-6 pt-24 pb-16 lg:pt-28 lg:pb-20 pointer-events-none min-h-[90dvh] flex items-center">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
         
         <!-- Left Column: Typography and CTAs -->
-        <div class="lg:col-span-7 flex flex-col justify-center space-y-10 pointer-events-auto order-2 lg:order-1 mt-4 lg:mt-0 animate-fadeInUp">
+        <div class="lg:col-span-7 flex flex-col justify-center space-y-8 pointer-events-auto order-2 lg:order-1 mt-4 lg:mt-0 animate-fadeInUp">
           <div class="space-y-6">
-            <!-- Tagline Badge -->
-            <div class="inline-flex items-center gap-3 rounded-full border border-indigo-400/20 bg-indigo-900/20 px-5 py-2 text-xs uppercase tracking-wider font-bold text-indigo-300 backdrop-blur-md shadow-lg shadow-indigo-500/10 transition-transform duration-300 hover:scale-105">
+            <!-- Tagline Badge (1 of max 3 eyebrows site-wide) -->
+            <div class="inline-flex items-center gap-2.5 rounded-full border border-emerald-400/30 bg-emerald-950/40 px-4 py-1.5 text-xs font-bold text-emerald-300 backdrop-blur-md shadow-lg shadow-emerald-500/10">
               <span class="relative flex h-2 w-2">
                 <span class="absolute inline-flex h-full w-full animate-pulse rounded-full bg-amber-400 opacity-75"></span>
-                <span class="relative inline-flex h-2 w-2 rounded-full bg-amber-500 shadow-[0_0_8px_#f59e0b]"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_8px_#fbbf24]"></span>
               </span>
-              {siteData?.tagline || '✦ Elevate Your Practice ✦'}
+              <span>{siteData?.tagline || 'Elevate Your Mentorship Practice'}</span>
             </div>
 
             <!-- Headline -->
-            <h1 class="font-heading text-4xl font-black leading-[1.15] tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-slate-400 md:text-6xl lg:text-[4.2rem] drop-shadow-xl pb-3">
+            <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-100 to-slate-400 drop-shadow-xl pb-2">
               {headlinePart1}
               {headlinePart2 && (
-                <span class="bg-gradient-to-r from-indigo-400 via-violet-400 to-amber-400 bg-clip-text text-transparent block mt-2 pb-2">
+                <span class="bg-gradient-to-r from-emerald-300 via-teal-300 to-amber-300 bg-clip-text text-transparent block mt-1 pb-2">
                   {headlinePart2}
                 </span>
               )}
             </h1>
             
             {subheadline && (
-              <p class="max-w-2xl text-lg sm:text-xl leading-relaxed text-slate-300 font-light">
+              <p class="max-w-xl text-lg sm:text-xl leading-relaxed text-slate-300 font-medium">
                 {subheadline}
               </p>
             )}
           </div>
 
-          <!-- Glass Card with CTAs -->
-          <div class="w-full max-w-[34rem] p-8 md:p-10 rounded-[2rem] bg-slate-950/40 backdrop-blur-3xl transform-gpu border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] ring-1 ring-inset ring-white/5 relative overflow-hidden transition-transform duration-500 hover:-translate-y-1 hover:border-indigo-500/30">
-            <!-- Inner ambient glow -->
-            <div class="absolute -inset-2 bg-gradient-to-br from-indigo-500/20 via-transparent to-amber-500/10 opacity-50 blur-2xl z-0 pointer-events-none"></div>
-            
-            <div class="relative z-10">
-              <p class="mb-8 text-sm md:text-base leading-relaxed text-slate-300 font-medium">
-                Built for high-ticket consultants and coaches who refuse to compromise on client experience. Launch your beautifully branded workspace in minutes.
-              </p>
+          <!-- CTAs directly below copy — no glass card wrapper -->
+          {(ctaPrimary || ctaSecondary) && (
+            <div class="flex flex-col gap-3.5 sm:flex-row sm:gap-4 max-w-md">
+              {ctaPrimary && (
+                <a
+                  href="https://app.nexushq.tech"
+                  class="group relative flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 px-7 py-4 text-base font-extrabold text-black shadow-xl shadow-emerald-500/25 transition-all duration-300 hover:shadow-emerald-500/40 hover:scale-[1.02] active:scale-[0.98] border border-emerald-300/40 overflow-hidden whitespace-nowrap"
+                >
+                  <span class="absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 transform bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shine pointer-events-none" />
+                  <span class="relative z-10 flex items-center gap-2">
+                    <span>{ctaPrimary}</span>
+                    <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1.5" />
+                  </span>
+                </a>
+              )}
 
-              {(ctaPrimary || ctaSecondary) && (
-                <div class="flex flex-col gap-4 sm:flex-row sm:gap-4">
-                  {ctaPrimary && (
-                    <a
-                      href="https://app.nexushq.tech"
-                      class="group relative flex-1 inline-flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600 px-6 py-4 text-base font-bold text-white shadow-xl shadow-indigo-500/30 transition-all duration-300 hover:shadow-indigo-500/50 hover:scale-[1.02] border border-indigo-400/30 overflow-hidden"
-                    >
-                      <span class="absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 transform bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shine pointer-events-none" />
-                      <span class="relative z-10 flex items-center gap-2">
-                        <span>{ctaPrimary}</span>
-                        <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1.5" />
-                      </span>
-                    </a>
-                  )}
-
-                  {ctaSecondary && (
-                    <a
-                      href="/features"
-                      class="flex-1 inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/5 px-6 py-4 text-base font-bold text-white backdrop-blur-md transition-all duration-300 hover:bg-white/10 hover:border-white/40"
-                    >
-                      {ctaSecondary}
-                    </a>
-                  )}
-                </div>
+              {ctaSecondary && (
+                <a
+                  href="/features"
+                  class="flex-1 inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-7 py-4 text-base font-bold text-white backdrop-blur-md transition-all duration-300 hover:bg-emerald-500/10 hover:border-emerald-500/30 active:scale-[0.98] whitespace-nowrap"
+                >
+                  {ctaSecondary}
+                </a>
               )}
             </div>
-          </div>
+          )}
         </div>
 
-        <!-- Right Column: Animated Gradient Orb -->
+        <!-- Right Column: Interactive 3D Card Visual -->
         <div class="lg:col-span-5 w-full flex items-center justify-center pointer-events-auto order-1 lg:order-2" transition:persist>
           <HeroVisual client:load />
         </div>

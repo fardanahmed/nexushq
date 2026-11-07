@@ -30,27 +30,27 @@ export const Logo: React.FC<LogoProps> = ({
         {/* Left Pillar Gradient */}
         <linearGradient id={leftGradId} x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#ffffff" />
-          <stop offset="100%" stopColor="#6366f1" />
+          <stop offset="100%" stopColor="#10e7b2" />
         </linearGradient>
 
         {/* Right Pillar Gradient */}
         <linearGradient id={rightGradId} x1="0%" y1="100%" x2="0%" y2="0%">
-          <stop offset="0%" stopColor="#3730a3" />
-          <stop offset="100%" stopColor="#6366f1" />
+          <stop offset="0%" stopColor="#047857" />
+          <stop offset="100%" stopColor="#10e7b2" />
         </linearGradient>
 
         {/* Floating Diagonal Bridge Gradient */}
         <linearGradient id={diagGradId} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#38bdf8" />
-          <stop offset="50%" stopColor="#8b5cf6" />
-          <stop offset="100%" stopColor="#c026d3" />
+          <stop offset="0%" stopColor="#06b6d4" />
+          <stop offset="50%" stopColor="#10e7b2" />
+          <stop offset="100%" stopColor="#fbbf24" />
         </linearGradient>
 
         {/* Hex Shield Border Gradient */}
         <linearGradient id={hexGradId} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#6366f1" stopOpacity="0.6" />
-          <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.2" />
-          <stop offset="100%" stopColor="#c026d3" stopOpacity="0.5" />
+          <stop offset="0%" stopColor="#10e7b2" stopOpacity="0.8" />
+          <stop offset="50%" stopColor="#06b6d4" stopOpacity="0.3" />
+          <stop offset="100%" stopColor="#fbbf24" stopOpacity="0.6" />
         </linearGradient>
 
         {/* 3D Drop Shadow for Diagonal Bridge */}
@@ -59,8 +59,8 @@ export const Logo: React.FC<LogoProps> = ({
             dx="2"
             dy="4"
             stdDeviation="3.5"
-            floodOpacity="0.5"
-            floodColor="#030014"
+            floodOpacity="0.6"
+            floodColor="#020408"
           />
         </filter>
       </defs>

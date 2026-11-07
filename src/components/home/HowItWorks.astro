@@ -1,5 +1,6 @@
 ---
 import { Settings, CalendarCheck, Video, LineChart } from 'lucide-react';
+import PlatformShowcase from './PlatformShowcase';
 
 const steps = [
   {
@@ -7,44 +8,43 @@ const steps = [
     title: "Setup & Customize",
     description: "Connect your calendar, set your availability, and link Stripe to start accepting payments.",
     icon: Settings,
-    color: "from-indigo-500 to-blue-500"
+    color: "from-emerald-500 to-teal-500"
   },
   {
     num: "02",
     title: "Clients Book & Pay",
     description: "Share your beautiful booking link. Clients select a slot and pay upfront in one seamless flow.",
     icon: CalendarCheck,
-    color: "from-violet-500 to-fuchsia-500"
+    color: "from-teal-500 to-cyan-500"
   },
   {
     num: "03",
     title: "Meet & Coach",
     description: "Join HD video sessions directly from your dashboard. No more hunting for zoom links.",
     icon: Video,
-    color: "from-cyan-500 to-blue-500"
+    color: "from-cyan-500 to-emerald-500"
   },
   {
     num: "04",
     title: "Track Progress",
     description: "Log session notes, share resources, and track client milestones all in their dedicated CRM profile.",
     icon: LineChart,
-    color: "from-amber-500 to-orange-500"
+    color: "from-amber-500 to-yellow-500"
   }
 ];
 ---
 
-<section class="py-24 relative overflow-hidden bg-[#030014]">
-  <!-- Glows -->
-  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-indigo-500/10 blur-[150px] rounded-full pointer-events-none" />
+<section class="py-24 relative overflow-hidden bg-[#020408]">
+  <!-- Background Glows -->
+  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-emerald-500/10 blur-[150px] rounded-full pointer-events-none" />
 
   <div class="container mx-auto px-6 max-w-7xl relative z-10">
     <div class="text-center max-w-3xl mx-auto mb-20 animate-fadeInUp">
-      <div class="inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-4 py-1.5 text-sm font-semibold text-indigo-400 mb-6">
-        How it Works
-      </div>
       <h2 class="font-heading text-4xl font-extrabold tracking-tight sm:text-5xl text-white mb-6">
         Your entire coaching business,<br />
-        <span class="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent inline-block pb-1">streamlined into one flow.</span>
+        <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-300 bg-clip-text text-transparent inline-block pb-1">
+          streamlined into one flow.
+        </span>
       </h2>
       <p class="text-lg text-slate-400 font-medium">
         Stop duct-taping five different tools together. NexusHQ handles the logistics so you can focus on coaching.
@@ -53,7 +53,7 @@ const steps = [
 
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
       <!-- Connecting Line for desktop -->
-      <div class="hidden lg:block absolute top-12 left-1/8 right-1/8 h-0.5 bg-gradient-to-r from-indigo-500/0 via-indigo-500/20 to-indigo-500/0 z-0" />
+      <div class="hidden lg:block absolute top-12 left-1/8 right-1/8 h-0.5 bg-gradient-to-r from-emerald-500/0 via-emerald-500/20 to-emerald-500/0 z-0" />
 
       {steps.map((step) => {
         const Icon = step.icon;
@@ -61,19 +61,19 @@ const steps = [
           <div class="relative z-10 flex flex-col items-center text-center group">
             <!-- Icon/Number Circle -->
             <div class="relative w-24 h-24 mb-8 flex items-center justify-center">
-              <div class="absolute inset-0 rounded-full bg-slate-900 border border-white/10 group-hover:border-indigo-500/50 transition-colors duration-500 shadow-xl" />
-              <div class={`absolute inset-2 rounded-full bg-gradient-to-br ${step.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
+              <div class="absolute inset-0 rounded-full bg-slate-950 border border-emerald-500/20 group-hover:border-emerald-400/60 transition-colors duration-500 shadow-xl" />
+              <div class={`absolute inset-2 rounded-full bg-gradient-to-br ${step.color} opacity-10 group-hover:opacity-25 transition-opacity duration-500`} />
               
-              <Icon className="w-8 h-8 text-white relative z-10" />
+              <Icon className="w-8 h-8 text-white relative z-10 group-hover:text-emerald-300 transition-colors" />
               
               <!-- Number badge -->
-              <div class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center text-xs font-bold border-4 border-[#030014] shadow-lg">
+              <div class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 text-black flex items-center justify-center text-xs font-mono font-extrabold border-4 border-[#020408] shadow-lg">
                 {step.num}
               </div>
             </div>
 
             <!-- Content -->
-            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors">
+            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-emerald-300 transition-colors font-heading">
               {step.title}
             </h3>
             <p class="text-slate-400 leading-relaxed text-sm">
@@ -84,25 +84,8 @@ const steps = [
       })}
     </div>
 
-    <!-- Platform Visual Showcase Card -->
-    <div class="mt-20 relative max-w-5xl mx-auto rounded-3xl border border-white/10 bg-slate-950/60 p-4 md:p-6 backdrop-blur-2xl shadow-2xl shadow-indigo-500/10 glow-border overflow-hidden group animate-fadeInUp">
-      <div class="relative rounded-2xl overflow-hidden border border-white/5">
-        <img 
-          src="/assets/mentorship.webp" 
-          alt="NexusHQ All-in-One Mentorship Platform" 
-          class="w-full h-auto max-h-[480px] object-cover transition-transform duration-700 group-hover:scale-[1.02]" 
-        />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#030014] via-transparent to-transparent opacity-50"></div>
-        <div class="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <h4 class="text-lg font-bold text-white">Unified Coaching Dashboard</h4>
-            <p class="text-xs text-slate-300">Live video sessions, automated client roster, and progress analytics.</p>
-          </div>
-          <span class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-semibold backdrop-blur-md">
-            Live Preview
-          </span>
-        </div>
-      </div>
-    </div>
+    <!-- Platform Visual Interactive Showcase Component -->
+    <PlatformShowcase client:load />
+
   </div>
 </section>

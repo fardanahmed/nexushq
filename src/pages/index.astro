@@ -3,7 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/home/Hero.astro';
 import TrustBar from '../components/home/TrustBar.astro';
 import HowItWorks from '../components/home/HowItWorks.astro';
+import Integrations from '../components/home/Integrations';
 import Testimonials from '../components/home/Testimonials';
+import TheOffer from '../components/home/TheOffer.astro';
 import JoinTeamSection from '../components/home/JoinTeamSection';
 
 import { getSiteSettings } from '../lib/content-api';
@@ -29,19 +31,25 @@ const schema = (siteData && siteData.contact) ? {
 } : undefined;
 ---
 <Layout schema={schema}>
-  <!-- Static Hero Component -->
+  <!-- 1. Hero Section -->
   <Hero />
   
-  <!-- Immediate Social Proof -->
+  <!-- 2. Immediate Social Proof Marquee -->
   <TrustBar />
 
-  <!-- Process Visualization -->
+  <!-- 3. Process & Live Platform Showcase -->
   <HowItWorks />
 
-  <!-- Hard Social Proof -->
-  <Testimonials />
+  <!-- 4. Interactive Integrations Network -->
+  <Integrations client:load />
+
+  <!-- 5. Testimonials & Client Proof -->
+  <Testimonials client:load />
   
-  <!-- Final CTA / Signup Form -->
+  <!-- 6. VIP Early Access Pass Offer -->
+  <TheOffer />
+
+  <!-- 7. Waitlist / Final CTA -->
   <JoinTeamSection client:load />
 
 </Layout>

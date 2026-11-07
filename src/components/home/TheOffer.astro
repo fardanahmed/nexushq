@@ -1,98 +1,106 @@
 ---
-import { CheckCircle2, ArrowRight, Zap, Crown, Shield } from 'lucide-react';
+import { CheckCircle2, ArrowRight, Zap, Shield } from 'lucide-react';
 ---
 
-<section class="py-32 relative overflow-hidden bg-[#030014]">
+<section class="py-32 relative overflow-hidden bg-[#020408]">
   <!-- Abstract Backdrops -->
   <div class="absolute inset-0 z-0 pointer-events-none">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-30 mix-blend-screen animate-[spin_40s_linear_infinite]"
-         style={{ background: 'conic-gradient(from 0deg, transparent, rgba(245, 158, 11, 0.15), rgba(124, 58, 237, 0.1), rgba(245, 158, 11, 0.15), transparent)' }} />
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-20 mix-blend-screen animate-[spin_25s_linear_infinite_reverse]"
-         style={{ background: 'conic-gradient(from 180deg, transparent, rgba(99, 102, 241, 0.2), rgba(245, 158, 11, 0.2), transparent)' }} />
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-30 blur-[140px] pointer-events-none"
+         style={{ background: 'radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, rgba(16, 231, 178, 0.15) 50%, transparent 80%)' }} />
   </div>
 
   <div class="container mx-auto px-6 relative z-10 max-w-5xl">
     
     <div class="text-center mb-16 animate-fadeInUp">
-      <div class="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-5 py-2 text-xs font-bold text-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.15)] uppercase tracking-widest backdrop-blur-md mb-6">
-        <Crown className="w-4 h-4" /> VIP Early Access
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-mono font-bold uppercase tracking-widest mb-4">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+        Founding Cohort Allocation
       </div>
-      <h2 class="text-5xl font-black tracking-tighter sm:text-6xl md:text-7xl text-transparent bg-clip-text bg-gradient-to-br from-white via-amber-100 to-amber-500 drop-shadow-xl pb-4 uppercase">
+      <h2 class="text-5xl font-black font-heading tracking-tight sm:text-6xl md:text-7xl text-transparent bg-clip-text bg-gradient-to-br from-white via-emerald-100 to-amber-400 drop-shadow-xl pb-4">
         Your Unfair Advantage
       </h2>
       <p class="text-lg md:text-xl text-slate-400 font-medium max-w-2xl mx-auto">
-        Join the private beta today and lock in exclusive launch benefits designed to accelerate your growth.
+        Join the private beta today and lock in exclusive launch privileges engineered to scale your independent practice.
       </p>
     </div>
 
     <!-- The VIP Pass Card -->
     <div class="relative max-w-4xl mx-auto group animate-fadeInUp" style={{ animationDelay: '0.1s' }}>
       <!-- Outer glow -->
-      <div class="absolute -inset-1 bg-gradient-to-r from-amber-500 via-indigo-500 to-amber-500 rounded-[3rem] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-700" />
+      <div class="absolute -inset-1.5 bg-gradient-to-r from-amber-500/30 via-emerald-500/30 to-amber-500/30 rounded-[3rem] blur-2xl opacity-40 group-hover:opacity-70 transition-opacity duration-700" />
       
-      <div class="relative flex flex-col md:flex-row items-center rounded-[2.5rem] border border-amber-500/20 bg-[#0a0518]/80 backdrop-blur-3xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.8)] ring-1 ring-inset ring-white/5">
+      <div class="relative flex flex-col md:flex-row items-center rounded-[2.5rem] border border-amber-500/30 bg-[#03090e]/95 backdrop-blur-3xl overflow-hidden shadow-[0_30px_100px_rgba(0,0,0,0.9)] ring-1 ring-inset ring-amber-500/20">
         
         {/* Shine effect */}
-        <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
-        <div class="absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 transform bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-20 group-hover:animate-shine" />
+        <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-amber-400/70 to-transparent opacity-70 group-hover:opacity-100 transition-opacity duration-700" />
+        <div class="absolute -inset-full top-0 block h-full w-1/2 -skew-x-12 transform bg-gradient-to-r from-transparent via-amber-200/10 to-transparent opacity-30 group-hover:animate-shine" />
 
         <!-- Left Side: Offer Details -->
         <div class="flex-1 p-10 md:p-14 w-full">
           <ul class="space-y-8">
-            <li class="flex items-start gap-4">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+            <li class="flex items-start gap-5">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/30 shadow-[0_0_20px_rgba(245,158,11,0.25)]">
                 <Shield className="w-6 h-6" />
               </div>
               <div>
-                <h3 class="text-xl font-bold text-white mb-2">Grandfathered Lifetime Rate</h3>
-                <p class="text-slate-400 leading-relaxed font-medium">Lock in our aggressive beta pricing forever. Your subscription cost will never increase, even as we add new premium features.</p>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-xl font-bold font-heading text-white">Grandfathered Lifetime Rate</h3>
+                  <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">NEVER INCREASES</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium mt-1">Lock in our aggressive beta pricing forever. Your subscription cost will never increase, even as we roll out 4K AI models.</p>
               </div>
             </li>
             
-            <li class="flex items-start gap-4">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 shadow-[0_0_20px_rgba(99,102,241,0.2)]">
+            <li class="flex items-start gap-5">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shadow-[0_0_20px_rgba(16,231,178,0.25)]">
                 <Zap className="w-6 h-6" />
               </div>
               <div>
-                <h3 class="text-xl font-bold text-white mb-2">White-Glove Concierge Setup</h3>
-                <p class="text-slate-400 leading-relaxed font-medium">We'll personally migrate all your existing clients, billing history, and upcoming appointments from your old software for free.</p>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-xl font-bold font-heading text-white">White-Glove Concierge Setup</h3>
+                  <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">1-ON-1 ONBOARDING</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium mt-1">We'll personally migrate all your existing clients, billing history, and upcoming appointments from legacy software for free.</p>
               </div>
             </li>
 
-            <li class="flex items-start gap-4">
-              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-violet-500/10 text-violet-400 border border-violet-500/20 shadow-[0_0_20px_rgba(139,92,246,0.2)]">
+            <li class="flex items-start gap-5">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-teal-500/10 text-teal-400 border border-teal-500/30 shadow-[0_0_20px_rgba(45,212,191,0.25)]">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
               <div>
-                <h3 class="text-xl font-bold text-white mb-2">Direct Founder Access</h3>
-                <p class="text-slate-400 leading-relaxed font-medium">Get priority feature requests and direct line access to our engineering team to shape the roadmap for your specific needs.</p>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-xl font-bold font-heading text-white">Direct Founder Slack Line</h3>
+                  <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30">PRIORITY ROADMAP</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium mt-1">Direct Slack access to our core engineering team to prioritize and build features engineered specifically for your workflow.</p>
               </div>
             </li>
           </ul>
         </div>
 
         <!-- Right Side: The Ticket Stub / Pricing Action -->
-        <div class="relative w-full md:w-80 border-t md:border-t-0 md:border-l border-white/10 bg-slate-900/50 p-10 md:p-14 flex flex-col items-center justify-center text-center backdrop-blur-md h-full">
+        <div class="relative w-full md:w-84 border-t md:border-t-0 md:border-l border-amber-500/20 bg-[#020408]/90 p-10 md:p-14 flex flex-col items-center justify-center text-center backdrop-blur-xl h-full">
           <!-- Dashed perforation line (desktop only) -->
-          <div class="hidden md:block absolute -left-[1.5px] top-4 bottom-4 w-[3px] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMyIgaGVpZ2h0PSIyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSI4IiBmaWxsPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMSkiLz48L3N2Zz4=')] bg-repeat-y" />
+          <div class="hidden md:block absolute -left-[1.5px] top-4 bottom-4 w-[3px] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMyIgaGVpZ2h0PSIyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSI4IiBmaWxsPSJyZ2JhKDI0NSwgMTU4LCAxMSwgMC4zKSIvPjwvc3ZnPg==')] bg-repeat-y" />
           
           <div class="space-y-6 w-full">
             <div class="space-y-2">
-              <p class="text-slate-400 font-bold uppercase tracking-wider text-sm">Beta Access</p>
-              <div class="text-5xl font-black text-white tracking-tighter drop-shadow-lg flex items-baseline justify-center gap-1">
-                $99<span class="text-xl text-slate-500 font-medium">/mo</span>
+              <p class="text-amber-400/90 font-bold uppercase tracking-widest text-xs font-mono">VIP Founding Pass</p>
+              <div class="text-5xl font-extrabold text-white tracking-tight drop-shadow-lg flex items-baseline justify-center gap-1 font-heading tabular-nums">
+                $99<span class="text-lg text-slate-500 font-normal font-sans">/mo</span>
               </div>
-              <p class="text-amber-400 font-bold text-sm">Billed Forever.</p>
+              <p class="text-amber-400 font-bold font-mono text-xs tracking-wider">LIFETIME RATE GUARANTEE</p>
             </div>
 
-            <a href="/#join" class="group/btn relative inline-flex h-14 w-full items-center justify-center overflow-hidden rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 px-8 font-bold text-white shadow-[0_0_30px_rgba(245,158,11,0.3)] transition-all duration-300 hover:shadow-[0_0_40px_rgba(245,158,11,0.5)] hover:scale-[1.02]">
+            <a href="/#join" class="group/btn relative inline-flex h-14 w-full items-center justify-center overflow-hidden rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-emerald-400 px-8 font-bold font-heading text-black shadow-[0_0_30px_rgba(245,158,11,0.35)] transition-all duration-300 hover:shadow-[0_0_45px_rgba(245,158,11,0.6)] hover:scale-[1.02]">
               <span class="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-in-out mix-blend-overlay" />
-              <span class="relative flex items-center gap-2">
-                Claim VIP Pass <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+              <span class="relative flex items-center gap-2 font-black">
+                Claim VIP Pass <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform text-black" />
               </span>
             </a>
 
-            <p class="text-xs text-slate-500 font-medium">Spots are strictly limited to ensure migration quality.</p>
+            <p class="text-xs text-slate-500 font-medium font-mono">Limited to 50 founding studios.</p>
           </div>
         </div>
 

@@ -33,7 +33,7 @@ const displayDesc = description || defaultDesc;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#4f46e5" />
+    <meta name="theme-color" content="#020408" />
     
     <title>{displayTitle}</title>
     <meta name="description" content={displayDesc} />
@@ -50,10 +50,10 @@ const displayDesc = description || defaultDesc;
     <meta property="twitter:description" content={displayDesc} />
     <meta property="twitter:image" content="/og-image.png" />
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Inter, Outfit, JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
     <!-- Enforce dark mode to match 3D concept aesthetics -->
     <script is:inline>
@@ -64,19 +64,25 @@ const displayDesc = description || defaultDesc;
     </script>
     {schema && <script type="application/ld+json" is:inline set:html={JSON.stringify(schema).replace(/</g, '\\u003c').replace(/>/g, '\\u003e')} />}
   </head>
-  <body class="bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary">
+  <body class="bg-background text-foreground font-sans antialiased">
+    <!-- Accessible Skip to Content Link for Keyboard / Screen Reader Navigation -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-5 focus:py-2.5 focus:bg-emerald-500 focus:text-black focus:font-bold focus:rounded-xl focus:shadow-2xl focus:ring-2 focus:ring-white"
+    >
+      Skip to main content
+    </a>
+
     <div class="flex min-h-screen flex-col">
       <!-- client:load is needed for mobile collapsible navigation and theme-switching interactions -->
       <header>
         <Navbar client:load />
       </header>
-      <main class="flex-1">
+      <main id="main-content" class="flex-1 focus:outline-none" tabindex="-1">
         <slot />
       </main>
       <!-- Footer handles dynamic data passed from server frontmatter -->
       <Footer siteData={siteData} />
     </div>
-
-    <!-- Unified loader manager in head handles this script block -->
   </body>
 </html>

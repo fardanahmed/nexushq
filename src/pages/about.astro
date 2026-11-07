@@ -6,7 +6,7 @@ import type { AboutContent, SiteData } from '../types';
 
 const defaultAboutContent: AboutContent = {
   mission: 'Our mission is to empower coaches, tutors, and mentors with the tools they need to build thriving businesses.',
-  preamble: 'NexusHQ was born from a simple observation: coaches spend more time on admin than on coaching.\\n\\nWe built a platform that handles scheduling, payments, client management, and video sessions — so you can focus on what you do best.',
+  preamble: 'NexusHQ was born from a simple observation: coaches spend more time on admin than on coaching.\n\nWe built a platform that handles scheduling, payments, client management, and video sessions — so you can focus on what you do best.',
   vision: 'A world where every great coach has the tools to scale their impact, without the overhead.'
 };
 
@@ -58,48 +58,66 @@ const schema = {
 };
 
 const values = [
-  { title: 'Simplicity', icon: Scale, desc: 'We believe powerful software should be effortless to use. No training manuals required.' },
-  { title: 'Coach-First', icon: Lightbulb, desc: 'Every feature we build starts with one question: does this help coaches serve their clients better?' },
-  { title: 'Reliability', icon: Target, desc: 'Your clients depend on you, and you depend on us. We take that seriously with 99.9% uptime.' },
+  { title: 'Simplicity', icon: Scale, desc: 'We believe powerful software should be effortless to use. Zero steep learning curves.' },
+  { title: 'Coach-First', icon: Lightbulb, desc: 'Every feature starts with one question: does this directly help coaches serve their clients better?' },
+  { title: 'Reliability', icon: Target, desc: 'Your clients depend on you, and you depend on us. We back that with 99.9% guaranteed uptime.' },
+];
+
+const metrics = [
+  { label: 'Client Revenue Processed', value: '$12M+' },
+  { label: 'Live Sessions Hosted', value: '50,000+' },
+  { label: 'Uptime SLA', value: '99.9%' },
+  { label: 'Global Mentors', value: '2,400+' },
 ];
 ---
 
 <Layout title="About NexusHQ" schema={schema}>
   <!-- Hero Section -->
-  <section class="relative overflow-hidden border-b border-border/50 pt-32 pb-24 md:pt-40 md:pb-32 bg-[#030014]">
+  <section class="relative overflow-hidden border-b border-emerald-500/10 pt-32 pb-24 md:pt-40 md:pb-32 bg-[#020408]">
     <!-- Glowing background accents -->
-    <div class="absolute -top-40 -right-20 h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none"></div>
-    <div class="absolute top-20 -left-20 h-[400px] w-[400px] rounded-full bg-violet-600/10 blur-[100px] pointer-events-none"></div>
+    <div class="absolute -top-40 -right-20 h-[500px] w-[500px] rounded-full bg-emerald-500/10 blur-[120px] pointer-events-none"></div>
+    <div class="absolute top-20 -left-20 h-[400px] w-[400px] rounded-full bg-amber-500/10 blur-[100px] pointer-events-none"></div>
     
     <div class="container mx-auto max-w-7xl px-6 relative z-10">
       <div class="max-w-4xl animate-fadeInUp">
-        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
-          About Us
-        </div>
-        <h1 class="mb-8 font-heading text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl pb-2">
-          Built by coaches, <span class="bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent inline-block pb-1">for coaches</span>
+        <h1 class="mb-8 font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter text-white pb-2">
+          Built by coaches, <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-300 bg-clip-text text-transparent inline-block pb-1">for coaches</span>
         </h1>
-        <p class="text-xl leading-relaxed text-slate-300 sm:text-2xl font-light">
+        <p class="text-xl leading-relaxed text-slate-300 font-medium max-w-3xl">
           {aboutContent.mission}
         </p>
       </div>
     </div>
   </section>
 
+  <!-- Metrics Ticker Bar -->
+  <section class="border-b border-emerald-500/10 bg-slate-950/70 py-12 backdrop-blur-md">
+    <div class="container mx-auto max-w-7xl px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        {metrics.map((m) => (
+          <div class="space-y-1">
+            <div class="text-3xl md:text-4xl font-extrabold text-white tracking-tight font-heading tabular-nums">{m.value}</div>
+            <div class="text-xs font-mono uppercase tracking-wider text-emerald-400/90">{m.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Values Grid -->
-  <section class="py-24 relative">
-    <div class="absolute top-1/3 left-10 h-96 w-96 rounded-full bg-indigo-500/5 blur-3xl pointer-events-none" />
+  <section class="py-24 relative bg-[#020408]">
+    <div class="absolute top-1/3 left-10 h-96 w-96 rounded-full bg-emerald-500/5 blur-3xl pointer-events-none" />
     <div class="container mx-auto max-w-7xl px-6">
       <div class="grid gap-8 md:grid-cols-3">
         {values.map((val) => {
           const Icon = val.icon;
 
           return (
-            <div class="group relative overflow-hidden rounded-2xl border border-white/5 bg-slate-950/45 p-8 transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 glow-border">
-              <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
+            <div class="group relative overflow-hidden rounded-3xl border border-emerald-500/15 bg-slate-950/50 p-8 transition-all duration-300 hover:border-emerald-400/40 hover:shadow-[0_0_30px_rgba(16,231,178,0.15)] glow-border">
+              <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400 transition-all duration-300 group-hover:bg-emerald-500 group-hover:text-black">
                 <Icon className="h-7 w-7" aria-hidden="true" />
               </div>
-              <h3 class="mb-4 font-heading text-2xl font-bold text-white group-hover:text-primary transition-colors">{val.title}</h3>
+              <h3 class="mb-4 font-heading text-2xl font-bold text-white group-hover:text-emerald-300 transition-colors">{val.title}</h3>
               <p class="text-slate-400 leading-relaxed text-sm md:text-base font-medium">{val.desc}</p>
             </div>
           );
@@ -109,14 +127,13 @@ const values = [
   </section>
 
   <!-- Story Section -->
-  <section class="border-y border-border/50 bg-[#030014]/40 py-24">
+  <section class="border-y border-emerald-500/10 bg-[#020408]/90 py-24">
     <div class="container mx-auto max-w-7xl px-6">
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <div class="space-y-6 animate-fadeInUp">
-          <p class="text-sm font-semibold uppercase tracking-widest text-primary">Our Story</p>
           <h2 class="font-heading text-3xl font-extrabold tracking-tight sm:text-4xl text-white">Why We Built NexusHQ</h2>
           
-          <div class="prose prose-lg dark:prose-invert text-slate-400 space-y-6 text-base md:text-lg leading-relaxed font-medium">
+          <div class="prose prose-lg dark:prose-invert text-slate-300 space-y-6 text-base md:text-lg leading-relaxed font-medium">
             {aboutContent.preamble
               .replace(/\\\\n\\\\n/g, '\n\n')
               .replace(/\\\\n/g, ' ')
@@ -128,15 +145,15 @@ const values = [
           </div>
         </div>
 
-        <div class="relative group rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-indigo-500/10 glow-border animate-fadeInUp">
+        <div class="relative group rounded-3xl overflow-hidden border border-emerald-500/15 shadow-2xl shadow-emerald-500/10 glow-border animate-fadeInUp">
           <img 
             src="/assets/about-us.webp" 
             alt="NexusHQ Team Collaboration" 
             class="w-full h-[400px] object-cover transition-transform duration-500 group-hover:scale-105" 
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#030014] via-transparent to-transparent opacity-60"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#020408] via-transparent to-transparent opacity-60"></div>
           <div class="absolute bottom-6 left-6 right-6">
-            <span class="text-xs font-bold uppercase tracking-wider text-primary bg-primary/10 border border-primary/20 px-3 py-1 rounded-full backdrop-blur-md">
+            <span class="text-xs font-bold font-mono uppercase tracking-wider text-emerald-300 bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 rounded-full backdrop-blur-md">
               Team & Mission
             </span>
           </div>
@@ -146,27 +163,26 @@ const values = [
   </section>
 
   <!-- Leadership & Vision Section -->
-  <section class="py-24 relative overflow-hidden bg-gradient-to-t from-[#030014]/60 to-transparent">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-80 w-80 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
+  <section class="py-24 relative overflow-hidden bg-gradient-to-t from-[#020408] to-transparent">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-80 w-80 rounded-full bg-emerald-500/5 blur-3xl pointer-events-none" />
     
     <div class="container mx-auto max-w-7xl px-6 relative z-10">
-      <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
-        <div class="relative group rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-violet-500/10 glow-border order-2 md:order-1 animate-fadeInUp">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="relative group rounded-3xl overflow-hidden border border-emerald-500/15 shadow-2xl shadow-emerald-500/10 glow-border order-2 md:order-1 animate-fadeInUp">
           <img 
             src="/assets/leadership.webp" 
             alt="Executive Leadership Environment" 
             class="w-full h-[380px] object-cover transition-transform duration-500 group-hover:scale-105" 
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#030014] via-transparent to-transparent opacity-60"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#020408] via-transparent to-transparent opacity-60"></div>
         </div>
 
         <div class="order-1 md:order-2 space-y-6 text-left animate-fadeInUp">
-          <p class="text-sm font-semibold uppercase tracking-widest text-primary">Our Vision</p>
           <blockquote class="font-heading text-2xl font-semibold italic leading-relaxed text-white md:text-3xl">
             &ldquo;{aboutContent.vision}&rdquo;
           </blockquote>
           <p class="text-slate-400 font-medium text-base leading-relaxed">
-            We are dedicated to building infrastructure that scales mentor impact globally without administrative overhead.
+            We are dedicated to building infrastructure that scales mentor impact globally without administrative friction.
           </p>
         </div>
       </div>

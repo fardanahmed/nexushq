@@ -30,7 +30,7 @@ test.describe('Homepage E2E', () => {
       page.locator('h2').filter({ hasText: 'Ready to Level Up' })
     ).toBeVisible();
     await expect(
-      page.locator('button', { hasText: 'Request Access Slot' })
+      page.locator('button', { hasText: 'Request Early Access' })
     ).toBeVisible();
   });
 
@@ -58,7 +58,7 @@ test.describe('Homepage E2E', () => {
     await page.fill('input[name="location"]', 'Tech Coaching');
 
     // Click submit
-    await page.click('button:has-text("Request Access Slot")');
+    await page.click('button:has-text("Request Early Access")');
 
     // Verify success state appears (it has a ~1.4s mock delay, Playwright auto-waits)
     await expect(page.getByText("You're on the list!")).toBeVisible({

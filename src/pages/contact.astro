@@ -53,14 +53,13 @@ const schema = {
 
 <Layout title="Contact Us" schema={schema}>
   <!-- Hero Header -->
-  <section class="border-b border-border/50 pt-32 pb-20 sm:pt-40 lg:pt-48 lg:pb-28 bg-gradient-to-b from-[#030014]/60 to-transparent">
+  <section class="border-b border-emerald-500/10 pt-32 pb-20 sm:pt-40 lg:pt-48 lg:pb-28 bg-gradient-to-b from-[#020408]/80 to-transparent">
     <div class="container mx-auto max-w-7xl px-6">
       <div class="max-w-3xl animate-fadeInUp">
-        <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-primary">Get In Touch</p>
-        <h1 class="mb-6 font-heading text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl pb-2">
-          Let's Start a <span class="bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent inline-block pb-1">Conversation</span>
+        <h1 class="mb-6 font-heading text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl pb-2 text-white">
+          Let's Start a <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-300 bg-clip-text text-transparent inline-block pb-1">Conversation</span>
         </h1>
-        <p class="text-xl leading-relaxed text-slate-350 font-light">
+        <p class="text-xl leading-relaxed text-slate-300 font-light">
           Have questions about NexusHQ? Want to discuss enterprise plans, APIs, or custom integrations? We're here to help.
         </p>
       </div>
@@ -68,9 +67,9 @@ const schema = {
   </section>
 
   <!-- Split Contact Section -->
-  <section class="py-20 relative">
-    <div class="absolute top-1/4 right-0 h-96 w-96 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
-    <div class="absolute bottom-10 left-10 h-80 w-80 rounded-full bg-violet-500/5 blur-3xl pointer-events-none" />
+  <section class="py-20 relative bg-[#020408]">
+    <div class="absolute top-1/4 right-0 h-96 w-96 rounded-full bg-emerald-500/5 blur-3xl pointer-events-none" />
+    <div class="absolute bottom-10 left-10 h-80 w-80 rounded-full bg-amber-500/5 blur-3xl pointer-events-none" />
     
     <div class="container mx-auto max-w-7xl px-6 relative z-10">
       <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 items-start">
@@ -84,37 +83,37 @@ const schema = {
             <div class="grid gap-6">
               
               <!-- Address -->
-              <div class="group flex items-start gap-4 rounded-xl border border-white/5 bg-slate-950/40 p-5 hover:border-primary/35 transition-colors glow-border">
-                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+              <div class="group flex items-start gap-4 rounded-2xl border border-emerald-500/15 bg-slate-950/50 p-5 hover:border-emerald-400/40 transition-all duration-300 glow-border">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 transition-colors group-hover:bg-emerald-500 group-hover:text-black">
                   <MapPin className="h-5 w-5" />
                 </div>
                 <div class="space-y-1">
-                  <p class="font-semibold text-white text-sm uppercase tracking-wider">Headquarters</p>
-                  <p class="text-slate-400 text-base leading-relaxed">{siteData.contact.address}</p>
+                  <p class="font-bold text-white text-xs uppercase tracking-wider font-mono">Headquarters</p>
+                  <p class="text-slate-300 text-base leading-relaxed font-medium">{siteData.contact.address}</p>
                 </div>
               </div>
 
               <!-- Email -->
-              <div class="group flex items-start gap-4 rounded-xl border border-white/5 bg-slate-950/40 p-5 hover:border-primary/35 transition-colors glow-border">
-                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+              <div class="group flex items-start gap-4 rounded-2xl border border-emerald-500/15 bg-slate-950/50 p-5 hover:border-emerald-400/40 transition-all duration-300 glow-border">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 transition-colors group-hover:bg-emerald-500 group-hover:text-black">
                   <Mail className="h-5 w-5" />
                 </div>
                 <div class="space-y-1">
-                  <p class="font-semibold text-white text-sm uppercase tracking-wider">Email</p>
-                  <a href={`mailto:${siteData.contact.email}`} class="text-slate-400 text-base hover:text-primary transition-colors block">
+                  <p class="font-bold text-white text-xs uppercase tracking-wider font-mono">Email</p>
+                  <a href={`mailto:${siteData.contact.email}`} class="text-slate-300 text-base font-medium hover:text-emerald-400 transition-colors block">
                     {siteData.contact.email}
                   </a>
                 </div>
               </div>
 
               <!-- Phone -->
-              <div class="group flex items-start gap-4 rounded-xl border border-white/5 bg-slate-950/40 p-5 hover:border-primary/35 transition-colors glow-border">
-                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+              <div class="group flex items-start gap-4 rounded-2xl border border-emerald-500/15 bg-slate-950/50 p-5 hover:border-emerald-400/40 transition-all duration-300 glow-border">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 transition-colors group-hover:bg-emerald-500 group-hover:text-black">
                   <Phone className="h-5 w-5" />
                 </div>
                 <div class="space-y-1">
-                  <p class="font-semibold text-white text-sm uppercase tracking-wider">Phone</p>
-                  <p class="text-slate-400 text-base">{siteData.contact.phone}</p>
+                  <p class="font-bold text-white text-xs uppercase tracking-wider font-mono">Phone</p>
+                  <p class="text-slate-300 text-base font-medium font-mono">{siteData.contact.phone}</p>
                 </div>
               </div>
 
@@ -122,16 +121,16 @@ const schema = {
           </div>
 
           <!-- Support Hours -->
-          <div class="rounded-2xl border border-white/5 bg-slate-950/30 p-6 space-y-4">
+          <div class="rounded-2xl border border-emerald-500/15 bg-slate-950/50 p-6 space-y-4 glow-border">
             <h3 class="text-lg font-bold text-white flex items-center gap-2">
-              <Clock className="h-5 w-5 text-primary" />
+              <Clock className="h-5 w-5 text-emerald-400" />
               Support Hours
             </h3>
-            <div class="grid grid-cols-2 gap-4 text-base text-slate-400">
+            <div class="grid grid-cols-2 gap-4 text-base text-slate-300 font-medium">
               <div>Monday &ndash; Friday</div>
-              <div class="text-white font-semibold">9:00 AM &ndash; 6:00 PM EST</div>
+              <div class="text-white font-bold font-mono">9:00 AM &ndash; 6:00 PM EST</div>
               <div>Saturday &ndash; Sunday</div>
-              <div class="text-indigo-400 font-semibold">Closed</div>
+              <div class="text-amber-400 font-semibold font-mono">Closed</div>
             </div>
           </div>
         </div>
