@@ -71,7 +71,7 @@ export default function Footer({ siteData }: FooterProps) {
           </div>
 
           <div className="lg:col-span-3">
-            <h4 className="mb-4 text-sm font-semibold text-chalk">Pages</h4>
+            <h2 className="mb-4 text-sm font-semibold text-chalk">Pages</h2>
             <ul className="space-y-2.5 text-sm">
               {links.map((link) => (
                 <li key={link.href}>
@@ -87,7 +87,7 @@ export default function Footer({ siteData }: FooterProps) {
           </div>
 
           <div className="lg:col-span-4">
-            <h4 className="mb-4 text-sm font-semibold text-chalk">Contact</h4>
+            <h2 className="mb-4 text-sm font-semibold text-chalk">Contact</h2>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <a

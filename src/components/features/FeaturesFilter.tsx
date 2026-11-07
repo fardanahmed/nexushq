@@ -117,7 +117,7 @@ export default function FeaturesFilter({
                 className="flex flex-col rounded-card border border-hairline bg-slate p-6"
               >
                 <Icon className="h-5 w-5 text-sea" aria-hidden="true" />
-                <h3 className="mt-4 text-h4">{feature.title}</h3>
+                <h2 className="mt-4 text-h4">{feature.title}</h2>
                 <p className="mt-2 text-sm leading-relaxed text-mist">
                   {feature.description}
                 </p>
