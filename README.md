@@ -29,7 +29,7 @@ Frontend marketing and client portal platform for **NexusHQ** — *The Command C
    ```
 
 3. **Verify Environment Variables:**
-   Configure `PUBLIC_BACKEND_API_URL` in `.env.local` to point to the backend service (default: `http://localhost:8787`).
+   Configure `PUBLIC_BACKEND_API_URL` in `.env.local` to point to the backend service (default: `http://localhost:5000`).
 
 ---
 
