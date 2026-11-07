@@ -14,30 +14,22 @@ const schema = {
 ---
 
 <Layout title="Pricing" schema={schema}>
-  <!-- Header Section -->
-  <section class="border-b border-emerald-500/10 pt-32 pb-16 sm:pt-40 lg:pt-44 lg:pb-20 bg-gradient-to-b from-[#020408]/80 to-transparent">
-    <div class="container mx-auto max-w-7xl px-6 text-center">
-      <div class="max-w-3xl mx-auto">
-        <h1 class="mb-6 font-heading text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter text-white pb-2">
-          Simple, <span class="bg-gradient-to-r from-amber-400 via-amber-300 to-emerald-300 bg-clip-text text-transparent inline-block pb-1">transparent</span> pricing
-        </h1>
-        <p class="text-xl leading-relaxed text-slate-300 font-medium">
-          No hidden fees. No surprise charges. Start free and upgrade as your roster expands.
+  <section class="pt-28 pb-12 text-center lg:pt-36 lg:pb-16">
+    <div class="container mx-auto max-w-6xl px-6">
+      <div class="mx-auto max-w-2xl">
+        <h1 class="text-display">Simple, transparent pricing.</h1>
+        <p class="mx-auto mt-5 max-w-[48ch] text-lead text-mist">
+          One monthly price, no fees per booking. Pick the plan that matches your roster and change it when the roster changes.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Interactive Pricing Grid Section -->
-  <section class="py-16 relative z-10">
-    <div class="absolute top-1/4 right-0 h-96 w-96 rounded-full bg-emerald-500/5 blur-3xl pointer-events-none" />
-    <div class="absolute bottom-10 left-10 h-80 w-80 rounded-full bg-amber-500/5 blur-3xl pointer-events-none" />
-    
-    <div class="container mx-auto max-w-7xl px-6 relative z-10">
+  <section class="pb-24 lg:pb-32">
+    <div class="container mx-auto max-w-6xl px-6">
       <PricingGrid client:load />
     </div>
   </section>
 
-  <!-- VIP Early Access Pass Offer -->
   <TheOffer />
 </Layout>
