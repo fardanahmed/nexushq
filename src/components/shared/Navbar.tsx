@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Logo } from './Logo';
@@ -7,15 +6,28 @@ interface NavbarProps {
   pathname?: string;
 }
 
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/features', label: 'Features' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const isActivePath = (pathname: string, href: string) =>
+  pathname === href || (href !== '/' && pathname.startsWith(href));
+
 const Navbar = ({ pathname: propPathname }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [pathname, setPathname] = useState(propPathname || '');
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setPathname(window.location.pathname);
-    }
+    const updatePathname = () => setPathname(window.location.pathname);
+    updatePathname();
+    document.addEventListener('astro:page-load', updatePathname);
+    return () =>
+      document.removeEventListener('astro:page-load', updatePathname);
   }, []);
 
   useEffect(() => {
@@ -24,86 +36,83 @@ const Navbar = ({ pathname: propPathname }: NavbarProps) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/features', label: 'Features' },
-    { href: '/pricing', label: 'Pricing' },
-    { href: '/about', label: 'About' },
-    { href: '/contact', label: 'Contact' },
-  ];
-
   return (
     <nav
-      className={`fixed top-0 z-50 w-full border-b transition-all duration-300 ${scrolled ? 'border-border/60 bg-background/95 shadow-lg shadow-black/10 backdrop-blur-xl' : 'border-border/40 bg-background/80 backdrop-blur-md'}`}
+      aria-label="Main navigation"
+      className={`fixed top-0 z-50 w-full border-b transition-colors duration-150 ${
+        scrolled || isMenuOpen
+          ? 'border-hairline bg-ink/95'
+          : 'border-transparent bg-transparent'
+      }`}
     >
-      <div className="container mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
-        {/* Logo */}
-        <a href="/" className="flex items-center gap-3 group">
-          <Logo className="h-10 w-10 group-hover:scale-105" />
-          <span className="text-xl font-bold font-heading bg-gradient-to-r from-white via-slate-100 to-indigo-200 bg-clip-text text-transparent tracking-tight">
+      <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <a href="/" className="flex items-center gap-2.5 rounded-control">
+          <Logo className="h-8 w-8" size={32} />
+          <span className="font-heading text-lg font-semibold text-chalk">
             NexusHQ
           </span>
         </a>
 
-        {/* Desktop Navigation */}
-        <div className="hidden items-center gap-2 lg:flex">
+        <div className="hidden items-center gap-1 lg:flex">
           {navLinks.map((link) => {
-            const isActive = pathname === link.href;
+            const isActive = isActivePath(pathname, link.href);
             return (
-              <Button
+              <a
                 key={link.href}
-                variant="ghost"
-                asChild
-                className={`text-base font-medium rounded-full px-5 transition-colors ${
+                href={link.href}
+                aria-current={isActive ? 'page' : undefined}
+                className={`rounded-control px-3 py-2 text-sm font-medium transition-colors duration-150 ${
                   isActive
-                    ? 'bg-secondary text-primary hover:bg-secondary/80'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                    ? 'text-chalk underline decoration-sea decoration-2 underline-offset-8'
+                    : 'text-mist hover:text-chalk'
                 }`}
               >
-                <a href={link.href}>{link.label}</a>
-              </Button>
+                {link.label}
+              </a>
             );
           })}
 
-          <Button
-            asChild
-            className="ml-4 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-6 font-semibold shadow-lg shadow-primary/20"
+          <a
+            href="/#join"
+            className="ml-3 inline-flex h-10 items-center rounded-control bg-emerald px-4 text-sm font-semibold text-ink transition-colors duration-150 hover:bg-sea"
           >
-            <a href="https://app.nexushq.tech">Get Started</a>
-          </Button>
+            Join the waitlist
+          </a>
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="flex items-center gap-4 lg:hidden">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="lg:hidden text-foreground"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </Button>
-        </div>
+        <button
+          type="button"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-control text-chalk hover:bg-slate-2 lg:hidden"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-nav"
+          aria-label="Toggle navigation menu"
+        >
+          {isMenuOpen ? (
+            <X className="h-6 w-6" aria-hidden="true" />
+          ) : (
+            <Menu className="h-6 w-6" aria-hidden="true" />
+          )}
+        </button>
       </div>
 
-      {/* Mobile Navigation Drawer */}
       {isMenuOpen && (
-        <div className="border-b border-border bg-background lg:hidden">
-          <div className="container mx-auto flex flex-col space-y-4 px-4 py-6">
+        <div
+          id="mobile-nav"
+          className="border-t border-hairline bg-ink lg:hidden"
+        >
+          <div className="container mx-auto flex flex-col gap-1 px-6 py-4">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
+              const isActive = isActivePath(pathname, link.href);
               return (
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`text-lg font-medium transition-colors ${
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`flex min-h-11 items-center rounded-control px-3 text-base font-medium ${
                     isActive
-                      ? 'text-primary'
-                      : 'text-muted-foreground hover:text-foreground'
+                      ? 'bg-slate-2 text-chalk'
+                      : 'text-mist hover:bg-slate-2 hover:text-chalk'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -111,13 +120,13 @@ const Navbar = ({ pathname: propPathname }: NavbarProps) => {
                 </a>
               );
             })}
-            <Button
-              asChild
-              className="w-full bg-primary text-primary-foreground"
+            <a
+              href="/#join"
+              className="mt-3 inline-flex min-h-12 items-center justify-center rounded-control bg-emerald px-4 text-base font-semibold text-ink"
               onClick={() => setIsMenuOpen(false)}
             >
-              <a href="https://app.nexushq.tech">Get Started</a>
-            </Button>
+              Join the waitlist
+            </a>
           </div>
         </div>
       )}

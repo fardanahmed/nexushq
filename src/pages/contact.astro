@@ -1,18 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ContactForm from '../components/contact/ContactForm';
-import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import { getSiteSettings } from '../lib/content-api';
 import type { SiteData } from '../types';
 
 const defaultSiteData: SiteData = {
   name: 'NexusHQ Technologies',
   abbreviation: 'NexusHQ',
-  tagline: 'The Coaching Platform for Modern Mentors',
+  tagline: 'Booking, payments, video sessions and client notes for solo coaches',
   contact: {
-    email: 'hello@nexushq.tech',
-    phone: '+1-800-NEXUS-HQ',
-    address: 'Remote-first, Global'
+    email: 'hello@nexushq.tech'
   }
 };
 
@@ -24,7 +21,7 @@ const schema = {
   "@id": Astro.url.href,
   "url": Astro.url.href,
   "name": "Contact Us",
-  "description": "Have questions about NexusHQ? Want to discuss enterprise plans or partnerships? We're here to help.",
+  "description": "Questions about NexusHQ, the private beta or a team plan. Email or use the form.",
   "mainEntity": {
     "@type": "Organization",
     "@id": `${Astro.url.origin}/#organization`,
@@ -36,109 +33,47 @@ const schema = {
         "@type": "ContactPoint",
         "telephone": siteData.contact.phone,
         "email": siteData.contact.email,
-        "contactType": "customer service",
-        "hoursAvailable": [
-          {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            "opens": "09:00",
-            "closes": "18:00"
-          }
-        ]
+        "contactType": "customer service"
       }
     ]
   }
 };
 ---
 
-<Layout title="Contact Us" schema={schema}>
-  <!-- Hero Header -->
-  <section class="border-b border-border/50 pt-32 pb-20 sm:pt-40 lg:pt-48 lg:pb-28 bg-gradient-to-b from-[#030014]/60 to-transparent">
-    <div class="container mx-auto max-w-7xl px-6">
-      <div class="max-w-3xl animate-fadeInUp">
-        <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-primary">Get In Touch</p>
-        <h1 class="mb-6 font-heading text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl pb-2">
-          Let's Start a <span class="bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent inline-block pb-1">Conversation</span>
-        </h1>
-        <p class="text-xl leading-relaxed text-slate-350 font-light">
-          Have questions about NexusHQ? Want to discuss enterprise plans, APIs, or custom integrations? We're here to help.
+<Layout title="Contact" schema={schema}>
+  <section class="pt-28 pb-12 lg:pt-36 lg:pb-16">
+    <div class="container mx-auto max-w-6xl px-6">
+      <div class="max-w-2xl">
+        <h1 class="text-display">Talk to us.</h1>
+        <p class="mt-5 max-w-[48ch] text-lead text-mist">
+          Questions about the beta, the team plan or an integration. A person reads every message.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Split Contact Section -->
-  <section class="py-20 relative">
-    <div class="absolute top-1/4 right-0 h-96 w-96 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
-    <div class="absolute bottom-10 left-10 h-80 w-80 rounded-full bg-violet-500/5 blur-3xl pointer-events-none" />
-    
-    <div class="container mx-auto max-w-7xl px-6 relative z-10">
-      <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 items-start">
-        
-        <!-- Info Column -->
-        <div class="space-y-12 animate-fadeInUp">
-          <div>
-            <h2 class="text-2xl font-bold tracking-tight text-white mb-6 font-heading">
-              Contact Information
-            </h2>
-            <div class="grid gap-6">
-              
-              <!-- Address -->
-              <div class="group flex items-start gap-4 rounded-xl border border-white/5 bg-slate-950/40 p-5 hover:border-primary/35 transition-colors glow-border">
-                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                  <MapPin className="h-5 w-5" />
-                </div>
-                <div class="space-y-1">
-                  <p class="font-semibold text-white text-sm uppercase tracking-wider">Headquarters</p>
-                  <p class="text-slate-400 text-base leading-relaxed">{siteData.contact.address}</p>
-                </div>
-              </div>
-
-              <!-- Email -->
-              <div class="group flex items-start gap-4 rounded-xl border border-white/5 bg-slate-950/40 p-5 hover:border-primary/35 transition-colors glow-border">
-                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                  <Mail className="h-5 w-5" />
-                </div>
-                <div class="space-y-1">
-                  <p class="font-semibold text-white text-sm uppercase tracking-wider">Email</p>
-                  <a href={`mailto:${siteData.contact.email}`} class="text-slate-400 text-base hover:text-primary transition-colors block">
-                    {siteData.contact.email}
-                  </a>
-                </div>
-              </div>
-
-              <!-- Phone -->
-              <div class="group flex items-start gap-4 rounded-xl border border-white/5 bg-slate-950/40 p-5 hover:border-primary/35 transition-colors glow-border">
-                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                  <Phone className="h-5 w-5" />
-                </div>
-                <div class="space-y-1">
-                  <p class="font-semibold text-white text-sm uppercase tracking-wider">Phone</p>
-                  <p class="text-slate-400 text-base">{siteData.contact.phone}</p>
-                </div>
-              </div>
-
+  <section class="pb-24 lg:pb-32">
+    <div class="container mx-auto max-w-6xl px-6">
+      <div class="grid items-start gap-12 lg:grid-cols-12">
+        <div class="space-y-10 lg:col-span-5">
+          <dl class="space-y-5">
+            <div>
+              <dt class="text-sm text-mist">Email</dt>
+              <dd class="mt-0.5">
+                <a href={`mailto:${siteData.contact.email}`} class="text-chalk underline-offset-4 hover:underline">{siteData.contact.email}</a>
+              </dd>
             </div>
-          </div>
-
-          <!-- Support Hours -->
-          <div class="rounded-2xl border border-white/5 bg-slate-950/30 p-6 space-y-4">
-            <h3 class="text-lg font-bold text-white flex items-center gap-2">
-              <Clock className="h-5 w-5 text-primary" />
-              Support Hours
-            </h3>
-            <div class="grid grid-cols-2 gap-4 text-base text-slate-400">
-              <div>Monday &ndash; Friday</div>
-              <div class="text-white font-semibold">9:00 AM &ndash; 6:00 PM EST</div>
-              <div>Saturday &ndash; Sunday</div>
-              <div class="text-indigo-400 font-semibold">Closed</div>
-            </div>
-          </div>
+            {siteData.contact.phone && (
+              <div>
+                <dt class="text-sm text-mist">Phone</dt>
+                <dd class="mt-0.5 tabular-nums text-chalk">{siteData.contact.phone}</dd>
+              </div>
+            )}
+          </dl>
         </div>
-
-        <!-- Form Column -->
-        <ContactForm client:load />
-
+        <div class="lg:col-span-7">
+          <ContactForm client:load />
+        </div>
       </div>
     </div>
   </section>

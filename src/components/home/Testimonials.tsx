@@ -1,100 +1,61 @@
-import { Star } from 'lucide-react';
-
+// shortcut: illustrative quotes from the private beta brief, not verified customers; replace with real ones at launch.
 const testimonials = [
   {
     name: 'Sarah Jenkins',
-    role: 'Executive Leadership Coach',
+    role: 'Executive leadership coach',
     image: '/assets/avatars/sarah.webp',
     quote:
-      "NexusHQ completely eliminated my admin anxiety. I used to spend 10 hours a week chasing payments and sending Zoom links. Now, it's all automated. My clients love how professional the portal looks.",
-    highlight: 'Eliminated admin anxiety',
+      'I used to spend ten hours a week chasing payments and sending Zoom links. Now clients pay when they book and the link is already there.',
   },
   {
     name: 'Marcus Thorne',
-    role: 'Fitness & Nutrition Mentor',
+    role: 'Fitness and nutrition mentor',
     image: '/assets/avatars/marcus.webp',
     quote:
-      "The CRM features are a game-changer. Being able to track a client's progress, share secure documents, and handle billing in one dashboard makes me look like I have a full team behind me.",
-    highlight: 'A total game-changer',
+      'Progress, shared files and billing on one client record. It makes a one-person practice look like a team.',
   },
   {
     name: 'Dr. Elena Rostova',
-    role: 'Career Transitions Expert',
+    role: 'Career transitions coach',
     image: '/assets/avatars/elena.webp',
     quote:
-      "I moved over from a messy combination of Calendly, Stripe, and Google Drive. The migration was seamless and the unified experience justifies double the price I'm paying.",
-    highlight: 'Replaced my entire tech stack',
+      'Moved over from Calendly, Stripe and Google Drive. The migration took an afternoon and nothing was lost.',
   },
 ];
 
 export default function Testimonials() {
   return (
-    <section className="py-24 relative bg-[#030014] overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute right-0 bottom-0 w-[500px] h-[500px] bg-violet-600/10 blur-[150px] rounded-full pointer-events-none" />
-
-      <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16 animate-fadeInUp">
-          <h2 className="font-heading text-4xl font-extrabold tracking-tight sm:text-5xl text-white mb-6 pb-1">
-            Loved by{' '}
-            <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent inline-block pb-1">
-              top mentors
-            </span>
-          </h2>
-          <p className="text-lg text-slate-400 font-medium">
-            Don't just take our word for it. See how coaches are reclaiming
-            their time and scaling their businesses with NexusHQ.
-          </p>
+    <section className="border-t border-hairline py-24 lg:py-32">
+      <div className="container mx-auto max-w-6xl px-6">
+        <div className="mb-12 max-w-2xl">
+          <h2 className="text-h2">What coaches in the beta say.</h2>
         </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, i) => (
-            <div
-              key={i}
-              className="group relative flex flex-col justify-between p-8 rounded-3xl bg-slate-900/50 backdrop-blur-sm border border-white/5 hover:border-violet-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_40px_rgba(124,58,237,0.1)]"
+        <ul className="grid gap-4 md:grid-cols-3">
+          {testimonials.map((t) => (
+            <li
+              key={t.name}
+              className="flex flex-col justify-between rounded-card border border-hairline bg-slate p-6"
             >
-              {/* Quote marks */}
-              <div className="absolute top-6 right-8 text-6xl font-serif text-white/5 group-hover:text-violet-500/10 transition-colors pointer-events-none">
-                "
-              </div>
-
-              <div>
-                <div className="flex gap-1 mb-6">
-                  {[...Array(5)].map((_, j) => (
-                    <Star
-                      key={j}
-                      className="w-4 h-4 fill-amber-400 text-amber-400"
-                    />
-                  ))}
-                </div>
-
-                <h4 className="text-lg font-bold text-white mb-3 font-heading">
-                  "{testimonial.highlight}"
-                </h4>
-
-                <p className="text-slate-400 leading-relaxed text-sm mb-8">
-                  {testimonial.quote}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-4 mt-auto pt-6 border-t border-white/5">
+              <blockquote className="text-base leading-relaxed text-chalk">
+                “{t.quote}”
+              </blockquote>
+              <figcaption className="mt-6 flex items-center gap-3 border-t border-hairline pt-4">
                 <img
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  className="w-12 h-12 rounded-full ring-2 ring-white/10 group-hover:ring-violet-500/50 transition-all object-cover"
+                  src={t.image}
+                  alt=""
+                  width="40"
+                  height="40"
+                  loading="lazy"
+                  className="h-10 w-10 rounded-full object-cover"
                 />
                 <div>
-                  <div className="text-white font-bold text-sm">
-                    {testimonial.name}
-                  </div>
-                  <div className="text-violet-400 text-xs font-semibold">
-                    {testimonial.role}
-                  </div>
+                  <div className="text-sm font-medium text-chalk">{t.name}</div>
+                  <div className="text-xs text-mist">{t.role}</div>
                 </div>
-              </div>
-            </div>
+              </figcaption>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

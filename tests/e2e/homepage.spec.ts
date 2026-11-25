@@ -12,12 +12,12 @@ test.describe('Homepage E2E', () => {
 
     // 3. Verify Hero section loads
     await expect(
-      page.locator('h1').filter({ hasText: 'Operating System' })
+      page.locator('h1').filter({ hasText: 'coaching practice' })
     ).toBeVisible();
 
-    // 4. Verify TrustBar is visible (use first to avoid strict mode error due to marquee loop)
+    // 4. Verify the integrations row renders
     await expect(
-      page.locator('span.font-heading').filter({ hasText: 'Stripe' }).first()
+      page.locator('li').filter({ hasText: 'Stripe' }).first()
     ).toBeVisible();
 
     // 5. Verify HowItWorks section renders
@@ -27,10 +27,10 @@ test.describe('Homepage E2E', () => {
 
     // 6. Verify Join Team section waitlist form renders
     await expect(
-      page.locator('h2').filter({ hasText: 'Ready to Level Up' })
+      page.locator('h2').filter({ hasText: 'Join the waitlist' })
     ).toBeVisible();
     await expect(
-      page.locator('button', { hasText: 'Request Access Slot' })
+      page.locator('button', { hasText: 'Join the waitlist' })
     ).toBeVisible();
   });
 
@@ -39,14 +39,21 @@ test.describe('Homepage E2E', () => {
   }) => {
     await page.goto('/pricing');
     await expect(
-      page.locator('h1').filter({ hasText: 'transparent' })
+      page.locator('h1').filter({ hasText: 'Pricing' })
     ).toBeVisible();
     await expect(
-      page.locator('h2').filter({ hasText: /Your Unfair Advantage/i })
+      page.locator('h2').filter({ hasText: /Founding members/i })
     ).toBeVisible();
   });
 
   test('waitlist form should submit successfully', async ({ page }) => {
+    await page.route('**/api/waitlist', (route) =>
+      route.fulfill({
+        status: 201,
+        contentType: 'application/json',
+        body: JSON.stringify({ message: 'ok' }),
+      })
+    );
     await page.goto('/');
 
     // Wait for Astro island hydration
@@ -58,10 +65,10 @@ test.describe('Homepage E2E', () => {
     await page.fill('input[name="location"]', 'Tech Coaching');
 
     // Click submit
-    await page.click('button:has-text("Request Access Slot")');
+    await page.click('button:has-text("Join the waitlist")');
 
-    // Verify success state appears (it has a ~1.4s mock delay, Playwright auto-waits)
-    await expect(page.getByText("You're on the list!")).toBeVisible({
+    // Verify success state appears (the API route is mocked)
+    await expect(page.getByText('You are on the list.')).toBeVisible({
       timeout: 5000,
     });
   });

@@ -12,8 +12,8 @@ const OFFLINE_COOLDOWN = 10000; // 10 seconds cooldown before trying again
 
 function getBackendBaseUrl(): string | null {
   const rawUrl =
-    import.meta.env.BACKEND_API_URL ||
-    import.meta.env.PUBLIC_BACKEND_API_URL ||
+    import.meta.env?.BACKEND_API_URL ||
+    import.meta.env?.PUBLIC_BACKEND_API_URL ||
     process.env.BACKEND_API_URL ||
     process.env.PUBLIC_BACKEND_API_URL;
 
