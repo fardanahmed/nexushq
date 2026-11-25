@@ -2,7 +2,15 @@ import { test, expect } from '@playwright/test';
 import { AxeBuilder } from '@axe-core/playwright';
 
 // axe-core on every public page. Serious and critical findings fail; moderate and minor are reported in the test output.
-const pages = ['/', '/features', '/pricing', '/contact', '/privacy', '/terms'];
+const pages = [
+  '/',
+  '/features',
+  '/pricing',
+  '/contact',
+  '/privacy',
+  '/terms',
+  '/about',
+];
 
 for (const path of pages) {
   test(`axe: ${path} has no serious or critical violations`, async ({

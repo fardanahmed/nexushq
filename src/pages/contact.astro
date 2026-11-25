@@ -7,11 +7,9 @@ import type { SiteData } from '../types';
 const defaultSiteData: SiteData = {
   name: 'NexusHQ Technologies',
   abbreviation: 'NexusHQ',
-  tagline: 'The Coaching Platform for Modern Mentors',
+  tagline: 'Booking, payments, video sessions and client notes for solo coaches',
   contact: {
-    email: 'hello@nexushq.tech',
-    phone: '+1-800-NEXUS-HQ',
-    address: 'Remote-first, Global'
+    email: 'hello@nexushq.tech'
   }
 };
 
@@ -23,7 +21,7 @@ const schema = {
   "@id": Astro.url.href,
   "url": Astro.url.href,
   "name": "Contact Us",
-  "description": "Have questions about NexusHQ? Want to discuss enterprise plans or partnerships? We're here to help.",
+  "description": "Questions about NexusHQ, the private beta or a team plan. Email or use the form.",
   "mainEntity": {
     "@type": "Organization",
     "@id": `${Astro.url.origin}/#organization`,
@@ -35,15 +33,7 @@ const schema = {
         "@type": "ContactPoint",
         "telephone": siteData.contact.phone,
         "email": siteData.contact.email,
-        "contactType": "customer service",
-        "hoursAvailable": [
-          {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            "opens": "09:00",
-            "closes": "18:00"
-          }
-        ]
+        "contactType": "customer service"
       }
     ]
   }
@@ -73,18 +63,12 @@ const schema = {
                 <a href={`mailto:${siteData.contact.email}`} class="text-chalk underline-offset-4 hover:underline">{siteData.contact.email}</a>
               </dd>
             </div>
-            <div>
-              <dt class="text-sm text-mist">Phone</dt>
-              <dd class="mt-0.5 tabular-nums text-chalk">{siteData.contact.phone}</dd>
-            </div>
-            <div>
-              <dt class="text-sm text-mist">Where</dt>
-              <dd class="mt-0.5 text-chalk">{siteData.contact.address}</dd>
-            </div>
-            <div>
-              <dt class="text-sm text-mist">Hours</dt>
-              <dd class="mt-0.5 text-chalk">Monday to Friday, 9:00 to 18:00 EST. Closed at the weekend.</dd>
-            </div>
+            {siteData.contact.phone && (
+              <div>
+                <dt class="text-sm text-mist">Phone</dt>
+                <dd class="mt-0.5 tabular-nums text-chalk">{siteData.contact.phone}</dd>
+              </div>
+            )}
           </dl>
         </div>
         <div class="lg:col-span-7">

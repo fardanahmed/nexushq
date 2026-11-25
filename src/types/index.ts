@@ -29,8 +29,8 @@ export interface SiteData {
   tagline: string;
   contact: {
     email: string;
-    phone: string;
-    address: string;
+    phone?: string;
+    address?: string;
   };
 }
 

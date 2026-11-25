@@ -39,7 +39,7 @@ test.describe('Homepage E2E', () => {
   }) => {
     await page.goto('/pricing');
     await expect(
-      page.locator('h1').filter({ hasText: 'transparent' })
+      page.locator('h1').filter({ hasText: 'Pricing' })
     ).toBeVisible();
     await expect(
       page.locator('h2').filter({ hasText: /Founding members/i })

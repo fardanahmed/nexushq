@@ -8,11 +8,10 @@ interface FooterProps {
 const fallbackSiteData: SiteData = {
   name: 'NexusHQ Technologies',
   abbreviation: 'NexusHQ',
-  tagline: 'The Coaching Platform for Modern Mentors',
+  tagline:
+    'Booking, payments, video sessions and client notes for solo coaches',
   contact: {
     email: 'hello@nexushq.tech',
-    phone: '+1-800-NEXUS-HQ',
-    address: 'Remote-first, Global',
   },
 };
 
@@ -61,10 +60,7 @@ export default function Footer({ siteData }: FooterProps) {
                 {data.abbreviation}
               </span>
             </div>
-            <p className="max-w-sm text-sm leading-relaxed">
-              {data.tagline}. Booking, payment, video sessions and client notes
-              in one place, built for solo coaches, tutors and mentors.
-            </p>
+            <p className="max-w-sm text-sm leading-relaxed">{data.tagline}.</p>
             <p className="text-sm">
               Private beta. The client portal is in development.
             </p>
@@ -97,8 +93,10 @@ export default function Footer({ siteData }: FooterProps) {
                   {data.contact.email}
                 </a>
               </li>
-              <li className="tabular-nums">{data.contact.phone}</li>
-              <li>{data.contact.address}</li>
+              {data.contact.phone && (
+                <li className="tabular-nums">{data.contact.phone}</li>
+              )}
+              {data.contact.address && <li>{data.contact.address}</li>}
             </ul>
             <div className="mt-5 flex items-center gap-2">
               {social.map((s) => (

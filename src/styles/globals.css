@@ -2,21 +2,13 @@
 @import 'tw-animate-css';
 
 /* Metric-matched fallbacks (Arial) so the swap to the web fonts does not shift layout.
-   Bricolage: ascent 930 / descent 270 / xAvg 498 per 1000; Inter: 1984 / 494 per 2048. */
+   Bricolage: ascent 930 / descent 270 / xAvg 498 per 1000. */
 @font-face {
   font-family: 'Bricolage Fallback';
   src: local('Arial');
   size-adjust: 113%;
   ascent-override: 82.3%;
   descent-override: 23.9%;
-  line-gap-override: 0%;
-}
-@font-face {
-  font-family: 'Inter Fallback';
-  src: local('Arial');
-  size-adjust: 107%;
-  ascent-override: 90.5%;
-  descent-override: 22.5%;
   line-gap-override: 0%;
 }
 
@@ -26,7 +18,8 @@
   neon emerald only on the primary action, brass only for money.
 */
 @theme {
-  --font-sans: 'Inter', 'Inter Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* one family: Bricolage Grotesque's optical-size axis covers body text, so Inter is not loaded */
+  --font-sans: 'Bricolage Grotesque', 'Bricolage Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-heading: 'Bricolage Grotesque', 'Bricolage Fallback', system-ui, sans-serif;
 
   /* palette */

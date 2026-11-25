@@ -18,9 +18,9 @@ const { title, description, schema } = Astro.props;
 const siteData = await getSiteSettings<SiteData>('site_data');
 const defaultTitle = siteData 
   ? `${siteData.abbreviation} | ${siteData.name}`
-  : 'NexusHQ | The Coaching Platform for Modern Mentors';
+  : 'NexusHQ | Booking, payments and notes for coaches';
 
-const defaultDesc = siteData?.tagline || 'The all-in-one platform for coaches, tutors, and mentors to manage clients, bookings, and sessions.';
+const defaultDesc = siteData?.tagline || 'Booking, payments, video sessions and client notes in one place for solo coaches, tutors and mentors.';
 const displayTitle = title ? `${title} | NexusHQ` : defaultTitle;
 const displayDesc = description || defaultDesc;
 ---
@@ -50,10 +50,10 @@ const displayDesc = description || defaultDesc;
     <meta property="twitter:description" content={displayDesc} />
     <meta property="twitter:image" content="/og-image.png" />
 
-    <!-- Fonts: Bricolage Grotesque (headings) + Inter (body); non-blocking so the headline paints with the fallback first -->
+    <!-- Font: Bricolage Grotesque for headings and body (optical sizes 12 to 96); non-blocking so the headline paints with the fallback first -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <Fragment set:html={`<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />`} />
+    <Fragment set:html={`<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />`} />
     {schema && <script type="application/ld+json" is:inline set:html={JSON.stringify(schema).replace(/</g, '\\u003c').replace(/>/g, '\\u003e')} />}
   </head>
   <body class="bg-background text-foreground font-sans antialiased">

@@ -102,9 +102,6 @@ export default function PricingGrid() {
             >
               <div className="flex items-baseline justify-between">
                 <h2 className="text-h4">{tier.name}</h2>
-                {tier.highlighted && (
-                  <span className="text-xs text-sea">Most chosen</span>
-                )}
               </div>
               <p className="mt-1.5 min-h-10 text-sm text-mist">
                 {tier.description}

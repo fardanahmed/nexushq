@@ -4,19 +4,17 @@ import { getSiteSettings } from '../lib/content-api';
 import type { AboutContent, SiteData } from '../types';
 
 const defaultAboutContent: AboutContent = {
-  mission: 'Our mission is to empower coaches, tutors, and mentors with the tools they need to build thriving businesses.',
-  preamble: 'NexusHQ was born from a simple observation: coaches spend more time on admin than on coaching.\n\nWe built a platform that handles scheduling, payments, client management, and video sessions — so you can focus on what you do best.',
-  vision: 'A world where every great coach has the tools to scale their impact, without the overhead.'
+  mission: 'NexusHQ puts booking, payments, video sessions and client notes in one place for solo coaches, tutors and mentors.',
+  preamble: 'Coaches spend a large part of the week on admin: chasing payments, moving bookings, finding last session\'s notes.\n\nNexusHQ handles scheduling, payments, client records and video sessions, so that time goes back to the session.',
+  vision: ''
 };
 
 const defaultSiteData: SiteData = {
   name: 'NexusHQ Technologies',
   abbreviation: 'NexusHQ',
-  tagline: 'The Coaching Platform for Modern Mentors',
+  tagline: 'Booking, payments, video sessions and client notes for solo coaches',
   contact: {
-    email: 'hello@nexushq.tech',
-    phone: '+1-800-NEXUS-HQ',
-    address: 'Remote-first, Global'
+    email: 'hello@nexushq.tech'
   }
 };
 
@@ -59,7 +57,7 @@ const schema = {
 const values = [
   { title: 'Simple first', desc: 'A coach should be able to set it up in an afternoon without reading a manual.' },
   { title: 'The coach decides', desc: 'Every feature starts with one question: does this help a coach serve a client better?' },
-  { title: 'Dependable', desc: 'Your clients depend on you. We treat uptime and data safety as the product, not a feature.' },
+  { title: 'Your data stays yours', desc: 'Payments go to your own Stripe account, not through ours.' },
 ];
 
 ---
@@ -68,7 +66,7 @@ const values = [
   <section class="pt-28 pb-16 lg:pt-36 lg:pb-24">
     <div class="container mx-auto max-w-6xl px-6">
       <div class="max-w-3xl">
-        <h1 class="text-display">Built by coaches, for coaches.</h1>
+        <h1 class="text-display">Less admin, more coaching.</h1>
         <p class="mt-5 max-w-[56ch] text-lead text-mist">{aboutContent.mission}</p>
       </div>
     </div>
@@ -77,8 +75,8 @@ const values = [
   <section class="border-t border-hairline py-24 lg:py-32">
     <div class="container mx-auto max-w-6xl px-6">
       <div class="grid items-start gap-12 lg:grid-cols-12">
-        <div class="space-y-5 lg:col-span-6">
-          <h2 class="text-h2">Why we built it</h2>
+        <div class="space-y-5 lg:col-span-8">
+          <h2 class="text-h2">Why it exists</h2>
           <div class="space-y-4 text-base leading-relaxed text-mist md:text-lg">
             {aboutContent.preamble
               .replace(/\n\n/g, '\n\n')
@@ -89,9 +87,6 @@ const values = [
                 <p>{paragraph.trim()}</p>
               ))}
           </div>
-        </div>
-        <div class="overflow-hidden rounded-object border border-hairline lg:col-span-6">
-          <img src="/assets/about-us.webp" alt="Two people working at a table with a laptop" class="h-[360px] w-full object-cover" loading="lazy" width="800" height="360" />
         </div>
       </div>
     </div>
@@ -111,9 +106,4 @@ const values = [
     </div>
   </section>
 
-  <section class="border-t border-hairline py-24 lg:py-32">
-    <div class="container mx-auto max-w-6xl px-6">
-      <blockquote class="max-w-3xl font-heading text-h3 text-chalk">&ldquo;{aboutContent.vision}&rdquo;</blockquote>
-    </div>
-  </section>
 </Layout>
