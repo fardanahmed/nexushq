@@ -1,6 +1,6 @@
 # NexusHQ Platform
 
-Frontend marketing and client portal platform for **NexusHQ** — *The Command Centre for Modern Mentors*.
+Marketing site for **NexusHQ**, a booking, payments and client-notes product for solo coaches. The product is in private beta; the client portal is not built yet.
 
 ## Stack & Architecture
 
@@ -51,7 +51,7 @@ nexushq/
 ├── public/                 # Static assets (logo.svg, favicon.svg, compressed WebP images)
 ├── src/
 │   ├── components/
-│   │   ├── home/           # Homepage feature sections (Hero, TrustBar, HowItWorks, etc.)
+│   │   ├── home/           # Homepage feature sections (Hero, HowItWorks, Integrations, TheOffer, JoinTeamSection)
 │   │   ├── shared/         # Navbar, Footer, Logo
 │   │   └── ui/             # Reusable UI primitives (button.tsx, card.tsx)
 │   ├── layouts/            # Layout templates (Layout.astro)
@@ -66,13 +66,13 @@ nexushq/
 
 ## Git & PR Workflow Guidelines
 
-We strictly follow a structured Git & GitHub workflow:
+The workflow this repo uses:
 
-`Milestone → Issue → Feature Branch → Commits → Pull Request → Squash-Merge`
+`Feature branch → Conventional Commits → Pull request`
 
 - **Branch Naming:** `feat/`, `fix/`, `chore/`, `refactor/`, `security/`, `docs/`
 - **Conventional Commits:** `feat:`, `fix:`, `chore:`, `docs:`, `security:`, `refactor:`
-- **PR Requirement:** Every PR must reference an issue (`Closes #<number>`) and pass all pre-commit hooks and CI runs before merge.
+- **Before merge:** the pre-commit hook (lint, type check, end-to-end tests) and CI must pass.
 
 ---
 
